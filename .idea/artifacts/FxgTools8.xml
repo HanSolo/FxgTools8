@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="FxgTools8">
+    <output-path>$PROJECT_DIR$/out/artifacts/FxgTools8</output-path>
+    <root id="root">
+      <element id="archive" name="FxgTools8.jar">
+        <element id="module-output" name="FxgTools8" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+      <element id="library" level="application" name="groovy-all-2.0.1" />
+    </root>
+  </artifact>
+</component>
