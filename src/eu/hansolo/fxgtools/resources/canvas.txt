@@ -1,0 +1,62 @@
+var $className = function(parameters) {
+    parameters    = parameters || {};
+    this.id       = parameters.id || 'control';
+    this.parentId = parameters.parentId || 'body';
+    this.width    = parameters.width || $width;
+    this.height   = parameters.height || $height;
+
+    // Create <canvas> element
+    var canvas    = document.createElement('canvas');
+    canvas.id     = this.id;
+    canvas.width  = this.width;
+    canvas.height = this.height;
+    if (this.parentId === 'body') {
+        document.body.appendChild(canvas);
+    } else {
+        document.getElementById(this.parentId).appendChild(canvas);
+    }
+
+    // Get the canvas context and clear it
+    var mainCtx = document.getElementById(this.id).getContext('2d');
+    mainCtx.save();
+    mainCtx.clearRect(0, 0, this.width, this.height);
+
+    // Get the size
+    mainCtx.canvas.width  = this.width;
+    mainCtx.canvas.height = this.height;
+
+    var imageWidth  = this.width;
+    var imageHeight = this.height;
+
+    var initialized = false;
+$createBuffers
+$creationMethods
+
+    var init = function() {
+        initialized = true;
+$drawImagesToBuffer
+    }
+
+    this.paintComponent = function() {
+        if (!initialized) {
+            init();
+        }
+
+        mainCtx.save();
+        mainCtx.clearRect(0, 0, this.width, this.height);
+$drawImagesToCanvas
+        mainCtx.restore();
+    }
+
+    this.repaint = function() {
+        // Clear buffers
+$clearBuffers
+        init();
+        mainCtx.save();
+        mainCtx.clearRect(0, 0, this.width, this.height);
+$drawImagesToCanvas
+        mainCtx.restore();
+    }
+
+    this.paintComponent();
+}

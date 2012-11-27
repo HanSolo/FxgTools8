@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <title>FXG -> Canvas</title>
+    <script type='text/javascript' src='$jsFileName'></script>
+    <script type='application/javascript'>
+        var control;
+        function init() {
+            control = new $className({id: 'control', parentId:'container', width: $width, height: $height});
+        }
+    </script>
+  </head>
+  <body onload='init()'>
+    <div id='container'></div>
+  </body>
+</html>
