@@ -855,7 +855,7 @@ class FxgParser {
                     }
                     if (node.stroke) {
                         FxgStroke fxgStroke = parseStroke(node)
-                        fxgShape.stroke     = new eu.hansolo.fxgtools.fxg.FxgStroke(name: elementName, color: fxgStroke.color, stroke: fxgStroke.stroke, width: fxgStroke.width)
+                        fxgShape.stroke     = new eu.hansolo.fxgtools.fxg.FxgStroke(name: elementName, color: fxgStroke.color, cap: fxgStroke.cap, join: fxgStroke.join, width: fxgStroke.width)
                         fxgShape.stroked    = true
                     }
                     fxgShape.referenceWidth  = originalWidth
