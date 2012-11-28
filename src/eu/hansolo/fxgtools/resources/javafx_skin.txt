@@ -55,8 +55,11 @@ public class $classNameSkin extends SkinBase<$className, $classNameBehavior> {
     private static final double MINIMUM_HEIGHT = 5;
     private static final double MAXIMUM_WIDTH  = 1024;
     private static final double MAXIMUM_HEIGHT = 1024;
+    private static final double ASPECT_RATIO   = DEFAULT_HEIGHT / DEFAULT_WIDTH;
     private $className control;
     private double       size;
+    private double       width;
+    private double       height;
     private Pane         pane;
 $varDeclaration
 
@@ -165,9 +168,16 @@ $registerListeners
     }
 
     private void resize() {
-        size          = control.getWidth() < control.getHeight() ? control.getWidth() : control.getHeight();
-        double width  = control.isSquare() ? size : control.getWidth();
-        double height = control.isSquare() ? size : control.getHeight();
+        size   = control.getWidth() < control.getHeight() ? control.getWidth() : control.getHeight();
+        width  = control.getWidth();
+        height = control.getHeight();
+        if (control.isKeepAspect()) {
+            if (ASPECT_RATIO * width > height) {
+                width  = 1 / (ASPECT_RATIO / height);
+            } else if (1 / (ASPECT_RATIO / height) > width) {
+                height = ASPECT_RATIO * width;
+            }
+        }
 $resizeRegions
     }
 

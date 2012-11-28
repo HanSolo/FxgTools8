@@ -393,7 +393,7 @@ class FxgTranslator {
         }
         PROPERTY_CODE.append("    private boolean        ")
         appendBlanks(PROPERTY_CODE, (maxLength + 2))
-        PROPERTY_CODE.append("square;\n")
+        PROPERTY_CODE.append("keepAspect;\n")
         PROPERTY_CODE.append("    private long           ")
         appendBlanks(PROPERTY_CODE, (maxLength + 2))
         PROPERTY_CODE.append("interval;\n")
@@ -452,8 +452,8 @@ class FxgTranslator {
                 PROPERTY_CODE.append(" = new SimpleObjectProperty<${PROPERTIES.get(PROPERTY_NAME).type}>(${defaultValue});\n")
             }
         }
-        PROPERTY_CODE.append("        square")
-        int spacer = maxLength == 0 ? 0 : 6;
+        PROPERTY_CODE.append("        keepAspect")
+        int spacer = maxLength == 0 ? 0 : 10;
         appendBlanks(PROPERTY_CODE, (maxLength - spacer))
         PROPERTY_CODE.append(" = false;\n")
         PROPERTY_CODE.append("        interval")

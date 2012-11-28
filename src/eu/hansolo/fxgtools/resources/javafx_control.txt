@@ -28,8 +28,8 @@ $propertyInitialization
 
 
     // ******************** Methods *******************************************
-    public final boolean isSquare() {
-        return square;
+    public final boolean isKeepAspect() {
+        return keepAspect;
     }
     $propertyGetterSetter
 
