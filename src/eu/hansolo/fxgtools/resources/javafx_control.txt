@@ -31,6 +31,10 @@ $propertyInitialization
     public final boolean isKeepAspect() {
         return keepAspect;
     }
+
+    @Override public boolean isResizable() {
+        return true;
+    }
     $propertyGetterSetter
 
     // ******************** Style related *************************************
