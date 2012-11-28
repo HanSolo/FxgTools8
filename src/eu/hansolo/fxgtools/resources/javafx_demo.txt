@@ -8,13 +8,14 @@ import javafx.stage.Stage;
 
 
 public class Demo extends Application {
-    @Override
-    public void start(Stage stage) {
-        $className control = new $className();
-        control.setPrefSize($width, $height);
+    @Override public void start(Stage stage) {
+        $className control = $classNameBuilder.create()
+            .prefWidth($width)
+            .prefHeight($height)
+            .build();
 
         StackPane pane = new StackPane();
-        pane.getChildren().add(control);
+        pane.getChildren().setAll(control);
 
         Scene scene = new Scene(pane, $width, $height, Color.DARKGRAY);
 

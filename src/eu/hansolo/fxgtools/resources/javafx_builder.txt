@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 
 public class $classNameBuilder<B extends $classNameBuilder<B>> extends ControlBuilder<B> { //implements Builder<$className> {
-    private HashMap<String, Property> properties = new HashMap<String, Property>();
+    private HashMap<String, Property> properties = new HashMap<>();
 
 
     // ******************** Constructors **************************************
