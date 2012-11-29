@@ -267,7 +267,7 @@ abstract class FxgShape {
             } else {
                 cssCode.append('italic').append(";\n")
             }
-            cssCode.append("     -fx-text-fill      : ")
+            cssCode.append("     -fx-fill      : ")
         } else {
             cssCode.append("    -fx-background-color: ")
         }
