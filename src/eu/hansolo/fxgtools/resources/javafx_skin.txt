@@ -61,6 +61,7 @@ public class $classNameSkin extends SkinBase<$className, $classNameBehavior> {
     private double       width;
     private double       height;
     private Pane         pane;
+    private boolean      isDirty;
 $varDeclaration
 
     // ******************** Constructors **************************************
@@ -68,12 +69,14 @@ $varDeclaration
         super(CONTROL, new $classNameBehavior(CONTROL));
         control     = CONTROL;
         pane        = new Pane();
-
+        isDirty     = false;
         init();
         initGraphics();
         registerListeners();
     }
 
+
+    // ******************** Initialization ************************************
     private void init() {
         if (control.getPrefWidth() <= 0 || control.getPrefHeight() <= 0 ||
             control.getPrefWidth() <= 0 || control.getHeight() <= 0) {
@@ -108,13 +111,59 @@ $varInitialization
 $registerListeners
     }
 
+    private void delegateToBehavior() {
+        $classNameBehavior behavior = getBehavior();
+
+        behavior.setOnButtonUp(new Runnable() {
+            @Override public void run() { onButtonUp(); }
+        });
+
+        behavior.setOnButtonDown(new Runnable() {
+            @Override public void run() { onButtonDown(); }
+        });
+
+        behavior.setOnButtonLeft(new Runnable() {
+            @Override public void run() { onButtonLeft(); }
+        });
+
+        behavior.setOnButtonRight(new Runnable() {
+            @Override public void run() { onButtonRight(); }
+        });
+
+        behavior.setOnCtrlButtonUp(new Runnable() {
+            @Override public void run() { onCtrlButtonUp(); }
+        });
+
+        behavior.setOnCtrlButtonDown(new Runnable() {
+            @Override public void run() { onCtrlButtonDown(); }
+        });
+
+        behavior.setOnCtrlButtonLeft(new Runnable() {
+            @Override public void run() { onCtrlButtonLeft(); }
+        });
+
+        behavior.setOnCtrlButtonRight(new Runnable() {
+            @Override public void run() { onCtrlButtonRight(); }
+        });
+    }
+
 
     // ******************** Methods *******************************************
     @Override protected void handleControlPropertyChanged(final String PROPERTY) {
         super.handleControlPropertyChanged(PROPERTY);
+
         if ("RESIZE".equals(PROPERTY)) {
             resize();
         }$handlePropertyChanges
+    }
+
+    @Override protected void layoutChildren(final double X, final double Y, final double W, final double H) {
+        if (isDirty) {
+            // do something here
+
+            isDirty = false;
+        }
+        super.layoutChildren(X, Y, W, H);
     }
 
     @Override public final void dispose() {
@@ -153,20 +202,54 @@ $registerListeners
         return super.computeMaxHeight(Math.min(MAXIMUM_WIDTH, MAX_WIDTH - getInsets().getLeft() - getInsets().getRight()));
     }
 
-    private String colorToCss(final Color COLOR) {
-            StringBuilder cssColor = new StringBuilder();
-            cssColor.append("rgba(")
-                    .append((int) (COLOR.getRed() * 255)).append(", ")
-                    .append((int) (COLOR.getGreen() * 255)).append(", ")
-                    .append((int) (COLOR.getBlue() * 255)).append(", ")
-                    .append(COLOR.getOpacity()).append(")");
-            return cssColor.toString();
-        }
 
-    private void changeStyle() {
-
+    // ******************** Key event handling ********************************
+    protected void onButtonUp() {
+        // This method could return something that could than be handled in the Behavior
     }
 
+    protected void onButtonDown() {
+        // This method could return something that could than be handled in the Behavior
+    }
+
+    protected void onButtonLeft() {
+        // This method could return something that could than be handled in the Behavior
+    }
+
+    protected void onButtonRight() {
+        // This method could return something that could than be handled in the Behavior
+    }
+
+    protected void onCtrlButtonUp() {
+        // This method could return something that could than be handled in the Behavior
+    }
+
+    protected void onCtrlButtonDown() {
+        // This method could return something that could than be handled in the Behavior
+    }
+
+    protected void onCtrlButtonLeft() {
+        // This method could return something that could than be handled in the Behavior
+    }
+
+    protected void onCtrlButtonRight() {
+        // This method could return something that could than be handled in the Behavior
+    }
+
+
+    // ******************** Utility methods ***********************************
+    private String colorToCss(final Color COLOR) {
+        StringBuilder cssColor = new StringBuilder();
+        cssColor.append("rgba(")
+                .append((int) (COLOR.getRed() * 255)).append(", ")
+                .append((int) (COLOR.getGreen() * 255)).append(", ")
+                .append((int) (COLOR.getBlue() * 255)).append(", ")
+                .append(COLOR.getOpacity()).append(")");
+        return cssColor.toString();
+    }
+
+
+    // ******************** Resizing ******************************************
     private void resize() {
         size   = control.getWidth() < control.getHeight() ? control.getWidth() : control.getHeight();
         width  = control.getWidth();
