@@ -13,7 +13,6 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package eu.hansolo.fxgtools.fxg
 
 import javafx.scene.effect.BlurType
@@ -27,6 +26,7 @@ import javafx.scene.shape.StrokeLineJoin
 import javafx.scene.transform.Transform
 import javafx.scene.text.FontPosture
 import javafx.scene.text.FontWeight
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -219,7 +219,7 @@ abstract class FxgShape {
         }
     }
 
-    public String createCssFillAndStroke(String elementName, boolean fill, boolean stroke) {
+    public String createCssFillStrokeShape(String elementName, boolean fill, boolean stroke) {
         StringBuilder cssCode = new StringBuilder()
         elementName = elementName.replaceAll("_?RR[0-9]+_([0-9]+_)?", '_')
         elementName = elementName.replace("_E_", "_")
@@ -234,11 +234,13 @@ abstract class FxgShape {
         if (fill) {
             cssCode.append(createCssFill(refWidth, refHeight))
         }
+
         if (stroke) {
             cssCode.append(createCssStroke(refWidth, refHeight))
         } else {
             //cssCode.append("    -fx-stroke          : transparent;\n");
         }
+
         if (cssShape != null && !cssShape.isEmpty()) {
             cssCode.append("    -fx-scale-shape     : true;\n")
             cssCode.append("    -fx-shape           : \"").append(cssShape.trim()).append("\";\n")

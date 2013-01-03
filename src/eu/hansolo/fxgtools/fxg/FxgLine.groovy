@@ -16,6 +16,7 @@
 
 package eu.hansolo.fxgtools.fxg
 
+import eu.hansolo.fxgtools.main.ShapeConverter
 import javafx.scene.shape.Line
 
 /**
@@ -61,6 +62,7 @@ class FxgLine extends FxgShape {
                 appendJavaFxCanvasFilter(code, name)
 
                 code.append("        CTX.restore();\n")
+                cssShape = ShapeConverter.shapeToSvgString(new Line(x1, y1, x2, y2))
                 return code.toString()
 
             case Language.CANVAS:

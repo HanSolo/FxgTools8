@@ -1,147 +1,17 @@
 $packageInfo
-import static javafx.scene.input.KeyCode.*;
 
 import com.sun.javafx.scene.control.behavior.BehaviorBase;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-
-import com.sun.javafx.PlatformUtil;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
-import javafx.scene.input.KeyCode;
-import javafx.util.Callback;
 
 
 public class $classNameBehavior extends BehaviorBase<$className> {
-    protected static final List<KeyBinding> KEY_BINDINGS = new ArrayList<KeyBinding>();
 
-    static {
-        KEY_BINDINGS.add(new KeyBinding(UP, "Up"));
-        KEY_BINDINGS.add(new KeyBinding(DOWN, "Down"));
-        KEY_BINDINGS.add(new KeyBinding(LEFT, "Left"));
-        KEY_BINDINGS.add(new KeyBinding(RIGHT, "Right"));
-        if (PlatformUtil.isMac()) {
-            KEY_BINDINGS.add(new KeyBinding(UP, "CtrlUp").meta());
-            KEY_BINDINGS.add(new KeyBinding(DOWN, "CtrlDown").meta());
-            KEY_BINDINGS.add(new KeyBinding(LEFT, "CtrlLeft").meta());
-            KEY_BINDINGS.add(new KeyBinding(RIGHT, "CtrlRight").meta());
-        } else {
-            KEY_BINDINGS.add(new KeyBinding(UP, "CtrlUp").ctrl());
-            KEY_BINDINGS.add(new KeyBinding(DOWN, "CtrlDown").ctrl());
-            KEY_BINDINGS.add(new KeyBinding(LEFT, "CtrlLeft").ctrl());
-            KEY_BINDINGS.add(new KeyBinding(RIGHT, "CtrlRight").ctrl());
-        }
+    // ******************** Constructors **************************************
+    public $classNameBehavior(final $className CONTROL) {
+        super(CONTROL);
     }
 
-    @Override protected void callAction(final String NAME) {
-        if ("Up".equals(NAME)) goUp();
-        else if ("Down".equals(NAME)) goDown();
-        else if ("Left".equals(NAME)) goLeft();
-        else if ("Right".equals(NAME)) goRight();
-        else if ("CtrlUp".equals(NAME)) ctrlUp();
-        else if ("CtrlDown".equals(NAME)) ctrlDown();
-        else if ("CtrlLeft".equals(NAME)) ctrlLeft();
-        else if ("CtrlRight".equals(NAME)) ctrlRight();
-    }
 
-    @Override protected List<KeyBinding> createKeyBindings() {
-        return KEY_BINDINGS;
-    }
+    // ******************** Methods *******************************************
 
-    private Callback<Integer, Integer> onButtonUp;
-    public void setOnButtonUp(final Callback<Integer, Integer> CALLBACK) { onButtonUp = CALLBACK; }
-
-    private Callback<Integer, Integer> onButtonDown;
-    public void setOnButtonDown(final Callback<Integer, Integer> CALLBACK) { onButtonDown = CALLBACK; }
-
-    private Callback<Integer, Integer> onButtonLeft;
-    public void setOnButtonLeft(final Callback<Integer, Integer> CALLBACK) { onButtonLeft = CALLBACK; }
-
-    private Callback<Integer, Integer> onButtonRight;
-    public void setOnButtonRight(final Callback<Integer, Integer> CALLBACK) { onButtonRight = CALLBACK; }
-
-    private CallBack<Integer, Integer> onCtrlButtonUp;
-    public void setOnCtrlButtonUp(final Callback<Integer, Integer> CALLBACK) { onCtrlButtonUp = CALLBACK; }
-
-    private CallBack<Integer, Integer> onCtrlButtonDown;
-    public void setOnCtrlButtonDown(final Callback<Integer, Integer> CALLBACK) { onCtrlButtonDown = CALLBACK; }
-
-    private CallBack<Integer, Integer> onCtrlButtonLeft;
-    public void setOnCtrlButtonLeft(final Callback<Integer, Integer> CALLBACK) { onCtrlButtonLeft = CALLBACK; }
-
-    private CallBack<Integer, Integer> onCtrlButtonRight;
-    public void setOnCtrlButtonRight(final Callback<Integer, Integer> CALLBACK) { onCtrlButtonRight = CALLBACK; }
-
-    private void goUp() {
-        $className control = getControl();
-        if (onButtonUp != null) {
-            // Calling the Callback could return objects from the skin
-            onButtonUp.call(System.out.println("button up pressed"));
-        }
-    }
-
-    private void goDown() {
-        $className control = getControl;
-        if (onButtonDown != null) {
-            // Calling the Callback could return objects from the skin
-            onButtonDown.call(System.out.println("button down pressed"));
-        }
-    }
-
-    private void goLeft() {
-        $className control = getControl();
-        if (onButtonLeft != null) {
-            // Calling the Callback could return objects from the skin
-            onButtonLeft.call(System.out.println("button left pressed"));
-        }
-    }
-
-    private void goRight() {
-        $className control = getControl();
-        if (onButtonRight != null) {
-            // Calling the Callback could return objects from the skin
-            onButtonRight.call(System.out.println("button right pressed"));
-        }
-    }
-
-    private void ctrlUp() {
-        $className control = getControl();
-        if (onCtrlButtonUp != null) {
-            // Calling the Callback could return objects from the skin
-            onCtrlButtonUp.call(System.out.println("ctrl + button up pressed"));
-        }
-    }
-
-    private void ctrlDown() {
-        $className control = getControl();
-        if (onCtrlButtonDown != null) {
-            // Calling the Callback could return objects from the skin
-            onCtrlButtonDown.call(System.out.println("ctrl + button down pressed"));
-        }
-    }
-
-    private void ctrlLeft() {
-        $className control = getControl();
-        if (onCtrlButtonLeft != null) {
-            // Calling the Callback could return objects from the skin
-            onCtrlButtonLeft.call(System.out.println("ctrl + button left pressed"));
-        }
-    }
-
-    private void ctrlRight() {
-        $className control = getControl();
-        if (onCtrlButtonRight != null) {
-            // Calling the Callback could return objects from the skin
-            onCtrlButtonRight.call(System.out.println("ctrl + button right pressed"));
-        }
-    }
-
-    @Override public void mousePressed(final MouseEvent EVENT) {
-        super.mousePressed(EVENT);
-        // Do something meaningful here with the mouse event
-    }
 
 }

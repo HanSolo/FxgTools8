@@ -29,6 +29,12 @@ $propertyInitialization
 
     // ******************** Methods *******************************************
     public final boolean isKeepAspect() {
+        return keepAspect.get();
+    }
+    public final void setKeepAspect(final boolean KEEP_ASPECT) {
+        keepAspect.set(KEEP_ASPECT);
+    }
+    public final BooleanProperty keepAspectProperty() {
         return keepAspect;
     }
 

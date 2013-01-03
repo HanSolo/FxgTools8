@@ -877,10 +877,14 @@ class FxgParser {
         if (groupTransform != null) {
             shape.transforms.add(groupTransform)
         }
-        shape.setFill(parseFill(node))
-        parseStroke(node, shape)
+        shape.setFill(parseFill(node).getPaint())
+        //TODO check why call was (node, shape)
+        //parseStroke(node, shape)
+        parseStroke(node)
         if(node.filters) {
-            shape.setEffect(parseFilter(node, shape))
+            //TODO check
+            //shape.setEffect(parseFilter(node, shape))
+            shape.setEffect(parseFilter(node))
         }
         groupTransform = null
         return shape

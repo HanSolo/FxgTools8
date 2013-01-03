@@ -13,16 +13,11 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package eu.hansolo.fxgtools.fxg
 
-import javafx.scene.shape.ClosePath
-import javafx.scene.shape.CubicCurveTo
-import javafx.scene.shape.LineTo
-import javafx.scene.shape.MoveTo
-import javafx.scene.shape.Path
-import javafx.scene.shape.PathElement
-import javafx.scene.shape.QuadCurveTo
+import eu.hansolo.fxgtools.main.ShapeConverter
+import javafx.scene.shape.*
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,6 +34,9 @@ class FxgPath extends FxgShape {
     double       scaleY
     double       alpha
 
+    Path getPath() {
+        return path;
+    }
 
     String translateTo(final Language LANGUAGE, final int SHAPE_INDEX, final HashSet<String> NAME_SET) {
         StringBuilder code = new StringBuilder()
@@ -67,8 +65,8 @@ class FxgPath extends FxgShape {
                 }
                 appendJavaFxCanvasFillAndStroke(code, name)
                 appendJavaFxCanvasFilter(code, name)
-
                 code.append("        CTX.restore();\n")
+                cssShape = ShapeConverter.shapeToSvgString(getPath())
                 return code.toString()
 
             case Language.CANVAS:

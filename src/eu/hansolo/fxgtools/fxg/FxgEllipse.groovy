@@ -16,6 +16,7 @@
 
 package eu.hansolo.fxgtools.fxg
 
+import eu.hansolo.fxgtools.main.ShapeConverter
 import javafx.geometry.Point2D
 import javafx.scene.shape.Ellipse
 
@@ -79,6 +80,7 @@ class FxgEllipse extends FxgShape {
                 appendJavaFxCanvasFilter(code, name)
 
                 code.append("        CTX.restore();\n")
+                cssShape = ShapeConverter.shapeToSvgString(getEllipse())
                 return code.toString()
 
             case Language.CANVAS:

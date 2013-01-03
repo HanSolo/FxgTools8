@@ -16,6 +16,7 @@
 
 package eu.hansolo.fxgtools.fxg
 
+import eu.hansolo.fxgtools.main.ShapeConverter
 import javafx.scene.shape.Rectangle
 import javafx.scene.shape.RectangleBuilder
 
@@ -82,6 +83,7 @@ class FxgRectangle extends FxgShape {
                 appendJavaFxCanvasFilter(code, name)
 
                 code.append("        CTX.restore();\n")
+                cssShape = ShapeConverter.shapeToSvgString(getRectangle())
                 return code.toString()
 
             case Language.CANVAS:

@@ -1,6 +1,7 @@
 $packageInfo
 
 //import com.sun.javafx.scene.control.skin.SkinBase;
+import javafx.collections.ListChangeListener;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.beans.value.ChangeListener;
@@ -48,26 +49,27 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 
 
-public class $classNameSkin extends SkinBase<$className, $classNameBehavior> {
+public class $classNameSkin extends SkinBase<$className> {
     private static final double DEFAULT_WIDTH  = $width;
     private static final double DEFAULT_HEIGHT = $height;
     private static final double MINIMUM_WIDTH  = 5;
     private static final double MINIMUM_HEIGHT = 5;
     private static final double MAXIMUM_WIDTH  = 1024;
     private static final double MAXIMUM_HEIGHT = 1024;
-    private static final double ASPECT_RATIO   = DEFAULT_HEIGHT / DEFAULT_WIDTH;
     private $className control;
-    private double       size;
-    private double       width;
-    private double       height;
-    private Pane         pane;
-    private boolean      isDirty;
+    private static double aspectRatio;
+    private double        size;
+    private double        width;
+    private double        height;
+    private Pane          pane;
+    private boolean       isDirty;
 $varDeclaration
 
     // ******************** Constructors **************************************
     public $classNameSkin(final $className CONTROL) {
-        super(CONTROL, new $classNameBehavior(CONTROL));
+        super(CONTROL);
         control     = CONTROL;
+        aspectRatio = DEFAULT_HEIGHT / DEFAULT_WIDTH;
         pane        = new Pane();
         isDirty     = false;
         init();
@@ -96,54 +98,30 @@ $varDeclaration
             control.getPrefWidth() <= 0 || getHeight() <= 0) {
             control.setMaxSize(MAXIMUM_WIDTH, MAXIMUM_HEIGHT);
         }
+
+        if (control.getPrefWidth() != DEFAULT_WIDTH || control.getPrefHeight() != DEFAULT_HEIGHT) {
+            aspectRatio = control.getPrefHeight() / control.getPrefWidth();
+        }
     }
 
     private void initGraphics() {
 $varInitialization
-        changeStyle();
-
         getChildren().setAll(pane);
+        resize();
+        update();
     }
 
     private void registerListeners() {
         registerChangeListener(control.widthProperty(), "RESIZE");
         registerChangeListener(control.heightProperty(), "RESIZE");
+        registerChangeListener(control.prefWidthProperty(), "PREF_SIZE");
+        registerChangeListener(control.prefHeightProperty(), "PREF_SIZE");
 $registerListeners
-    }
-
-    private void delegateToBehavior() {
-        $classNameBehavior behavior = getBehavior();
-
-        behavior.setOnButtonUp(new Runnable() {
-            @Override public void run() { onButtonUp(); }
-        });
-
-        behavior.setOnButtonDown(new Runnable() {
-            @Override public void run() { onButtonDown(); }
-        });
-
-        behavior.setOnButtonLeft(new Runnable() {
-            @Override public void run() { onButtonLeft(); }
-        });
-
-        behavior.setOnButtonRight(new Runnable() {
-            @Override public void run() { onButtonRight(); }
-        });
-
-        behavior.setOnCtrlButtonUp(new Runnable() {
-            @Override public void run() { onCtrlButtonUp(); }
-        });
-
-        behavior.setOnCtrlButtonDown(new Runnable() {
-            @Override public void run() { onCtrlButtonDown(); }
-        });
-
-        behavior.setOnCtrlButtonLeft(new Runnable() {
-            @Override public void run() { onCtrlButtonLeft(); }
-        });
-
-        behavior.setOnCtrlButtonRight(new Runnable() {
-            @Override public void run() { onCtrlButtonRight(); }
+        control.getStyleClass().addListener(new ListChangeListener<String>() {
+            @Override public void onChanged(Change<? extends String> change) {
+                resize();
+                update();
+            }
         });
     }
 
@@ -151,18 +129,22 @@ $registerListeners
     // ******************** Methods *******************************************
     @Override protected void handleControlPropertyChanged(final String PROPERTY) {
         super.handleControlPropertyChanged(PROPERTY);
-
-        if ("RESIZE".equals(PROPERTY)) {
+        if ("UPDATE".equals(PROPERTY)) {
+            update();
+        } else if ("RESIZE".equals(PROPERTY)) {
             resize();
+            update();
+        } else if ("PREF_SIZE".equals(PROPERTY)) {
+            aspectRatio = control.getPrefHeight() / control.getPrefWidth();
         }$handlePropertyChanges
     }
 
     @Override protected void layoutChildren(final double X, final double Y, final double W, final double H) {
-        if (isDirty) {
-            // do something here
+        //if (!isDirty) return;
+        // update your graphical intense updates here
 
-            isDirty = false;
-        }
+        //isDirty = false;
+
         super.layoutChildren(X, Y, W, H);
     }
 
@@ -249,22 +231,26 @@ $registerListeners
     }
 
 
+    // ******************** Update ********************************************
+    private void update() {
+
+    }
+
+
     // ******************** Resizing ******************************************
     private void resize() {
         size   = control.getWidth() < control.getHeight() ? control.getWidth() : control.getHeight();
         width  = control.getWidth();
         height = control.getHeight();
         if (control.isKeepAspect()) {
-            if (ASPECT_RATIO * width > height) {
-                width  = 1 / (ASPECT_RATIO / height);
-            } else if (1 / (ASPECT_RATIO / height) > width) {
-                height = ASPECT_RATIO * width;
+            if (aspectRatio * width > height) {
+                width  = 1 / (aspectRatio / height);
+            } else if (1 / (aspectRatio / height) > width) {
+                height = aspectRatio * width;
             }
         }
 $resizeRegions
     }
 
-
-    // ******************** Canvas Methods ************************************
 $canvasMethods
 }

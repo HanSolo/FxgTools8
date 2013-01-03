@@ -17,6 +17,7 @@
 package eu.hansolo.fxgtools.main
 
 import eu.hansolo.fxgtools.fxg.FxgElement
+import eu.hansolo.fxgtools.fxg.FxgRichText
 import eu.hansolo.fxgtools.fxg.FxgVariable
 import eu.hansolo.fxgtools.fxg.Language
 import javafx.scene.effect.DropShadow
@@ -25,7 +26,7 @@ import javafx.scene.effect.InnerShadow
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import eu.hansolo.fxgtools.fxg.FxgRichText
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,17 +36,17 @@ import eu.hansolo.fxgtools.fxg.FxgRichText
  * To change this template use File | Settings | File Templates.
  */
 class FxgTranslator {
-    private static final Pattern CANVAS_PATTERN = Pattern.compile("_?(canvas)", Pattern.CASE_INSENSITIVE)
-    private StringBuilder     allLayers         = new StringBuilder()
-    private StringBuilder     allElements       = new StringBuilder()
-    private int               splitCounter      = 0
-    private int               nextSplit         = 70000
-    private int               splitNumber       = 0
-    private String            packageInfo       = "eu.hansolo.fx"
-    private List<String>      layerSelection    = []
-    private HashSet<String>   nameSet           = []
-    private HashSet<String>   groupNameSet      = []
-    private HashSet<String>   cssNameSet        = []
+    private static final Pattern        CANVAS_PATTERN  = Pattern.compile("_?(canvas)", Pattern.CASE_INSENSITIVE)
+    private StringBuilder               allLayers       = new StringBuilder()
+    private StringBuilder               allElements     = new StringBuilder()
+    private int                         splitCounter    = 0
+    private int                         nextSplit       = 70000
+    private int                         splitNumber     = 0
+    private String                      packageInfo     = "eu.hansolo.fx"
+    private List<String>                layerSelection  = []
+    private HashSet<String>             nameSet         = []
+    private HashSet<String>             groupNameSet    = []
+    private HashSet<String>             cssNameSet      = []
 
 
     // ******************** Translate given elements to given language ********
@@ -111,8 +112,7 @@ class FxgTranslator {
     }
 
     void setLayerSelection(List<String> selectedLayers) {
-        layerSelection.clear()
-        layerSelection.addAll(selectedLayers)
+        layerSelection.setAll(selectedLayers)
     }
 
     private String createCssName(final String LAYER_NAME, final String ELEMENT_NAME) {
@@ -249,7 +249,7 @@ class FxgTranslator {
     }
 
     private StringBuilder javaFxVariableDeclaration(final HashMap<String, List<FxgElement>> layerMap) {
-        StringBuilder regionDeclaration    = new StringBuilder()
+        StringBuilder regionDeclaration = new StringBuilder()
         int effectCounter = 0
         String lastEffectName
         layerMap.keySet().each {String layerName ->
@@ -257,18 +257,18 @@ class FxgTranslator {
                 layerMap[layerName].each {FxgElement element ->
                     String varName = createVarName(layerName, element.shape.shapeName)
                     if(element.getShape().getClass().equals(FxgRichText.class)) {
-                        regionDeclaration.append("\n    private Text         ${varName};")
+                        regionDeclaration.append("\n    private Text          ${varName};")
                     } else {
-                        regionDeclaration.append("\n    private Region       ${varName};")
+                        regionDeclaration.append("\n    private Region        ${varName};")
                     }
                     if (!element.shape.effects.isEmpty() && element.shape.effects.size() > 1) {
                         element.shape.effects.each { Effect effect ->
                             if (effect.class.equals(InnerShadow.class)) {
-                                regionDeclaration.append("\n    private InnerShadow  ${varName}InnerShadow${effectCounter}").append(";")
+                                regionDeclaration.append("\n    private InnerShadow   ${varName}InnerShadow${effectCounter}").append(";")
                                 lastEffectName = "${varName}InnerShadow${effectCounter}"
                                 effectCounter++
                             } else if (effect.class.equals(DropShadow.class)) {
-                                regionDeclaration.append("\n    private DropShadow   ${varName}DropShadow${effectCounter}").append(";")
+                                regionDeclaration.append("\n    private DropShadow    ${varName}DropShadow${effectCounter}").append(";")
                                 lastEffectName = "${varName}DropShadow${effectCounter}"
                                 effectCounter++
                             }
@@ -391,16 +391,16 @@ class FxgTranslator {
                 PROPERTY_CODE.append("    private ObjectProperty<${PROPERTIES.get(PROPERTY_NAME).type}> ").append(PROPERTY_NAME).append(";\n")
             }
         }
-        PROPERTY_CODE.append("    private boolean        ")
+        PROPERTY_CODE.append("    private BooleanProperty ")
         appendBlanks(PROPERTY_CODE, (maxLength + 2))
         PROPERTY_CODE.append("keepAspect;\n")
-        PROPERTY_CODE.append("    private long           ")
+        PROPERTY_CODE.append("    private long            ")
         appendBlanks(PROPERTY_CODE, (maxLength + 2))
         PROPERTY_CODE.append("interval;\n")
-        PROPERTY_CODE.append("    private long           ")
+        PROPERTY_CODE.append("    private long            ")
         appendBlanks(PROPERTY_CODE, (maxLength + 2))
         PROPERTY_CODE.append("lastTimerCall;\n")
-        PROPERTY_CODE.append("    private AnimationTimer ")
+        PROPERTY_CODE.append("    private AnimationTimer  ")
         appendBlanks(PROPERTY_CODE, (maxLength + 2))
         PROPERTY_CODE.append("timer;\n")
 
@@ -455,7 +455,7 @@ class FxgTranslator {
         PROPERTY_CODE.append("        keepAspect")
         int spacer = maxLength == 0 ? 0 : 10;
         appendBlanks(PROPERTY_CODE, (maxLength - spacer))
-        PROPERTY_CODE.append(" = false;\n")
+        PROPERTY_CODE.append(" = new SimpleBooleanProperty(false);\n")
         PROPERTY_CODE.append("        interval")
         spacer = maxLength == 0 ? 0 : 8;
         appendBlanks(PROPERTY_CODE, (maxLength - spacer))
@@ -834,7 +834,7 @@ class FxgTranslator {
             cssNameSet.clear();
             if (layerSelection.contains(layerName) && !layerName.equalsIgnoreCase("properties")) {
                 int shapeIndex = 0
-                layerMap[layerName].each {FxgElement element ->
+                layerMap[layerName].each { FxgElement element ->
                     shapeIndex += 1
 
                     String cssName = "${element.shape.shapeName}"
@@ -847,7 +847,7 @@ class FxgTranslator {
                     } else {
                         cssNameSet.add(cssName)
                     }
-                    cssCode.append(element.shape.createCssFillAndStroke(cssName, element.shape.filled, element.shape.stroked))
+                    cssCode.append(element.shape.createCssFillStrokeShape(cssName, element.shape.filled, element.shape.stroked))
                 }
             }
         }
