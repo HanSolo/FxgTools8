@@ -254,8 +254,8 @@ class FxgParser {
         lastShapeAlpha     = (NODE.@alpha ?: 1).toDouble()
         double radiusX     = (NODE.@radiusX ?: 0).toDouble() * scaleFactorX
         double radiusY     = (NODE.@radiusY ?: 0).toDouble() * scaleFactorY
-        String cssShape    = "M ${x} ${y} L ${x + width} ${y} L ${x + width} ${y + height} L ${x} ${y + height} L ${x} ${y} Z"
-
+        //String cssShape    = "M ${x} ${y} L ${x + width} ${y} L ${x + width} ${y + height} L ${x} ${y + height} L ${x} ${y} Z"
+        String cssShape    = ShapeConverter.shapeToSvgString(new Rectangle(x, y, width, height))
         return new FxgRectangle(layerName: LAYER_NAME,
                                 shapeName: elementName,
                                 x        : x,
@@ -281,7 +281,7 @@ class FxgParser {
         double scaleY      = (NODE.@scaleY ?: 1).toDouble()
         double rotation    = (NODE.@rotation ?: 0).toDouble()
         lastShapeAlpha     = (NODE.@alpha ?: 1).toDouble()
-        String cssShape    = ""
+        String cssShape    = ShapeConverter.shapeToSvgString(new Ellipse(x, y, width, height))
 
         return new FxgEllipse(layerName: LAYER_NAME,
                               shapeName: elementName,
@@ -306,7 +306,8 @@ class FxgParser {
         double scaleY      = (NODE.@scaleY ?: 1).toDouble()
         double rotation    = (NODE.@rotation ?: 0).toDouble()
         lastShapeAlpha     = (NODE.@alpha ?: 1).toDouble()
-        String cssShape    = "M ${xFrom} ${yFrom} L ${xTo} ${yTo} Z"
+        //String cssShape    = "M ${xFrom} ${yFrom} L ${xTo} ${yTo} Z"
+        String cssShape    = ShapeConverter.shapeToSvgString(new Line(xFrom, yFrom, xTo, yTo))
         return new FxgLine(layerName: LAYER_NAME,
                            shapeName: elementName,
                            x1       : xFrom,
@@ -337,13 +338,15 @@ class FxgParser {
             PATH.setFillRule(FillRule.NON_ZERO)
         }
 
-        String cssShape = data
+        //String cssShape = data
 
         data            = data.replaceAll(/([A-Za-z])/, / $1 /) // alle einzelnen Grossbuchstaben in blanks huellen
         def pathList    = data.tokenize()
         def pathReader  = new FxgPathReader(pathList, scaleFactorX, scaleFactorY)
 
         processPath(pathList, pathReader, PATH, x, y)
+
+        String cssShape = ShapeConverter.shapeToSvgString(PATH)
 
         return new FxgPath(layerName: LAYER_NAME,
                            shapeName: ELEMENT_NAME,

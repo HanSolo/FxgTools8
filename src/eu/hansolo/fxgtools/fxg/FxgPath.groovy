@@ -66,7 +66,10 @@ class FxgPath extends FxgShape {
                 appendJavaFxCanvasFillAndStroke(code, name)
                 appendJavaFxCanvasFilter(code, name)
                 code.append("        CTX.restore();\n")
+                System.out.println("before: " + cssShape)
                 cssShape = ShapeConverter.shapeToSvgString(getPath())
+                System.out.println("after : " + cssShape)
+                System.out.println("-------------------")
                 return code.toString()
 
             case Language.CANVAS:
