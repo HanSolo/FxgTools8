@@ -62,8 +62,8 @@ public class $classNameSkin extends SkinBase<$className> {
     private double        width;
     private double        height;
     private Pane          pane;
-    private boolean       isDirty;
-$varDeclaration
+    private boolean       isDirty;$varDeclaration
+
 
     // ******************** Constructors **************************************
     public $classNameSkin(final $className CONTROL) {
@@ -182,40 +182,6 @@ $registerListeners
 
     @Override protected double computeMaxHeight(final double MAX_WIDTH) {
         return super.computeMaxHeight(Math.min(MAXIMUM_WIDTH, MAX_WIDTH - getInsets().getLeft() - getInsets().getRight()));
-    }
-
-
-    // ******************** Key event handling ********************************
-    protected void onButtonUp() {
-        // This method could return something that could than be handled in the Behavior
-    }
-
-    protected void onButtonDown() {
-        // This method could return something that could than be handled in the Behavior
-    }
-
-    protected void onButtonLeft() {
-        // This method could return something that could than be handled in the Behavior
-    }
-
-    protected void onButtonRight() {
-        // This method could return something that could than be handled in the Behavior
-    }
-
-    protected void onCtrlButtonUp() {
-        // This method could return something that could than be handled in the Behavior
-    }
-
-    protected void onCtrlButtonDown() {
-        // This method could return something that could than be handled in the Behavior
-    }
-
-    protected void onCtrlButtonLeft() {
-        // This method could return something that could than be handled in the Behavior
-    }
-
-    protected void onCtrlButtonRight() {
-        // This method could return something that could than be handled in the Behavior
     }
 
 
