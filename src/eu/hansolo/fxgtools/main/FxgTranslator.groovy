@@ -15,7 +15,6 @@
  */
 
 package eu.hansolo.fxgtools.main
-
 import eu.hansolo.fxgtools.fxg.FxgElement
 import eu.hansolo.fxgtools.fxg.FxgRichText
 import eu.hansolo.fxgtools.fxg.FxgVariable
@@ -26,8 +25,6 @@ import javafx.scene.effect.InnerShadow
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-
-
 /**
  * Created by IntelliJ IDEA.
  * User: hansolo
@@ -59,10 +56,13 @@ class FxgTranslator {
     }
 
     String translate(final String FILE_NAME, Map<String, List<FxgElement>> layerMap, final Language LANGUAGE, final String WIDTH, final String HEIGHT, final boolean EXPORT_TO_FILE, final String NAME_PREFIX, final HashMap<String, FxgVariable> PROPERTIES) {
+        return translate(new StringBuilder(System.properties.getProperty('user.home')).append(File.separator).append('Desktop').append(File.separator).toString(), FILE_NAME, layerMap, LANGUAGE, WIDTH, HEIGHT, EXPORT_TO_FILE, NAME_PREFIX, PROPERTIES)
+    }
+
+    String translate(final String PATH, final String FILE_NAME, Map<String, List<FxgElement>> layerMap, final Language LANGUAGE, final String WIDTH, final String HEIGHT, final boolean EXPORT_TO_FILE, final String NAME_PREFIX, final HashMap<String, FxgVariable> PROPERTIES) {
         final String CLASS_NAME = (FILE_NAME.contains(".") ? (FILE_NAME.substring(0, FILE_NAME.lastIndexOf('.')) + NAME_PREFIX) : (FILE_NAME + NAME_PREFIX)).capitalize()
-        final String USER_HOME = System.properties.getProperty('user.home')
-        StringBuilder desktopPath = new StringBuilder(USER_HOME).append(File.separator).append('Desktop').append(File.separator)
-        StringBuilder exportFileName = new StringBuilder(desktopPath).append(CLASS_NAME)
+        StringBuilder path = new StringBuilder(PATH)
+        StringBuilder exportFileName = new StringBuilder(path).append(CLASS_NAME)
         if (layerSelection.isEmpty()) {
             layerSelection.addAll(layerMap.keySet())
         }
@@ -76,8 +76,7 @@ class FxgTranslator {
         switch(LANGUAGE) {
             case Language.JAVAFX:
                 if (EXPORT_TO_FILE) {
-                    String path = new StringBuilder(USER_HOME).append(File.separator).append('Desktop').append(File.separator).toString()
-                    writeToFile(desktopPath.append('Demo.java').toString(), javaFxDemoTemplate(CLASS_NAME, WIDTH.replace(".0", ""), HEIGHT.replace(".0", "")))
+                    writeToFile(path + ("Demo.java").toString(), javaFxDemoTemplate(CLASS_NAME, WIDTH.replace(".0", ""), HEIGHT.replace(".0", "")))
                     writeToFile(path + ("${CLASS_NAME}.java").toString(), javaFxControlTemplate(CLASS_NAME, Double.parseDouble(WIDTH), Double.parseDouble(HEIGHT), PROPERTIES))
                     writeToFile(path + ("${CLASS_NAME}Behavior.java").toString(), javaFxBehaviorTemplate(CLASS_NAME))
                     writeToFile(path + ("${CLASS_NAME.toLowerCase()}.css").toString(), makeCssNicer(javaFxCssTemplate(CLASS_NAME, layerMap, PROPERTIES)))
