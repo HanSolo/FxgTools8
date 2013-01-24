@@ -9,6 +9,7 @@ import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.FillRule;
 import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
@@ -26,7 +27,10 @@ import javafx.scene.shape.Shape;
 import javafx.scene.shape.VLineTo;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
+
 
 /**
  * Created by
@@ -70,6 +74,19 @@ public class ShapeConverter {
 
     public static SVGPath shapeToSvgPath(final Shape SHAPE) {
         return SVGPathBuilder.create().content(shapeToSvgString(SHAPE)).build();
+    }
+
+    public static Path svgPathToPath(final SVGPath SVG_PATH) {
+        String data = SVG_PATH.getContent();
+        data = data.replaceAll("/(,)/", "/ /");
+        data = data.replaceAll("/([A-Za-z])/", "/ $1 /"); // wrap single characters in blanks
+        StringTokenizer tokenizer = new StringTokenizer(data, " ");
+        List<String> pathList = new ArrayList<>();
+        while(tokenizer.hasMoreElements()) {
+            pathList.add(tokenizer.nextElement().toString());
+        }
+        PathReader pathReader = new PathReader(pathList);
+        return processPath(pathList, pathReader);
     }
 
     public static String convertLine(final Line LINE) {
@@ -135,7 +152,7 @@ public class ShapeConverter {
     public static String convertRectangle(final Rectangle RECTANGLE) {
         final StringBuilder fxPath = new StringBuilder();
         final Bounds        bounds = RECTANGLE.getBoundsInLocal();
-        if (RECTANGLE.getArcWidth() != 0 && RECTANGLE.getArcHeight() != 0) {
+        if (Double.compare(RECTANGLE.getArcWidth(), 0.0) == 0 && Double.compare(RECTANGLE.getArcHeight(), 0.0) == 0) {
             fxPath.append("M ").append(bounds.getMinX()).append(" ").append(bounds.getMinY()).append(" ")
                   .append("H ").append(bounds.getMaxX()).append(" ")
                   .append("V ").append(bounds.getMaxY()).append(" ")
@@ -294,5 +311,47 @@ public class ShapeConverter {
             }
         }
         return fxPath.toString();
+    }
+
+    private static Path processPath(final List<String> PATH_LIST, final PathReader READER) {
+        final Path PATH = new Path();
+        PATH.setFillRule(FillRule.EVEN_ODD);
+        while (!PATH_LIST.isEmpty()) {
+            if ("M".equals(READER.read())) {
+                PATH.getElements().add(new MoveTo(READER.nextX(), READER.nextY()));
+            } else if ("L".equals(READER.read())) {
+                PATH.getElements().add(new LineTo(READER.nextX(), READER.nextY()));
+            } else if ("C".equals(READER.read())) {
+                PATH.getElements().add(new CubicCurveTo(READER.nextX(), READER.nextY(), READER.nextX(), READER.nextY(), READER.nextX(), READER.nextY()));
+            } else if ("Q".equals(READER.read())) {
+                PATH.getElements().add(new QuadCurveTo(READER.nextX(), READER.nextY(), READER.nextX(), READER.nextY()));
+            } else if ("H".equals(READER.read())) {
+                PATH.getElements().add(new HLineTo(READER.nextX()));
+            } else if ("L".equals(READER.read())) {
+                PATH.getElements().add(new VLineTo(READER.nextY()));
+            } else if ("A".equals(READER.read())) {
+                PATH.getElements().add(new ArcTo(READER.nextX(), READER.nextY(), 0, READER.nextX(), READER.nextY(), false, false));
+            } else if ("Z".equals(READER.read())) {
+                PATH.getElements().add(new ClosePath());
+            }
+        }
+        return PATH;
+    }
+
+    private static class PathReader {
+        protected List<String> path;
+
+        PathReader(final List<String> PATH) {
+            path = PATH;
+        }
+        String read() {
+            return path.remove(0);
+        }
+        double nextX() {
+            return Double.parseDouble(read());
+        }
+        double nextY() {
+            return Double.parseDouble(read());
+        }
     }
 }
