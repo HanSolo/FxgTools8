@@ -1,9 +1,9 @@
 $packageInfo
 
-//import com.sun.javafx.scene.control.skin.SkinBase;
+import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Label;
-import javafx.scene.control.SkinBase;
+//import javafx.scene.control.SkinBase;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.VPos;
@@ -49,7 +49,7 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 
 
-public class $classNameSkin extends SkinBase<$className> {
+public class $classNameSkin extends BehaviorSkinBase<$className, $classNameBehavior> {
     private static final double DEFAULT_WIDTH  = $width;
     private static final double DEFAULT_HEIGHT = $height;
     private static final double MINIMUM_WIDTH  = 5;
@@ -67,7 +67,7 @@ public class $classNameSkin extends SkinBase<$className> {
 
     // ******************** Constructors **************************************
     public $classNameSkin(final $className CONTROL) {
-        super(CONTROL);
+        super(CONTROL, new $classNameBehavior(CONTROL));
         control     = CONTROL;
         aspectRatio = DEFAULT_HEIGHT / DEFAULT_WIDTH;
         pane        = new Pane();
