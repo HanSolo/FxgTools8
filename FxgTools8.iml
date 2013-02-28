@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="groovy-all-2.0.1" level="application" />
+    <orderEntry type="library" name="groovy-all-2.1.0" level="application" />
   </component>
   <component name="POM File Configuration" pomFile="" />
   <component name="org.twodividedbyzero.idea.findbugs">

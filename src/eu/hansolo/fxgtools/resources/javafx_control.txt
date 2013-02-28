@@ -29,12 +29,19 @@ $propertyInitialization
 
     // ******************** Methods *******************************************
     public final boolean isKeepAspect() {
-        return keepAspect.get();
+        return keepAspect != null ? keepAspect.get() : _keepAspect;
     }
     public final void setKeepAspect(final boolean KEEP_ASPECT) {
-        keepAspect.set(KEEP_ASPECT);
+        if (keepAspect != null) {
+            keepAspect.set(KEEP_ASPECT);
+        } else {
+            _keepAspect = KEEP_ASPECT;
+        }
     }
     public final BooleanProperty keepAspectProperty() {
+        if (keepAspect == null) {
+            keepAspect = new SimpleBooleanProperty(this, "keepAspect", _keepAspect);
+        }
         return keepAspect;
     }
 

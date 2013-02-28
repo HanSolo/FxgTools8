@@ -291,9 +291,9 @@ class FxgTranslator {
                     String varName = createVarName(layerName, element.shape.shapeName)
                     String cssName = createCssName(layerName, element.shape.shapeName)
                     if(element.getShape().getClass().equals(FxgRichText.class)) {
-                        regionInitialization.append("\n        ${varName}").append(" = new Text(\"${element.shape.text}\");")
+                        regionInitialization.append("\n        ${varName}").append(" = TextBuilder.create().text(\"${element.shape.text}\").styleClass(\"${cssName}\").build();\n\n")
                     } else {
-                        regionInitialization.append("\n        ${varName}").append(" = new Region();")
+                        regionInitialization.append("\n        ${varName}").append(" = RegionBuilder.create().styleClass(\"${cssName}\").build();\n\n")
                     }
                     regionInitialization.append("\n        ${varName}.getStyleClass().setAll(\"${cssName}\");\n\n")
                     // Add chained effects if the FxgShape contains more than one effect
@@ -390,6 +390,9 @@ class FxgTranslator {
                 PROPERTY_CODE.append("    private ObjectProperty<${PROPERTIES.get(PROPERTY_NAME).type}> ").append(PROPERTY_NAME).append(";\n")
             }
         }
+        PROPERTY_CODE.append("    private boolean         ");
+        appendBlanks(PROPERTY_CODE, (maxLength + 2))
+        PROPERTY_CODE.append("_keepAspect;\n")
         PROPERTY_CODE.append("    private BooleanProperty ")
         appendBlanks(PROPERTY_CODE, (maxLength + 2))
         PROPERTY_CODE.append("keepAspect;\n")
@@ -418,27 +421,27 @@ class FxgTranslator {
             if (TYPE.equals("double")) {
                 PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
                 appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleDoubleProperty(${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
+                PROPERTY_CODE.append(" = new SimpleDoubleProperty(this, \"${PROPERTY_NAME}\", ${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
             } else if (TYPE.equals("boolean")) {
                 PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
                 appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleBooleanProperty(${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
+                PROPERTY_CODE.append(" = new SimpleBooleanProperty(this, \"${PROPERTY_NAME}\", ${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
             } else if (TYPE.equals("int")) {
                 PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
                 appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleIntegerProperty(${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
+                PROPERTY_CODE.append(" = new SimpleIntegerProperty(this, \"${PROPERTY_NAME}\", ${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
             } else if (TYPE.equals("long")) {
                 PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
                 appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleLongProperty(${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
+                PROPERTY_CODE.append(" = new SimpleLongProperty(this, \"${PROPERTY_NAME}\", ${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
             } else if (TYPE.equals("string")) {
                 PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
                 appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleStringProperty(\"${PROPERTIES.get(PROPERTY_NAME).defaultValue}\");\n")
+                PROPERTY_CODE.append(" = new SimpleStringProperty(this, \"${PROPERTY_NAME}\", \"${PROPERTIES.get(PROPERTY_NAME).defaultValue}\");\n")
             } else if (TYPE.equals("object")) {
                 PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
                 appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleObjectProperty(${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
+                PROPERTY_CODE.append(" = new SimpleObjectProperty(this, \"${PROPERTY_NAME}\", ${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
             } else {
                 PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
                 appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
@@ -448,13 +451,13 @@ class FxgTranslator {
                 } else {
                     defaultValue = PROPERTIES.get(PROPERTY_NAME).defaultValue
                 }
-                PROPERTY_CODE.append(" = new SimpleObjectProperty<${PROPERTIES.get(PROPERTY_NAME).type}>(${defaultValue});\n")
+                PROPERTY_CODE.append(" = new SimpleObjectProperty<${PROPERTIES.get(PROPERTY_NAME).type}>(this, \"${PROPERTY_NAME}\", ${defaultValue});\n")
             }
         }
-        PROPERTY_CODE.append("        keepAspect")
+        PROPERTY_CODE.append("        _keepAspect")
         int spacer = maxLength == 0 ? 0 : 10;
         appendBlanks(PROPERTY_CODE, (maxLength - spacer))
-        PROPERTY_CODE.append(" = new SimpleBooleanProperty(false);\n")
+        PROPERTY_CODE.append(" = true;\n")
         PROPERTY_CODE.append("        interval")
         spacer = maxLength == 0 ? 0 : 8;
         appendBlanks(PROPERTY_CODE, (maxLength - spacer))
@@ -899,6 +902,12 @@ class FxgTranslator {
                 replaceAll(CODE, "1.0 * WIDTH", "WIDTH")
                 replaceAll(CODE, "1.0 * HEIGHT", "HEIGHT")
                 replaceAll(CODE, "1.0 * SIZE", "SIZE")
+                replaceAll(CODE, "0.0 * width", "0.0");
+                replaceAll(CODE, "0.0 * height", "0.0");
+                replaceAll(CODE, "0.0 * size", "0.0");
+                replaceAll(CODE, "1.0 * width", "width");
+                replaceAll(CODE, "1.0 * height", "height");
+                replaceAll(CODE, "1.0 * size", "size");
                 replaceAll(CODE, "Color.color(0, 0, 0, 1)", "Color.BLACK")
                 replaceAll(CODE, "Color.color(0.0, 0.0, 0.0, 1)", "Color.BLACK")
                 replaceAll(CODE, "Color.color(0.0, 0.0, 0.0, 1.0)", "Color.BLACK")
