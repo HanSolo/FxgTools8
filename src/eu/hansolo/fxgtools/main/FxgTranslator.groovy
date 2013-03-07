@@ -809,7 +809,7 @@ class FxgTranslator {
                     varName = createVarName(layerName, element.shape.shapeName)
                     if (!layerName.toLowerCase().endsWith("canvas")) {
                         if (Language.JAVAFX == LANGUAGE){
-                            if (FxgShapeType.TEXT != element.shape.type) {
+                            if (FxgShapeType.TEXT == element.shape.type) {
                                 code.append("\n        // ").append(varName).append(".setFont(font);")
                             } else {
                                 code.append("\n        ").append(varName).append(".setPrefSize(${element.getShape().elementWidth / element.getShape().referenceWidth} * width, ${element.getShape().elementHeight / element.getShape().referenceHeight} * height);")

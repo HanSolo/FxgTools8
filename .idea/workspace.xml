@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04d8d6d4-a51d-434e-af9f-86390aba501e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgParser.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgParser.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgShape.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgShape.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FxgTools8.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -145,10 +142,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FxgParser.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FxgParser.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgParser.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="822" column="77" selection-start="37820" selection-end="37820" vertical-scroll-proportion="0.76036865">
+            <state line="822" column="77" selection-start="37820" selection-end="37820" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -174,10 +171,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FxgTranslator.groovy" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="FxgTranslator.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="814" column="260" selection-start="51720" selection-end="51720" vertical-scroll-proportion="0.0">
+            <state line="811" column="51" selection-start="51296" selection-end="51296" vertical-scroll-proportion="0.3640553">
               <folding>
                 <element signature="n#!!block;n#javaFxSkinTemplate#0;n#!!block;n#FxgTranslator#0" expanded="true" />
               </folding>
@@ -250,8 +247,8 @@
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgRichText.groovy" />
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgPath.groovy" />
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgShape.groovy" />
-        <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy" />
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgParser.groovy" />
+        <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy" />
       </list>
     </option>
   </component>
@@ -825,19 +822,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy">
+    <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgParser.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="814" column="260" selection-start="51720" selection-end="51720" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!block;n#javaFxSkinTemplate#0;n#!!block;n#FxgTranslator#0" expanded="true" />
-          </folding>
+        <state line="822" column="77" selection-start="37820" selection-end="37820" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgParser.groovy">
+    <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="822" column="77" selection-start="37820" selection-end="37820" vertical-scroll-proportion="0.76036865">
-          <folding />
+        <state line="811" column="51" selection-start="51296" selection-end="51296" vertical-scroll-proportion="0.3640553">
+          <folding>
+            <element signature="n#!!block;n#javaFxSkinTemplate#0;n#!!block;n#FxgTranslator#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
