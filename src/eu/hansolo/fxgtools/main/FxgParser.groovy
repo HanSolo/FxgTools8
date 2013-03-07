@@ -880,17 +880,20 @@ class FxgParser {
                             elementName = validateElementName(LAYER_NAME, elementName, i)
                         }
                         fxgShape = parseFxgPath(node, LAYER_NAME, elementName)
+                        String cssShape = fxgShape.cssShape;
 
                         if (elementName != null && OPTIMIZE_SHAPES) {
                             E_MATCHER.reset(elementName)
                             if (E_MATCHER.matches()) {
                                 fxgShape = new FxgEllipse(layerName: LAYER_NAME, shapeName: fxgShape.shapeName, x: fxgShape.path.boundsInLocal.minX, y: fxgShape.path.boundsInLocal.minY, width: fxgShape.path.boundsInLocal.width, height: fxgShape.path.boundsInLocal.height, alpha: lastShapeAlpha, rotation: fxgShape.rotation, scaleX: fxgShape.scaleX, scaleY: fxgShape.scaleY)
+                                fxgShape.setCssShape(cssShape);
                                 break
                             }
                             RR_MATCHER.reset(elementName)
                             if (RR_MATCHER.matches()) {
                                 double cornerRadius = RR_MATCHER.group(4) == null ? RR_MATCHER.group(2).toDouble() * scaleFactorX : (RR_MATCHER.group(2) + "." + RR_MATCHER.group(5)).toDouble() * scaleFactorX
                                 fxgShape = new FxgRectangle(layerName: LAYER_NAME, shapeName: fxgShape.shapeName, x: fxgShape.path.boundsInLocal.minX, y: fxgShape.path.boundsInLocal.minY, width: fxgShape.path.boundsInLocal.width, height: fxgShape.path.boundsInLocal.height, radiusX: cornerRadius, radiusY: cornerRadius, alpha: lastShapeAlpha, rotation: fxgShape.rotation, scaleX: fxgShape.scaleX, scaleY: fxgShape.scaleY)
+                                fxgShape.setCssShape(cssShape);
                                 break
                             }
                         }

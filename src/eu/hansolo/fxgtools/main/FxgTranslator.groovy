@@ -17,6 +17,7 @@
 package eu.hansolo.fxgtools.main
 import eu.hansolo.fxgtools.fxg.FxgElement
 import eu.hansolo.fxgtools.fxg.FxgRichText
+import eu.hansolo.fxgtools.fxg.FxgShapeType
 import eu.hansolo.fxgtools.fxg.FxgVariable
 import eu.hansolo.fxgtools.fxg.Language
 import javafx.scene.effect.DropShadow
@@ -807,8 +808,12 @@ class FxgTranslator {
                     String lastEffectName
                     varName = createVarName(layerName, element.shape.shapeName)
                     if (!layerName.toLowerCase().endsWith("canvas")) {
-                        if (LANGUAGE == Language.JAVAFX){
-                            code.append("\n        ").append(varName).append(".setPrefSize(${element.getShape().elementWidth / element.getShape().referenceWidth} * width, ${element.getShape().elementHeight / element.getShape().referenceHeight} * height);")
+                        if (Language.JAVAFX == LANGUAGE){
+                            if (FxgShapeType.TEXT != element.shape.type) {
+                                code.append("\n        // ").append(varName).append(".setFont(font);")
+                            } else {
+                                code.append("\n        ").append(varName).append(".setPrefSize(${element.getShape().elementWidth / element.getShape().referenceWidth} * width, ${element.getShape().elementHeight / element.getShape().referenceHeight} * height);")
+                            }
                             code.append("\n        ").append(varName).append(".setTranslateX(${element.getShape().elementX / element.getShape().referenceWidth} * width);")
                             code.append("\n        ").append(varName).append(".setTranslateY(${element.getShape().elementY / element.getShape().referenceHeight} * height);")
                             if (!element.shape.effects.isEmpty() && element.shape.effects.size() > 1) {

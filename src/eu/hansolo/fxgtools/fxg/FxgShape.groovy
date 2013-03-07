@@ -23,11 +23,9 @@ import javafx.scene.paint.Color
 import javafx.scene.paint.Stop
 import javafx.scene.shape.StrokeLineCap
 import javafx.scene.shape.StrokeLineJoin
-import javafx.scene.transform.Transform
 import javafx.scene.text.FontPosture
 import javafx.scene.text.FontWeight
-
-
+import javafx.scene.transform.Transform
 /**
  * Created by IntelliJ IDEA.
  * User: hansolo
@@ -57,7 +55,6 @@ abstract class FxgShape {
     String          cssShape
 
     abstract String translateTo(final Language LANGUAGE, final int SHAPE_INDEX, final HashSet<String> NAME_SET)
-
 
     // JAVA_FX
     protected void appendJavaFxFillAndStroke(StringBuilder code, String elementName) {
