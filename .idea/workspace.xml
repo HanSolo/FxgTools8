@@ -2,27 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04d8d6d4-a51d-434e-af9f-86390aba501e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgLiveParser.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgEllipse.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgEllipse.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgLine.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgLine.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgParser.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgParser.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgPath.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgPath.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgRectangle.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgRectangle.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgRichText.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgRichText.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgShape.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgShape.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/resources/canvas.txt" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/resources/canvas.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FxgTools8.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362639576935" ignored="false" />
+    <file path="/Dummy.txt" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362641870281" ignored="false" />
     <file path="$PROJECT_DIR$/../JavaTest/src/eu/hansolo/fxgtester/ConvertFxg.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362604280648" ignored="false" />
     <file path="$PROJECT_DIR$/../enzo/src/lcd/Lcd.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1354141253288" ignored="false" />
     <file path="/Lcd.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1357545086908" ignored="false" />
     <file path="/javafx_skin.txt" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1361975674647" ignored="false" />
     <file path="/javafx_behavior.txt" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1355907894131" ignored="false" />
-    <file path="/FxgParser.groovy" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362641666451" ignored="false" />
+    <file path="/FxgParser.groovy" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362642117055" ignored="false" />
     <file path="$PROJECT_DIR$/../Incubator/SlidewareFX/src/eu/hansolo/fx/demos/tiles/YahooWeather.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1355468226436" ignored="false" />
     <file path="/YahooWeather.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1355468221311" ignored="false" />
     <file path="$PROJECT_DIR$/../Incubator/SlidewareFX/src/eu/hansolo/fx/demos/embedded/desktop/XmppManager.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1355480358944" ignored="false" />
@@ -152,38 +143,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FxgTranslator.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="714" column="51" selection-start="46763" selection-end="46763" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="FxgParser.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgParser.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="821" column="136" selection-start="37741" selection-end="37741" vertical-scroll-proportion="2.9487178">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FxgShape.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgShape.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="630" column="93" selection-start="31622" selection-end="31622" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FxgEllipse.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgEllipse.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="6" selection-start="935" selection-end="935" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="196" column="31" selection-start="8184" selection-end="8184" vertical-scroll-proportion="0.61085975">
+              <folding>
+                <element signature="n#!!block;n#parse#1;n#!!block;n#FxgParser#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -278,6 +244,70 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FxgTools8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FxgTools8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FxgTools8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FxgTools8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FxgTools8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FxgTools8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fxgtools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FxgTools8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FxgTools8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fxgtools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope">
@@ -305,12 +335,12 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="Regex">
     <option name="pos1" value="218" />
@@ -357,12 +387,6 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
-      <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
     <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
       <module name="" />
       <setting name="path" value="" />
@@ -372,12 +396,31 @@
       <setting name="debug" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -406,19 +449,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -517,9 +547,9 @@
       <window_info id="Maven Repo Search" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="J2D Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Archetypes" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Maven-2 Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3252841" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -679,9 +709,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/resources/canvas.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="95" selection-start="644" selection-end="644" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="19" column="95" selection-start="644" selection-end="644" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgRichText.groovy">
@@ -724,8 +752,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgParser.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="821" column="136" selection-start="37741" selection-end="37741" vertical-scroll-proportion="2.9487178">
-          <folding />
+        <state line="196" column="31" selection-start="8184" selection-end="8184" vertical-scroll-proportion="0.61085975">
+          <folding>
+            <element signature="n#!!block;n#parse#1;n#!!block;n#FxgParser#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -820,6 +820,10 @@ class FxgParser {
 
     // ******************** Convert layers   **********************************
     private int convertLayer(final String LAYER_NAME, final Node LAYER, Map<String, List<FxgElement>> elements, List shapes, int index) {
+        return convertLayer(LAYER_NAME, LAYER, elements, shapes, index, false)
+    }
+
+    private int convertLayer(final String LAYER_NAME, final Node LAYER, Map<String, List<FxgElement>> elements, List shapes, int index, boolean OPTIMIZE_SHAPES) {
         LAYER.eachWithIndex {Node node, int i->
             if ('visible' != node.@visible) {
                 Paint paint
@@ -877,7 +881,7 @@ class FxgParser {
                         }
                         fxgShape = parseFxgPath(node, LAYER_NAME, elementName)
 
-                        if (elementName != null) {
+                        if (elementName != null && OPTIMIZE_SHAPES) {
                             E_MATCHER.reset(elementName)
                             if (E_MATCHER.matches()) {
                                 fxgShape = new FxgEllipse(layerName: LAYER_NAME, shapeName: fxgShape.shapeName, x: fxgShape.path.boundsInLocal.minX, y: fxgShape.path.boundsInLocal.minY, width: fxgShape.path.boundsInLocal.width, height: fxgShape.path.boundsInLocal.height, alpha: lastShapeAlpha, rotation: fxgShape.rotation, scaleX: fxgShape.scaleX, scaleY: fxgShape.scaleY)
