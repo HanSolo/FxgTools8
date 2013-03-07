@@ -554,15 +554,15 @@ abstract class FxgShape {
                 code.append("        ctx.fill();\n")
                 break
             case FxgFillType.LINEAR_GRADIENT:
-                code.append("${elementName}_Fill = ctx.createLinearGradient((${(fill.startX) / referenceWidth} * imageWidth), (${(fill.startY) / referenceHeight} * imageHeight), ((${(fill.endX) / referenceWidth}) * imageWidth), ((${(fill.endY) / referenceHeight}) * imageHeight));\n")
+                code.append("        var ${elementName} = ctx.createLinearGradient((${(fill.startX) / referenceWidth} * width), (${(fill.startY) / referenceHeight} * height), ((${(fill.endX) / referenceWidth}) * width), ((${(fill.endY) / referenceHeight}) * height));\n")
                 appendCanvasStops(code, fill.stops, elementName)
-                code.append("        ctx.fillStyle = ${elementName}_Fill;\n")
+                code.append("        ctx.fillStyle = ${elementName};\n")
                 code.append("        ctx.fill();\n")
                 break
             case FxgFillType.RADIAL_GRADIENT:
-                code.append("${elementName}_Fill = ctx.createRadialGradient((${fill.centerX / referenceWidth}) * imageWidth, ((${fill.centerY / referenceHeight}) * imageHeight), 0, ((${fill.centerX / referenceWidth}) * imageWidth), ((${fill.centerY / referenceHeight}) * imageHeight), ${fill.radius / referenceWidth} * imageWidth);\n")
+                code.append("        var ${elementName} = ctx.createRadialGradient((${fill.centerX / referenceWidth}) * width, ((${fill.centerY / referenceHeight}) * height), 0, ((${fill.centerX / referenceWidth}) * width), ((${fill.centerY / referenceHeight}) * height), ${fill.radius / referenceWidth} * width);\n")
                 appendCanvasStops(code, fill.stops, elementName)
-                code.append("        ctx.fillStyle = ${elementName}_Fill;\n")
+                code.append("        ctx.fillStyle = ${elementName};\n")
                 code.append("        ctx.fill();\n")
                 break
         }
@@ -591,7 +591,7 @@ abstract class FxgShape {
                     code.append("        ctx.lineJoin = 'miter';\n")
                     break
             }
-            code.append("        ctx.lineWidth = ${stroke.width / referenceWidth} * imageWidth;\n")
+            code.append("        ctx.lineWidth = ${stroke.width / referenceWidth} * width;\n")
             code.append("        ctx.strokeStyle = ")
             appendCanvasColor(code, stroke.color)
             code.append(";\n")
@@ -606,12 +606,12 @@ abstract class FxgShape {
                         if (filter.inner) {
 
                         } else {
-                            code.append("        ctx.shadowOffsetX = ${filter.getOffset().x / referenceWidth} * imageWidth;\n")
-                            code.append("        ctx.shadowOffsetY = ${filter.getOffset().y / referenceHeight} * imageHeight;\n")
+                            code.append("        ctx.shadowOffsetX = ${filter.getOffset().x / referenceWidth} * width;\n")
+                            code.append("        ctx.shadowOffsetY = ${filter.getOffset().y / referenceHeight} * height;\n")
                             code.append("        ctx.shadowColor = ")
-                            code.append("'rgba(${filter.color.red}, ${filter.color.green}, ${filter.color.blue}, ${filter.color.alpha / 255})'")
+                            code.append("'rgba(${(int) (filter.color.red * 255)}, ${(int) (filter.color.green * 255)}, ${(int) (filter.color.blue * 255)}, ${filter.color.opacity})'")
                             code.append(";\n")
-                            code.append("        ctx.shadowBlur = ${filter.blurX / referenceWidth} * imageWidth;\n")
+                            code.append("        ctx.shadowBlur = ${filter.blurX / referenceWidth} * width;\n")
                             code.append("        ctx.fill();\n")
                         }
                         break;
@@ -621,20 +621,20 @@ abstract class FxgShape {
     }
 
     private void appendCanvasColor(StringBuilder code, Color color) {
-        if (color.getOpacity().compareTo(255) == 0) {
-            code.append("'rgb(${color.red}, ${color.green}, ${color.blue})'")
+        if (color.getOpacity().compareTo(1.0) == 0) {
+            code.append("'rgb(${(int) (color.red * 255)}, ${(int) (color.green * 255)}, ${(int) (color.blue * 255)})'")
         } else {
-            code.append("'rgba(${color.red}, ${color.green}, ${color.blue}, ${color.alpha / 255})'")
+            code.append("'rgba(${(int) (color.red * 255)}, ${(int) (color.green * 255)}, ${(int) (color.blue * 255)}, ${color.opacity})'")
         }
     }
 
     private void appendCanvasStops(StringBuilder code, List<Stop> stops, String elementName) {
         stops.each {stop ->
-            code.append("        ${elementName}_Fill.addColorStop(${stop.offset}, ")
-            if (stop.color.opacity.compareTo(255) == 0) {
-                code.append("'rgb(${stop.color.red}, ${stop.color.green}, ${stop.color.blue})'")
+            code.append("        ${elementName}.addColorStop(${stop.offset}, ")
+            if (stop.color.opacity.compareTo(1.0) == 0) {
+                code.append("'rgb(${(int) (stop.color.red * 255)}, ${(int) (stop.color.green * 255)}, ${(int) (stop.color.blue * 255)})'")
             } else {
-                code.append("'rgba(${stop.color.red}, ${stop.color.green}, ${stop.color.blue}, ${stop.color.alpha / 255})'")
+                code.append("'rgba(${(int) (stop.color.red * 255)}, ${(int) (stop.color.green * 255)}, ${(int) (stop.color.blue * 255)}, ${stop.color.opacity})'")
             }
             code.append(");\n")
         }

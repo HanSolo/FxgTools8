@@ -77,18 +77,18 @@ class FxgPath extends FxgShape {
                 code.append("        //${name}\n")
                 code.append("        ctx.save();\n")
                 if (transformed) {
-                    code.append("        ctx.setTransform(${transform.scaleX}, ${transform.shearY}, ${transform.shearX}, ${transform.scaleY}, ${transform.translateX / referenceWidth} * imageWidth, ${transform.translateY / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.setTransform(${transform.scaleX}, ${transform.shearY}, ${transform.shearX}, ${transform.scaleY}, ${transform.translateX / referenceWidth} * width, ${transform.translateY / referenceHeight} * height);\n")
                 }
                 code.append("        ctx.beginPath();\n")
                 for (PathElement element : path.elements) {
                     if (element.getClass().equals(MoveTo)) {
-                        code.append("        ctx.moveTo(${((MoveTo) element).x / referenceWidth} * imageWidth, ${((MoveTo) element).y / referenceHeight} * imageHeight);\n")
+                        code.append("        ctx.moveTo(${((MoveTo) element).x / referenceWidth} * width, ${((MoveTo) element).y / referenceHeight} * height);\n")
                     } else if (element.getClass().equals(LineTo)) {
-                        code.append("        ctx.lineTo(${((LineTo) element).x / referenceWidth} * imageWidth, ${((LineTo) element).y / referenceHeight} * imageHeight);\n")
+                        code.append("        ctx.lineTo(${((LineTo) element).x / referenceWidth} * width, ${((LineTo) element).y / referenceHeight} * height);\n")
                     } else if (element.getClass().equals(QuadCurveTo)) {
-                        code.append("        ctx.quadraticCurveTo(${((QuadCurveTo) element).x / referenceWidth} * imageWidth, ${((QuadCurveTo) element).y / referenceHeight} * imageHeight, ${((QuadCurveTo) element).controlX / referenceWidth} * imageWidth, ${((QuadCurveTo) element).controlY / referenceHeight} * imageHeight);\n")
+                        code.append("        ctx.quadraticCurveTo(${((QuadCurveTo) element).x / referenceWidth} * width, ${((QuadCurveTo) element).y / referenceHeight} * height, ${((QuadCurveTo) element).controlX / referenceWidth} * width, ${((QuadCurveTo) element).controlY / referenceHeight} * height);\n")
                     } else if (element.getClass().equals(CubicCurveTo)) {
-                        code.append("        ctx.bezierCurveTo(${((CubicCurveTo) element).x / referenceWidth} * imageWidth, ${((CubicCurveTo) element).y / referenceHeight} * imageHeight, ${((CubicCurveTo) element).controlX1 / referenceWidth} * imageWidth, ${((CubicCurveTo) element).controlY1 / referenceHeight} * imageHeight, ${((CubicCurveTo) element).controlX2 / referenceWidth} * imageWidth, ${((CubicCurveTo) element).controlY2 / referenceHeight} * imageHeight);\n")
+                        code.append("        ctx.bezierCurveTo(${((CubicCurveTo) element).controlX1 / referenceWidth} * width, ${((CubicCurveTo) element).controlY1 / referenceHeight} * height, ${((CubicCurveTo) element).controlX2 / referenceWidth} * width, ${((CubicCurveTo) element).controlY2 / referenceHeight} * height, ${((CubicCurveTo) element).x / referenceWidth} * width, ${((CubicCurveTo) element).y / referenceHeight} * height);\n")
                     } else if (element.getClass().equals(ClosePath)) {
                         code.append("        ctx.closePath();\n")
                     }
@@ -102,7 +102,7 @@ class FxgPath extends FxgShape {
                 appendCanvasFilter(code, name)
                 code.append("        ctx.restore();\n")
                 return code.toString()
-
+            
             default:
                 return "NOT SUPPORTED"
         }

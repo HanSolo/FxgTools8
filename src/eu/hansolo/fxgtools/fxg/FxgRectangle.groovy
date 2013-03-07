@@ -96,23 +96,23 @@ class FxgRectangle extends FxgShape {
                 code.append("        //${name}\n")
                 code.append("        ctx.save();\n")
                 if (transformed) {
-                    code.append("        ctx.setTransform(${transform.scaleX}, ${transform.shearY}, ${transform.shearX}, ${transform.scaleY}, ${transform.translateX / referenceWidth} * imageWidth, ${transform.translateY / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.setTransform(${transform.scaleX}, ${transform.shearY}, ${transform.shearX}, ${transform.scaleY}, ${transform.translateX / referenceWidth} * width, ${transform.translateY / referenceHeight} * height);\n")
                 }
                 if (radiusX.compareTo(0) == 0 && radiusY.compareTo(0) == 0) {
                     code.append("        ctx.beginPath();\n")
-                    code.append("        ctx.rect(${x / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight, ${width / referenceWidth} * imageWidth, ${height / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.rect(${x / referenceWidth} * width, ${y / referenceHeight} * height, ${width / referenceWidth} * width, ${height / referenceHeight} * height);\n")
                     code.append("        ctx.closePath();\n")
                 } else {
                     code.append("        ctx.beginPath();\n")
-                    code.append("        ctx.moveTo(${x / referenceWidth} * imageWidth + ${radiusX / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight);\n")
-                    code.append("        ctx.lineTo(${x / referenceWidth} * imageWidth + ${width / referenceWidth} * imageWidth - ${radiusX / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight);\n")
-                    code.append("        ctx.quadraticCurveTo(${x / referenceWidth} * imageWidth + ${width / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight, ${x / referenceWidth} * imageWidth + ${width / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight + ${radiusX / referenceWidth} * imageWidth);\n")
-                    code.append("        ctx.lineTo(${x / referenceWidth} * imageWidth + ${width / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight + ${height / referenceHeight} * imageHeight - ${radiusX / referenceWidth} * imageWidth);\n")
-                    code.append("        ctx.quadraticCurveTo(${x / referenceWidth} * imageWidth + ${width / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight + ${height / referenceHeight} * imageHeight, ${x / referenceWidth} * imageWidth + ${width / referenceWidth} * imageWidth - ${radiusX / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight + ${height / referenceHeight} * imageHeight);\n")
-                    code.append("        ctx.lineTo(${x / referenceWidth} * imageWidth + ${radiusX / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight + ${height / referenceHeight} * imageHeight);\n")
-                    code.append("        ctx.quadraticCurveTo(${x / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight + ${height / referenceHeight} * imageHeight, ${x / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight + ${height / referenceHeight} * imageHeight - ${radiusX / referenceWidth} * imageWidth);\n")
-                    code.append("        ctx.lineTo(${x / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight + ${radiusX / referenceWidth} * imageWidth);\n")
-                    code.append("        ctx.quadraticCurveTo(${x / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight, ${x / referenceWidth} * imageWidth + ${radiusX / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.moveTo(${x / referenceWidth} * width + ${radiusX / referenceWidth} * width, ${y / referenceHeight} * height);\n")
+                    code.append("        ctx.lineTo(${x / referenceWidth} * width + ${width / referenceWidth} * width - ${radiusX / referenceWidth} * width, ${y / referenceHeight} * height);\n")
+                    code.append("        ctx.quadraticCurveTo(${x / referenceWidth} * width + ${width / referenceWidth} * width, ${y / referenceHeight} * height, ${x / referenceWidth} * width + ${width / referenceWidth} * width, ${y / referenceHeight} * height + ${radiusX / referenceWidth} * width);\n")
+                    code.append("        ctx.lineTo(${x / referenceWidth} * width + ${width / referenceWidth} * width, ${y / referenceHeight} * height + ${height / referenceHeight} * height - ${radiusX / referenceWidth} * width);\n")
+                    code.append("        ctx.quadraticCurveTo(${x / referenceWidth} * width + ${width / referenceWidth} * width, ${y / referenceHeight} * height + ${height / referenceHeight} * height, ${x / referenceWidth} * width + ${width / referenceWidth} * width - ${radiusX / referenceWidth} * width, ${y / referenceHeight} * height + ${height / referenceHeight} * height);\n")
+                    code.append("        ctx.lineTo(${x / referenceWidth} * width + ${radiusX / referenceWidth} * width, ${y / referenceHeight} * height + ${height / referenceHeight} * height);\n")
+                    code.append("        ctx.quadraticCurveTo(${x / referenceWidth} * width, ${y / referenceHeight} * height + ${height / referenceHeight} * height, ${x / referenceWidth} * width, ${y / referenceHeight} * height + ${height / referenceHeight} * height - ${radiusX / referenceWidth} * width);\n")
+                    code.append("        ctx.lineTo(${x / referenceWidth} * width, ${y / referenceHeight} * height + ${radiusX / referenceWidth} * width);\n")
+                    code.append("        ctx.quadraticCurveTo(${x / referenceWidth} * width, ${y / referenceHeight} * height, ${x / referenceWidth} * width + ${radiusX / referenceWidth} * width, ${y / referenceHeight} * height);\n")
                     code.append("        ctx.closePath();\n")
                 }
                 if (filled) {

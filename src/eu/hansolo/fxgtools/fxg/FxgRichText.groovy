@@ -94,12 +94,12 @@ class FxgRichText extends FxgShape{
                 code.append("        //${name}\n")
                 code.append("        ctx.save();\n")
                 if (transformed) {
-                    code.append("        ctx.setTransform(${transform.scaleX}, ${transform.shearY}, ${transform.shearX}, ${transform.scaleY}, ${transform.translateX / referenceWidth} * imageWidth, ${transform.translateY / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.setTransform(${transform.scaleX}, ${transform.shearY}, ${transform.shearX}, ${transform.scaleY}, ${transform.translateX / referenceWidth} * width, ${transform.translateY / referenceHeight} * height);\n")
                 }
                 if (rotation != 0) {
-                    code.append("        ctx.translate(${x / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.translate(${x / referenceWidth} * width, ${y / referenceHeight} * height);\n")
                     code.append("        ctx.rotate(${Math.toRadians(rotation)});\n")
-                    code.append("        ctx.translate(${-x / referenceWidth} * imageWidth, ${-y / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.translate(${-x / referenceWidth} * width, ${-y / referenceHeight} * height);\n")
                 }
                 if (scaleX != 1 || scaleY != 1) {
                     code.append("        ctx.scale(${scaleX}, ${scaleY});\n")
@@ -111,11 +111,11 @@ class FxgRichText extends FxgShape{
                     code.append("${(int) fontSize}px ")
                     code.append("${font.family}';\n")
                     code.append("        ctx.textBaseline = 'bottom';\n")
-                    code.append("        ctx.fillText('${text.trim()}', ${x / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.fillText('${text.trim()}', ${x / referenceWidth} * width, ${y / referenceHeight} * height);\n")
                 }
                 if (stroked) {
                     appendCanvasStroke(code, name)
-                    code.append("        ctx.strokeText('${text.trim()}', ${x / referenceWidth} * imageWidth, ${y / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.strokeText('${text.trim()}', ${x / referenceWidth} * width, ${y / referenceHeight} * height);\n")
                 }
                 appendCanvasFilter(code, name)
                 if (scaleX != 1 || scaleY != 1) {

@@ -70,11 +70,11 @@ class FxgLine extends FxgShape {
                 code.append("        //${name}\n")
                 code.append("        ctx.save();\n")
                 if (transformed) {
-                    code.append("        ctx.setTransform(${transform.scaleX}, ${transform.shearY}, ${transform.shearX}, ${transform.scaleY}, ${transform.translateX / referenceWidth} * imageWidth, ${transform.translateY / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.setTransform(${transform.scaleX}, ${transform.shearY}, ${transform.shearX}, ${transform.scaleY}, ${transform.translateX / referenceWidth} * width, ${transform.translateY / referenceHeight} * height);\n")
                 }
                 code.append("        ctx.beginPath();\n")
-                code.append("        ctx.moveTo(${x1 / referenceWidth} * imageWidth, ${y1 / referenceHeight} * imageHeight);\n")
-                code.append("        ctx.lineTo(${x2 / referenceWidth} * imageWidth, ${y2 / referenceHeight} * imageHeight);\n")
+                code.append("        ctx.moveTo(${x1 / referenceWidth} * width, ${y1 / referenceHeight} * height);\n")
+                code.append("        ctx.lineTo(${x2 / referenceWidth} * width, ${y2 / referenceHeight} * height);\n")
                 code.append("        ctx.closePath();\n")
                 if (filled) {
                     appendCanvasFill(code, name)

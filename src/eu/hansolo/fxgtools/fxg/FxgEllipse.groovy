@@ -94,11 +94,11 @@ class FxgEllipse extends FxgShape {
                 code.append("        //${name}\n")
                 code.append("        ctx.save();\n")
                 if (transformed) {
-                    code.append("        ctx.setTransform(${transform.scaleX}, ${transform.shearY}, ${transform.shearX}, ${transform.scaleY}, ${transform.translateX / referenceWidth} * imageWidth, ${transform.translateY / referenceHeight} * imageHeight);\n")
+                    code.append("        ctx.setTransform(${transform.scaleX}, ${transform.shearY}, ${transform.shearX}, ${transform.scaleY}, ${transform.translateX / referenceWidth} * width, ${transform.translateY / referenceHeight} * height);\n")
                 }
                 code.append("        ctx.scale(${width / height}, 1);\n")
                 code.append("        ctx.beginPath();\n")
-                code.append("        ctx.arc(${center.x / referenceWidth / (width / height)} * imageWidth, ${center.y / referenceHeight} * imageHeight, ${radiusX / referenceWidth / (width / height)} * imageWidth, 0, 2 * Math.PI, false);\n")
+                code.append("        ctx.arc(${center.x / referenceWidth / (width / height)} * width, ${center.y / referenceHeight} * height, ${radiusX / referenceWidth / (width / height)} * width, 0, 2 * Math.PI, false);\n")
                 if (filled) {
                     appendCanvasFill(code, name)
                 }

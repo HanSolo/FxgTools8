@@ -291,11 +291,10 @@ class FxgTranslator {
                     String varName = createVarName(layerName, element.shape.shapeName)
                     String cssName = createCssName(layerName, element.shape.shapeName)
                     if(element.getShape().getClass().equals(FxgRichText.class)) {
-                        regionInitialization.append("\n        ${varName}").append(" = TextBuilder.create().text(\"${element.shape.text}\").styleClass(\"${cssName}\").build();\n\n")
+                        regionInitialization.append("\n        ${varName}").append(" = TextBuilder.create().text(\"${element.shape.text}\").styleClass(\"${cssName}\").build();\n")
                     } else {
-                        regionInitialization.append("\n        ${varName}").append(" = RegionBuilder.create().styleClass(\"${cssName}\").build();\n\n")
+                        regionInitialization.append("\n        ${varName}").append(" = RegionBuilder.create().styleClass(\"${cssName}\").build();\n")
                     }
-                    regionInitialization.append("\n        ${varName}.getStyleClass().setAll(\"${cssName}\");\n\n")
                     // Add chained effects if the FxgShape contains more than one effect
                     if (!element.shape.effects.isEmpty() && element.shape.effects.size() > 1) {
                         String lastEffectName
@@ -689,43 +688,43 @@ class FxgTranslator {
         StringBuilder codeToExport = new StringBuilder(template.text)
 
         StringBuilder createBuffers = new StringBuilder()
-        StringBuilder drawImagesToBuffer = new StringBuilder()
-        StringBuilder drawImagesToCanvas = new StringBuilder()
-        StringBuilder clearBuffers = new StringBuilder()
+        StringBuilder drawToBuffer = new StringBuilder()
+        StringBuilder drawToCanvas = new StringBuilder()
+        StringBuilder resizeBuffers = new StringBuilder()
         layerMap.keySet().each {String layerName ->
             if (layerSelection.contains(layerName) && !layerName.toLowerCase().startsWith("properties")) {
-                createBuffers.append("    var ${layerName}Buffer = document.createElement('canvas');\n")
-                createBuffers.append("    ${layerName}Buffer.width = imageWidth;\n")
-                createBuffers.append("    ${layerName}Buffer.height = imageHeight;\n")
-                createBuffers.append("    var ${layerName}Ctx = ${layerName}Buffer.getContext('2d');\n")
-                drawImagesToBuffer.append("        draw${layerName}Image(${layerName}Ctx);\n")
-                drawImagesToCanvas.append("        mainCtx.drawImage(${layerName}Buffer, 0, 0);\n")
-                clearBuffers.append("        ${layerName}Ctx.clearRect(0, 0, this.width, this.height);\n")
+                createBuffers.append("    var ${layerName}Buffer = doc.createElement('canvas');\n")
+                drawToBuffer.append("        draw${layerName.capitalize()}();\n")
+                drawToCanvas.append("        mainCtx.drawImage(${layerName}Buffer, 0, 0);\n")
+                resizeBuffers.append("        ${layerName}Buffer.width  = width;\n")
+                resizeBuffers.append("        ${layerName}Buffer.height = height;\n")
             }
         }
 
         replaceAll(codeToExport, "\$className", CLASS_NAME)
         replaceAll(codeToExport, "\$createBuffers", createBuffers.toString())
-        replaceAll(codeToExport, "\$drawImagesToBuffer", drawImagesToBuffer.toString())
-        replaceAll(codeToExport, "\$drawImagesToCanvas", drawImagesToCanvas.toString())
+        replaceAll(codeToExport, "\$drawToBuffer", drawToBuffer.toString())
+        replaceAll(codeToExport, "\$drawToCanvas", drawToCanvas.toString())
         replaceAll(codeToExport, "\$creationMethods", createCode(layerMap, LANGUAGE))
         replaceAll(codeToExport, "\$width", WIDTH)
         replaceAll(codeToExport, "\$height", HEIGHT)
-        replaceAll(codeToExport, "\$clearBuffers", clearBuffers.toString())
+        replaceAll(codeToExport, "\$resizeBuffers", resizeBuffers.toString())
 
         return codeToExport.toString()
     }
 
     private String canvasLayerMethodStart(final String LAYER_NAME) {
         StringBuilder layerCode = new StringBuilder()
-        layerCode.append("    var draw${LAYER_NAME}Image = function(ctx) {\n")
-        layerCode.append("        ctx.save();\n\n")
+        layerCode.append("    var draw${LAYER_NAME.capitalize()} = function() {\n")
+        layerCode.append("        var ctx    = ${LAYER_NAME}Buffer.getContext('2d');\n")
+        layerCode.append("        var width  = ${LAYER_NAME}Buffer.width;\n")
+        layerCode.append("        var height = ${LAYER_NAME}Buffer.height;\n\n")
+        layerCode.append("        ctx.clearRect(0, 0, width, height);\n\n");
         return layerCode.toString()
     }
 
     private String canvasLayerMethodStop() {
         StringBuilder layerCode = new StringBuilder()
-        layerCode.append("        ctx.restore();\n")
         layerCode.append("    }\n\n")
         return layerCode.toString()
     }
@@ -756,12 +755,12 @@ class FxgTranslator {
                 int shapeIndex = 0
 
                 switch(LANGUAGE) {
-                    case Language.JAVAFX       :
+                    case Language.JAVAFX:
                         if (layerName.toLowerCase().endsWith("canvas")) {
                             code.append(javaFxCanvasLayerMethodStart(layerName))
                         }
                         break
-                    case Language.CANVAS       :
+                    case Language.CANVAS:
                         code.append(canvasLayerMethodStart(layerName))
                         break
                 }
@@ -771,6 +770,8 @@ class FxgTranslator {
                     shapeIndex += 1
                     if (layerName.toLowerCase().endsWith("canvas")) {
                         code.append(element.shape.translateTo(Language.JAVAFX_CANVAS, shapeIndex, nameSet))
+                    } else if (Language.CANVAS == LANGUAGE) {
+                        code.append(element.shape.translateTo(LANGUAGE, shapeIndex, nameSet))
                     }
                 }
 
@@ -940,6 +941,10 @@ class FxgTranslator {
         replaceAll(CODE, "_E_", "")
         final Pattern PATTERN = Pattern.compile(/_?RR[0-9]+_([0-9]+_)?/)
         replaceAll(CODE, PATTERN, "")
+        final Pattern TRANSLATE_ZERO_PATTERN = Pattern.compile(/(.*)(\.setTranslate(X|Y)\(0\.0\));/)
+        replaceAll(CODE, TRANSLATE_ZERO_PATTERN, "")
+        final Pattern PREF_SIZE_ZERO_PATTERN = Pattern.compile(/(.*)(\.setPrefSize\(0\.0, 0\.0\));/)
+        replaceAll(CODE, PREF_SIZE_ZERO_PATTERN, "")
 
         return CODE.toString()
     }
