@@ -84,10 +84,11 @@ class FxgLiveParser {
         }
 
         layers.eachWithIndex {def layer, int i ->
-            String layerName  = groups.keySet().contains(layer.attribute(D.userLabel)) ? layer.attribute(D.userLabel) : layer.attribute(D.userLabel) + "_$i"
+            String layerName  = groups.keySet().contains(layer.attribute(D.userLabel)) ? layer.attribute(D.userLabel) + "_$i" : layer.attribute(D.userLabel)
             Group  group      = new Group()
             groups[layerName] = convertLayer(layer, group)
         }
+
         return groups
     }
 

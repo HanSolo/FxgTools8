@@ -144,7 +144,7 @@ class FxgParser {
         }
 
         layers.eachWithIndex {def layer, int i ->
-            String layerName = groups.keySet().contains(layer.attribute(D.userLabel)) ? layer.attribute(D.userLabel) : layer.attribute(D.userLabel) + "_$i"
+            String layerName = groups.keySet().contains(layer.attribute(D.userLabel)) ? layer.attribute(D.userLabel) + "_$i" : layer.attribute(D.userLabel)
             if (layerName.toLowerCase().startsWith("properties")) {
                 convertProperties(layer)
             } else {
