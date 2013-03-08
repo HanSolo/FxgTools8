@@ -42,7 +42,7 @@ class FxgTranslator {
     private int                         splitCounter    = 0
     private int                         nextSplit       = 70000
     private int                         splitNumber     = 0
-    private String                      packageInfo     = "eu.hansolo.fx"
+    private String                      packageInfo     = ""
     private List<String>                layerSelection  = []
     private HashSet<String>             nameSet         = []
     private HashSet<String>             groupNameSet    = []
@@ -110,7 +110,7 @@ class FxgTranslator {
     }
 
     void setPackageInfo(final String PACKAGE_INFO) {
-        packageInfo = PACKAGE_INFO.isEmpty() ? "eu.hansolo.fx" : (PACKAGE_INFO.endsWith(".") ? PACKAGE_INFO.substring(0, PACKAGE_INFO.length() - 1) : PACKAGE_INFO)
+        packageInfo = (PACKAGE_INFO.endsWith(".") ? PACKAGE_INFO.substring(0, PACKAGE_INFO.length() - 1) : PACKAGE_INFO)
     }
 
     void setLayerSelection(List<String> selectedLayers) {
@@ -165,7 +165,7 @@ class FxgTranslator {
 
         replaceAll(codeToExport, "\$width", WIDTH)
         replaceAll(codeToExport, "\$height", HEIGHT)
-        replaceAll(codeToExport, "\$packageInfo", "package " + packageInfo + ";")
+        replaceAll(codeToExport, "\$packageInfo", packageInfo.isEmpty() ? "" : "package " + packageInfo + ";")
         replaceAll(codeToExport, "\$className", CLASS_NAME)
         replaceAll(codeToExport, "\$varDeclaration", javaFxVariableDeclaration(layerMap).toString())
         replaceAll(codeToExport, "\$varInitialization", javaFxVariableInitialization(layerMap).toString())
@@ -189,7 +189,7 @@ class FxgTranslator {
         replaceAll(codeToExport, "\$propertyInitialization", javaFxPropertyInitialization(PROPERTIES))
         replaceAll(codeToExport, "\$propertyGetterSetter", javaFxPropertyGetterSetter(PROPERTIES))
         replaceAll(codeToExport, "\$prefSizeCalculation", javaFxPrefSizeCalculation(WIDTH, HEIGHT))
-        replaceAll(codeToExport, "\$packageInfo", "package " + packageInfo + ";")
+        replaceAll(codeToExport, "\$packageInfo", packageInfo.isEmpty() ? "" : "package " + packageInfo + ";")
         replaceAll(codeToExport, "\$className", CLASS_NAME)
         replaceAll(codeToExport, "\$styleClass", CLASS_NAME.toLowerCase())
         return codeToExport.toString()
@@ -200,7 +200,7 @@ class FxgTranslator {
         StringBuilder codeToExport = new StringBuilder(template.text)
         replaceAll(codeToExport, "\$propertySetter", javaFxPropertySetter(CLASS_NAME, PROPERTIES))
         replaceAll(codeToExport, "\$buildMethod", javaFxBuildMethod(CLASS_NAME, PROPERTIES))
-        replaceAll(codeToExport, "\$packageInfo", "package " + packageInfo + ";")
+        replaceAll(codeToExport, "\$packageInfo", packageInfo.isEmpty() ? "" : "package " + packageInfo + ";")
         replaceAll(codeToExport, "\$className", CLASS_NAME)
         return codeToExport.toString()
     }
@@ -208,7 +208,7 @@ class FxgTranslator {
     private StringBuilder javaFxCssTemplate(final String CLASS_NAME, Map<String, List<FxgElement>> layerMap, final HashMap<String, FxgVariable> PROPERTIES) {
         def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_css.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
-        replaceAll(codeToExport, "\$packageInfo", packageInfo)
+        replaceAll(codeToExport, "\$packageInfo", packageInfo.isEmpty() ? "" : packageInfo + ".")
         replaceAll(codeToExport, "\$styleClass", CLASS_NAME.toLowerCase())
         replaceAll(codeToExport, "\$className", CLASS_NAME)
         replaceAll(codeToExport, "\$fillAndStrokeDefinitions", cssCode(CLASS_NAME, layerMap))
@@ -219,7 +219,7 @@ class FxgTranslator {
     private String javaFxBehaviorTemplate(final String CLASS_NAME) {
         def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_behavior.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
-        replaceAll(codeToExport, "\$packageInfo", "package " + packageInfo + ";")
+        replaceAll(codeToExport, "\$packageInfo", packageInfo.isEmpty() ? "" : "package " + packageInfo + ";")
         replaceAll(codeToExport, "\$className", CLASS_NAME)
         return codeToExport.toString()
     }
@@ -227,7 +227,7 @@ class FxgTranslator {
     private String javaFxDemoTemplate(final String CLASS_NAME, final String WIDTH, final String HEIGHT) {
         def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_demo.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
-        replaceAll(codeToExport, "\$packageInfo", "package " + packageInfo + ";")
+        replaceAll(codeToExport, "\$packageInfo", packageInfo.isEmpty() ? "" : "package " + packageInfo + ";")
         replaceAll(codeToExport, "\$className", CLASS_NAME)
         replaceAll(codeToExport, "\$width", WIDTH)
         replaceAll(codeToExport, "\$height", HEIGHT)

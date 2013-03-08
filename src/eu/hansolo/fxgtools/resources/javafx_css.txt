@@ -1,5 +1,5 @@
 .$styleClass {
-    -fx-skin: "$packageInfo.$classNameSkin";
+    -fx-skin: "$packageInfo$classNameSkin";
 $colorDefinitions
 }
 
