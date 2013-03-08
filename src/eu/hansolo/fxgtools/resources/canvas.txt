@@ -20,7 +20,7 @@ var $className = function(parameters) {
         doc.getElementById(parentId).appendChild(canvas);
     }
 
-    // Get the canvas context and clear it
+    // Get the canvas context and create all buffers
     var mainCtx = doc.getElementById(id).getContext('2d');
 $createBuffers
 
