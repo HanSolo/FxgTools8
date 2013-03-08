@@ -64,7 +64,7 @@ public class $classNameSkin extends BehaviorSkinBase<$className, $classNameBehav
     private double        width;
     private double        height;
     private Pane          pane;
-    private boolean       isDirty;$varDeclaration
+$varDeclaration
 
 
     // ******************** Constructors **************************************
@@ -73,7 +73,6 @@ public class $classNameSkin extends BehaviorSkinBase<$className, $classNameBehav
         control     = CONTROL;
         aspectRatio = DEFAULT_HEIGHT / DEFAULT_WIDTH;
         pane        = new Pane();
-        isDirty     = false;
         init();
         initGraphics();
         registerListeners();
@@ -108,7 +107,6 @@ public class $classNameSkin extends BehaviorSkinBase<$className, $classNameBehav
 $varInitialization
         getChildren().setAll(pane);
         resize();
-        update();
     }
 
     private void registerListeners() {
@@ -120,7 +118,6 @@ $registerListeners
         control.getStyleClass().addListener(new ListChangeListener<String>() {
             @Override public void onChanged(Change<? extends String> change) {
                 resize();
-                update();
             }
         });
     }
@@ -129,23 +126,11 @@ $registerListeners
     // ******************** Methods *******************************************
     @Override protected void handleControlPropertyChanged(final String PROPERTY) {
         super.handleControlPropertyChanged(PROPERTY);
-        if ("UPDATE".equals(PROPERTY)) {
-            update();
-        } else if ("RESIZE".equals(PROPERTY)) {
+        if ("RESIZE".equals(PROPERTY)) {
             resize();
-            update();
         } else if ("PREF_SIZE".equals(PROPERTY)) {
             aspectRatio = control.getPrefHeight() / control.getPrefWidth();
         }$handlePropertyChanges
-    }
-
-    @Override protected void layoutChildren(final double X, final double Y, final double W, final double H) {
-        //if (!isDirty) return;
-        // update your graphical intense updates here
-
-        //isDirty = false;
-
-        super.layoutChildren(X, Y, W, H);
     }
 
     @Override public final void dispose() {
@@ -194,12 +179,6 @@ $registerListeners
                 .append((int) (COLOR.getBlue() * 255)).append(", ")
                 .append(COLOR.getOpacity()).append(")");
         return cssColor.toString();
-    }
-
-
-    // ******************** Update ********************************************
-    private void update() {
-
     }
 
 

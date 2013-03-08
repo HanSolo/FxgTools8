@@ -94,8 +94,7 @@ class FxgLiveParser {
     Dimension2D getDimension(final Node FXG) {
         originalWidth  = (int)(FXG.@viewWidth ?: 100).toDouble()
         originalHeight = (int)(FXG.@viewHeight ?: 100).toDouble()
-        fxgVersion     = FXG.@version
-        return new Rectangle(originalWidth, originalHeight)
+        return new Dimension2D(originalWidth, originalHeight)
     }
 
     Dimension2D getDimension(final String FILE_NAME) {

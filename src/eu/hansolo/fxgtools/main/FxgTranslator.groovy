@@ -116,8 +116,10 @@ class FxgTranslator {
     }
 
     private String createCssName(final String LAYER_NAME, final String ELEMENT_NAME) {
+        String elementName = ELEMENT_NAME.replaceAll("E_", '')
+        elementName = elementName.replaceAll("_?RR[0-9]+_([0-9]+_)?", '')
         StringBuilder cssName = new StringBuilder()
-        cssName.append(createName(LAYER_NAME.toLowerCase())).append("-").append(createName(ELEMENT_NAME.toLowerCase().replaceAll("_", '-')))
+        cssName.append(createName(LAYER_NAME.toLowerCase())).append("-").append(createName(elementName.toLowerCase().replaceAll("_", '-')))
         return cssName.toString()
     }
 
@@ -812,10 +814,10 @@ class FxgTranslator {
                             if (FxgShapeType.TEXT == element.shape.type) {
                                 code.append("\n        // ").append(varName).append(".setFont(font);")
                             } else {
-                                code.append("\n        ").append(varName).append(".setPrefSize(${element.getShape().elementWidth / element.getShape().referenceWidth} * width, ${element.getShape().elementHeight / element.getShape().referenceHeight} * height);")
+                                code.append("\n        ").append(varName).append(".setPrefSize(${element.shape.elementWidth / element.shape.referenceWidth} * width, ${element.shape.elementHeight / element.shape.referenceHeight} * height);")
                             }
-                            code.append("\n        ").append(varName).append(".setTranslateX(${element.getShape().elementX / element.getShape().referenceWidth} * width);")
-                            code.append("\n        ").append(varName).append(".setTranslateY(${element.getShape().elementY / element.getShape().referenceHeight} * height);")
+                            code.append("\n        ").append(varName).append(".setTranslateX(${element.shape.elementX / element.shape.referenceWidth} * width);")
+                            code.append("\n        ").append(varName).append(".setTranslateY(${element.shape.elementY / element.shape.referenceHeight} * height);")
                             if (!element.shape.effects.isEmpty() && element.shape.effects.size() > 1) {
                                 element.shape.effects.each { Effect effect ->
                                     if (effect.class.equals(InnerShadow.class)) {
