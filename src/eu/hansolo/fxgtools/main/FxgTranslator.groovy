@@ -26,6 +26,8 @@ import javafx.scene.effect.InnerShadow
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+
+
 /**
  * Created by IntelliJ IDEA.
  * User: hansolo
@@ -108,7 +110,7 @@ class FxgTranslator {
     }
 
     void setPackageInfo(final String PACKAGE_INFO) {
-        packageInfo = PACKAGE_INFO.isEmpty() ? "eu.hansolo.fx" : PACKAGE_INFO;
+        packageInfo = PACKAGE_INFO.isEmpty() ? "eu.hansolo.fx" : (PACKAGE_INFO.endsWith(".") ? PACKAGE_INFO.substring(0, PACKAGE_INFO.length() - 1) : PACKAGE_INFO)
     }
 
     void setLayerSelection(List<String> selectedLayers) {
