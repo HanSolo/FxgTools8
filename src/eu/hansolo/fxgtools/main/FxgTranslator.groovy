@@ -63,6 +63,10 @@ class FxgTranslator {
     }
 
     String translate(final String PATH, final String FILE_NAME, Map<String, List<FxgElement>> layerMap, final Language LANGUAGE, final String WIDTH, final String HEIGHT, final boolean EXPORT_TO_FILE, final String NAME_PREFIX, final HashMap<String, FxgVariable> PROPERTIES) {
+        return translate(PATH, FILE_NAME, layerMap, LANGUAGE, WIDTH, HEIGHT, EXPORT_TO_FILE, NAME_PREFIX, PROPERTIES, false)
+    }
+
+    String translate(final String PATH, final String FILE_NAME, Map<String, List<FxgElement>> layerMap, final Language LANGUAGE, final String WIDTH, final String HEIGHT, final boolean EXPORT_TO_FILE, final String NAME_PREFIX, final HashMap<String, FxgVariable> PROPERTIES, final boolean JAVAFX_REGION) {
         final String CLASS_NAME = (FILE_NAME.contains(".") ? (FILE_NAME.substring(0, FILE_NAME.lastIndexOf('.')) + NAME_PREFIX) : (FILE_NAME + NAME_PREFIX)).capitalize()
         StringBuilder path = new StringBuilder(PATH)
         StringBuilder exportFileName = new StringBuilder(path).append(CLASS_NAME)
@@ -78,15 +82,23 @@ class FxgTranslator {
         // Export the header of the language specific template
         switch(LANGUAGE) {
             case Language.JAVAFX:
-                if (EXPORT_TO_FILE) {
-                    writeToFile(path + ("Demo.java").toString(), javaFxDemoTemplate(CLASS_NAME, WIDTH.replace(".0", ""), HEIGHT.replace(".0", "")))
-                    writeToFile(path + ("${CLASS_NAME}.java").toString(), javaFxControlTemplate(CLASS_NAME, Double.parseDouble(WIDTH), Double.parseDouble(HEIGHT), PROPERTIES))
-                    writeToFile(path + ("${CLASS_NAME}Behavior.java").toString(), javaFxBehaviorTemplate(CLASS_NAME))
-                    writeToFile(path + ("${CLASS_NAME.toLowerCase()}.css").toString(), makeCssNicer(javaFxCssTemplate(CLASS_NAME, layerMap, PROPERTIES)))
-                    writeToFile(path + ("${CLASS_NAME}Builder.java").toString(), javaFxBuilderTemplate(CLASS_NAME, PROPERTIES))
+                if (JAVAFX_REGION) {
+                    if (EXPORT_TO_FILE) {
+                        writeToFile(path + ("${CLASS_NAME.toLowerCase()}.css").toString(), makeCssNicer(javaFxCssTemplate(CLASS_NAME, layerMap, PROPERTIES)))
+                    }
+                    codeToExport.append(javaFxRegionTemplate(CLASS_NAME, WIDTH.replace(".0", ""), HEIGHT.replace(".0", ""), layerMap, LANGUAGE))
+                    exportFileName.append('.java')
+                } else {
+                    if (EXPORT_TO_FILE) {
+                        writeToFile(path + ("Demo.java").toString(), javaFxDemoTemplate(CLASS_NAME, WIDTH.replace(".0", ""), HEIGHT.replace(".0", "")))
+                        writeToFile(path + ("${CLASS_NAME}.java").toString(), javaFxControlTemplate(CLASS_NAME, Double.parseDouble(WIDTH), Double.parseDouble(HEIGHT), PROPERTIES))
+                        writeToFile(path + ("${CLASS_NAME}Behavior.java").toString(), javaFxBehaviorTemplate(CLASS_NAME))
+                        writeToFile(path + ("${CLASS_NAME.toLowerCase()}.css").toString(), makeCssNicer(javaFxCssTemplate(CLASS_NAME, layerMap, PROPERTIES)))
+                        writeToFile(path + ("${CLASS_NAME}Builder.java").toString(), javaFxBuilderTemplate(CLASS_NAME, PROPERTIES))
+                    }
+                    codeToExport.append(javaFxSkinTemplate(CLASS_NAME, WIDTH.replace(".0", ""), HEIGHT.replace(".0", ""), layerMap, LANGUAGE, PROPERTIES))
+                    exportFileName.append('Skin.java')
                 }
-                codeToExport.append(javaFxSkinTemplate(CLASS_NAME, WIDTH.replace(".0", ""), HEIGHT.replace(".0", ""), layerMap, LANGUAGE, PROPERTIES))
-                exportFileName.append('Skin.java')
                 break
             case Language.CANVAS:
                 if (EXPORT_TO_FILE) {
@@ -250,6 +262,34 @@ class FxgTranslator {
         layerCode.append("        return CANVAS;\n")
         layerCode.append("    }\n")
         return layerCode.toString()
+    }
+
+    private String javaFxRegionTemplate(final String CLASS_NAME, final String WIDTH, final String HEIGHT, Map<String, List<FxgElement>> layerMap, final Language LANGUAGE) {
+        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_region.txt')
+        StringBuilder codeToExport = new StringBuilder(template.text)
+
+        int maxLength = 11
+        layerMap.keySet().each {String layerName ->
+            if (layerSelection.contains(layerName) && !layerName.toLowerCase().startsWith("properties")) {
+                maxLength = Math.max(createName(layerName).length(), maxLength)
+            }
+        }
+
+        replaceAll(codeToExport, "\$width", WIDTH)
+        replaceAll(codeToExport, "\$height", HEIGHT)
+        replaceAll(codeToExport, "\$packageInfo", packageInfo.isEmpty() ? "" : "package " + packageInfo + ";")
+        replaceAll(codeToExport, "\$className", CLASS_NAME)
+        replaceAll(codeToExport, "\$varDeclaration", javaFxVariableDeclaration(layerMap).toString())
+        replaceAll(codeToExport, "\$varInitialization", javaFxVariableInitialization(layerMap).toString())
+        replaceAll(codeToExport, "\$canvasMethods", createCode(layerMap, LANGUAGE))
+        replaceAll(codeToExport, "\$resizeRegions", createResizingCode(layerMap, LANGUAGE))
+        replaceAll(allLayers, "_Canvas", "")
+        if (allLayers.length() > 31) {
+            allLayers.replace(allLayers.length() - 31, allLayers.length(), "")
+        }
+        replaceAll(codeToExport, "\$layerList", allLayers.toString())
+
+        return codeToExport.toString()
     }
 
     private StringBuilder javaFxVariableDeclaration(final HashMap<String, List<FxgElement>> layerMap) {
@@ -859,6 +899,7 @@ class FxgTranslator {
                     } else {
                         cssNameSet.add(cssName)
                     }
+                    cssCode.append("/* Original size: width ${element.shape.elementWidth} px, height ${element.shape.elementHeight} px */\n")
                     cssCode.append(element.shape.createCssFillStrokeShape(cssName, element.shape.filled, element.shape.stroked))
                 }
             }
@@ -914,10 +955,8 @@ class FxgTranslator {
                 replaceAll(CODE, "1.0 * SIZE", "SIZE")
                 replaceAll(CODE, "0.0 * width", "0.0");
                 replaceAll(CODE, "0.0 * height", "0.0");
-                replaceAll(CODE, "0.0 * size", "0.0");
                 replaceAll(CODE, "1.0 * width", "width");
                 replaceAll(CODE, "1.0 * height", "height");
-                replaceAll(CODE, "1.0 * size", "size");
                 replaceAll(CODE, "Color.color(0, 0, 0, 1)", "Color.BLACK")
                 replaceAll(CODE, "Color.color(0.0, 0.0, 0.0, 1)", "Color.BLACK")
                 replaceAll(CODE, "Color.color(0.0, 0.0, 0.0, 1.0)", "Color.BLACK")
@@ -954,6 +993,14 @@ class FxgTranslator {
         replaceAll(CODE, TRANSLATE_ZERO_PATTERN, "")
         final Pattern PREF_SIZE_ZERO_PATTERN = Pattern.compile(/(.*)(\.setPrefSize\(0\.0, 0\.0\));/)
         replaceAll(CODE, PREF_SIZE_ZERO_PATTERN, "")
+
+        // replace 0.0 * size with 0
+        final Pattern ZERO_SIZE_PATTERN = Pattern.compile(/(\D)(0\.0 \* size)/)
+        replaceAll(CODE, ZERO_SIZE_PATTERN, 1, "0")
+
+        // replace 1.0 * size with size
+        final Pattern ONE_SIZE_PATTERN = Pattern.compile(/(\D)(1\.0 \* size)/)
+        replaceAll(CODE, ONE_SIZE_PATTERN, 1, "size")
 
         return CODE.toString()
     }
@@ -1007,6 +1054,13 @@ class FxgTranslator {
         while (MATCHER.find()) {
             TEXT.replace(MATCHER.start(), MATCHER.end(), REPLACE)
             MATCHER.reset()
+        }
+    }
+
+    private static void replaceAll(final StringBuilder TEXT, final Pattern PATTERN, final int GROUP, final String REPLACE) {
+        final Matcher MATCHER = PATTERN.matcher(TEXT)
+        if (MATCHER.find()) {
+            TEXT.replaceAll(MATCHER.group(GROUP), REPLACE)
         }
     }
 
