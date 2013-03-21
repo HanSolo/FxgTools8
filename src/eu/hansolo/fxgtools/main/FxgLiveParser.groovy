@@ -520,22 +520,28 @@ class FxgLiveParser {
     }
 
     private void prepareParameters(def fxg, final double WIDTH, final double HEIGHT, final boolean KEEP_ASPECT) {
-        originalWidth  = (int)(fxg.@viewWidth ?: 300).toDouble()
-        originalHeight = (int)(fxg.@viewHeight ?: 300).toDouble()
+        originalWidth  = (int)(fxg.@viewWidth ?: WIDTH).toDouble()
+        originalHeight = (int)(fxg.@viewHeight ?: HEIGHT).toDouble()
+        aspectRatio    = originalHeight / originalWidth
 
         if (originalWidth <= WIDTH && originalHeight <= HEIGHT) {
             previewWidth  = originalWidth
             previewHeight = originalHeight
         } else {
-            if (originalWidth < originalHeight) {
-                previewWidth  = KEEP_ASPECT ? HEIGHT * (originalWidth / originalHeight) : WIDTH
+            if (originalWidth > originalHeight) {
+                // wider than height
+                previewWidth  = WIDTH
+                previewHeight = KEEP_ASPECT ? WIDTH * aspectRatio : HEIGHT
+            } else if (originalHeight > originalWidth) {
+                // higher than wide
+                previewWidth  = KEEP_ASPECT ? HEIGHT / aspectRatio : WIDTH
                 previewHeight = HEIGHT
             } else {
+                // square and bigger than preview area
                 previewWidth  = WIDTH
-                previewHeight = KEEP_ASPECT ? WIDTH * (originalHeight / originalWidth) : HEIGHT
+                previewHeight = HEIGHT
             }
         }
-        aspectRatio    = originalHeight / originalWidth
 
         scaleFactorX   = previewWidth / originalWidth
         scaleFactorY   = previewHeight / originalHeight
