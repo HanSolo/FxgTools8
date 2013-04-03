@@ -706,7 +706,7 @@ class FxgTranslator {
                 PROPERTY_CODE.append("    }\n")
                 PROPERTY_CODE.append("    ").append("public final ObjectProperty<${ORIGINAL_TYPE}> ").append(PROPERTY_NAME).append("Property() {\n")
                 PROPERTY_CODE.append("        if (null == ").append(PROPERTY_NAME).append(") {\n")
-                PROPERTY_CODE.append("            ").append(PROPERTY_NAME).append(" = new SimpleObjectProperty<${ORIGINAL_TYPE}>(this, \"").append(PROPERTY_NAME).append("\", DEFAULT_").append(PROPERTY_NAME.toUpperCase()).append(");\n")
+                PROPERTY_CODE.append("            ").append(PROPERTY_NAME).append(" = new SimpleObjectProperty<>(this, \"").append(PROPERTY_NAME).append("\", DEFAULT_").append(PROPERTY_NAME.toUpperCase()).append(");\n")
                 PROPERTY_CODE.append("        }\n")
                 PROPERTY_CODE.append("        return ").append(PROPERTY_NAME).append(";\n")
                 PROPERTY_CODE.append("    }\n")
