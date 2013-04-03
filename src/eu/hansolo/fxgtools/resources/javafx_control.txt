@@ -29,20 +29,10 @@ $propertyInitialization
 
     // ******************** Methods *******************************************
     public final boolean isKeepAspect() {
-        return keepAspect != null ? keepAspect.get() : _keepAspect;
+        return keepAspect;
     }
     public final void setKeepAspect(final boolean KEEP_ASPECT) {
-        if (keepAspect != null) {
-            keepAspect.set(KEEP_ASPECT);
-        } else {
-            _keepAspect = KEEP_ASPECT;
-        }
-    }
-    public final BooleanProperty keepAspectProperty() {
-        if (keepAspect == null) {
-            keepAspect = new SimpleBooleanProperty(this, "keepAspect", _keepAspect);
-        }
-        return keepAspect;
+        keepAspect = KEEP_ASPECT;
     }
 
     @Override public boolean isResizable() {
