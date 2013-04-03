@@ -3,11 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="04d8d6d4-a51d-434e-af9f-86390aba501e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/ShapeConverter.java" afterPath="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/ShapeConverter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FxgTools8.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364892530171" ignored="false" />
+    <file path="/Dummy.txt" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364970909525" ignored="false" />
     <file path="$PROJECT_DIR$/../JavaTest/src/eu/hansolo/fxgtester/ConvertFxg.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1363792245923" ignored="false" />
     <file path="$PROJECT_DIR$/../enzo/src/lcd/Lcd.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1354141253288" ignored="false" />
     <file path="/Lcd.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1357545086908" ignored="false" />
@@ -40,9 +41,9 @@
     <file path="$PROJECT_DIR$/../EmbeddedDesktop/src/eu/hansolo/fx/design/DeSignSkin.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1355907784447" ignored="false" />
     <file path="/javafx_control.txt" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1357187692536" ignored="false" />
     <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/lcd/Demo.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1357546166845" ignored="false" />
-    <file path="/Demo.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362666817602" ignored="false" />
+    <file path="/Demo.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364900274011" ignored="false" />
     <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/lcd/skin/LcdSkin.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1357545804460" ignored="false" />
-    <file path="/FxgTranslator.groovy" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364892709120" ignored="false" />
+    <file path="/FxgTranslator.groovy" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364972801989" ignored="false" />
     <file path="/FxgPath.groovy" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362639682713" ignored="false" />
     <file path="/FxgLine.groovy" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1357193822954" ignored="false" />
     <file path="/FxgRectangle.groovy" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1357193993928" ignored="false" />
@@ -59,7 +60,7 @@
     <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/lcd/Lcd.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1357545236877" ignored="false" />
     <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/lcd/LcdBuilder.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1357545236877" ignored="false" />
     <file path="/LcdBuilder.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1357545231359" ignored="false" />
-    <file path="/ShapeConverter.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1359016773348" ignored="false" />
+    <file path="/ShapeConverter.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364915851881" ignored="false" />
     <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/led1/Led.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1360753353633" ignored="false" />
     <file path="/Led.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1363794059717" ignored="false" />
     <file path="$PROJECT_DIR$/../FxgConverter8/src/eu/hansolo/fx/Main.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1363869617388" ignored="false" />
@@ -84,7 +85,7 @@
     <file path="/RadialSkin.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362637060570" ignored="false" />
     <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/gauge/radial.css" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362637509982" ignored="false" />
     <file path="/radial.css" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362637479147" ignored="false" />
-    <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/gauge/Demo.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362637736885" ignored="false" />
+    <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/gauge/Demo.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364915126825" ignored="false" />
     <file path="$PROJECT_DIR$/../FX8Playground/src/eu/hansolo/fx/Demo.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362666817602" ignored="false" />
     <file path="$PROJECT_DIR$/../FX8Playground/src/eu/hansolo/fx/LedSkin.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362663923643" ignored="false" />
     <file path="$PROJECT_DIR$/../FX8Playground/src/eu/hansolo/fx/Led.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1362663913002" ignored="false" />
@@ -106,6 +107,15 @@
     <file path="$PROJECT_DIR$/../FX8Playground/src/test/RegionDemo.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1363793038392" ignored="false" />
     <file path="/RegionDemo.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1363793033576" ignored="false" />
     <file path="/javafx_builder.txt" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364892220766" ignored="false" />
+    <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/tools/ShapeConverter.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364970940796" ignored="false" />
+    <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/tools/BrushedMetalPaint.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364899796415" ignored="false" />
+    <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/gauge/skin/GaugeSkin.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364916152042" ignored="false" />
+    <file path="/GaugeSkin.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364916149908" ignored="false" />
+    <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/gauge/gauge.css" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364916244809" ignored="false" />
+    <file path="/gauge.css" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364916244809" ignored="false" />
+    <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/gauge/GaugeModel.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364909793588" ignored="false" />
+    <file path="/GaugeModel.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364900601315" ignored="false" />
+    <file path="$PROJECT_DIR$/../Enzo/src/eu/hansolo/enzo/led/Led.java" changelist="04d8d6d4-a51d-434e-af9f-86390aba501e" time="1364971936900" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,8 +177,10 @@
       <file leaf-file-name="FxgTranslator.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="326" column="105" selection-start="18754" selection-end="18754" vertical-scroll-proportion="1.6923077">
-              <folding />
+            <state line="591" column="93" selection-start="37252" selection-end="37252" vertical-scroll-proportion="1.8406014">
+              <folding>
+                <element signature="e#37344#49573#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -191,7 +203,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/resources/javafx_control.txt" />
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgLiveParser.java" />
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgEllipse.groovy" />
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgLine.groovy" />
@@ -206,6 +217,7 @@
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgLiveParser.groovy" />
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/resources/javafx_builder.txt" />
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/resources/javafx_skin.txt" />
+        <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/ShapeConverter.java" />
         <option value="$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy" />
       </list>
     </option>
@@ -300,12 +312,12 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="Regex">
     <option name="pos1" value="218" />
@@ -352,12 +364,6 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
-      <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
     <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
       <module name="" />
       <setting name="path" value="" />
@@ -367,12 +373,31 @@
       <setting name="debug" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -401,19 +426,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -489,7 +501,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="824" extended-state="0" />
+    <frame x="0" y="22" width="1440" height="824" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -502,7 +514,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998565" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32577905" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -512,14 +523,15 @@
       <window_info id="Maven Repo Search" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="J2D Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Archetypes" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Maven-2 Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32386363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Code Graph" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4210904" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="FindBugs-IDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32577905" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
@@ -605,9 +617,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgShape.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="49" selection-start="1691" selection-end="1691" vertical-scroll-proportion="0.47640118">
-          <folding />
-        </state>
+        <state line="49" column="49" selection-start="1691" selection-end="1691" vertical-scroll-proportion="0.47640118" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/fxg/FxgEllipse.groovy">
@@ -628,13 +638,6 @@
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/resources/javafx_css.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="27" selection-start="42" selection-end="42" vertical-scroll-proportion="0.025073746" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/ShapeConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="13" selection-start="1124" selection-end="1124" vertical-scroll-proportion="0.02556391">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/resources/javafx_control.txt">
@@ -752,34 +755,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgLiveParser.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="521" column="112" selection-start="23240" selection-end="23240" vertical-scroll-proportion="0.79881656">
-          <folding>
-            <element signature="e#23499#23595#0" expanded="false" />
-            <element signature="e#23601#24186#0" expanded="false" />
-            <element signature="e#23651#23816#0" expanded="false" />
-            <element signature="e#24029#24176#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="521" column="112" selection-start="23240" selection-end="23240" vertical-scroll-proportion="0.79881656" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/resources/javafx_skin.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="5" selection-start="5579" selection-end="5579" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="145" column="5" selection-start="5579" selection-end="5579" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/resources/javafx_builder.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="65" selection-start="3232" selection-end="3232" vertical-scroll-proportion="0.0">
+        <state line="92" column="65" selection-start="3232" selection-end="3232" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/ShapeConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="356" column="0" selection-start="18380" selection-end="18380" vertical-scroll-proportion="0.9498525">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/hansolo/fxgtools/main/FxgTranslator.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="326" column="105" selection-start="18754" selection-end="18754" vertical-scroll-proportion="1.6923077">
-          <folding />
+        <state line="591" column="93" selection-start="37252" selection-end="37252" vertical-scroll-proportion="1.8406014">
+          <folding>
+            <element signature="e#37344#49573#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

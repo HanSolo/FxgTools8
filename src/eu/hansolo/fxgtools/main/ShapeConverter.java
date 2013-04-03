@@ -102,27 +102,26 @@ public class ShapeConverter {
         double centerY    = ARC.getCenterY();
         double radiusX    = ARC.getRadiusX();
         double radiusY    = ARC.getRadiusY();
-        double startAngle = ARC.getStartAngle();
+        double startAngle = Math.toRadians(-ARC.getStartAngle());
+        double endAngle   = Math.toRadians(-ARC.getStartAngle() - ARC.getLength());
         double length     = ARC.getLength();
-        double alpha      = ARC.getLength() + startAngle;
-        startAngle        = Math.toRadians(startAngle);
-        alpha             = Math.toRadians(alpha);
-        double phiOffset  = Math.toRadians(-90); // -90 needed for JavaFX
 
-        double startX = centerX + Math.cos(phiOffset) * radiusX * Math.cos(startAngle) + Math.sin(-phiOffset) * radiusY * Math.sin(startAngle);
-        double startY = centerY + Math.sin(phiOffset) * radiusX * Math.cos(startAngle) + Math.cos(phiOffset) * radiusY * Math.sin(startAngle);
+        double startX = radiusX * Math.cos(startAngle);
+        double startY = radiusY * Math.sin(startAngle);
 
-        double endX   = centerX + Math.cos(phiOffset) * radiusX * Math.cos(alpha) + Math.sin(-phiOffset) * radiusY * Math.sin(alpha);
-        double endY   = centerY + Math.sin(phiOffset) * radiusX * Math.cos(alpha) + Math.cos(phiOffset) * radiusY * Math.sin(alpha);
+        double endX   = centerX + radiusX * Math.cos(endAngle);
+        double endY   = centerY + radiusY * Math.sin(endAngle);
 
         int xAxisRot  = 0;
         int largeArc  = (length > 180) ? 1 : 0;
-        int sweep     = (length > 0) ? 1 : 0;
+        int sweep     = (length < 0) ? 1 : 0;
 
         fxPath.append("M ").append(centerX).append(" ").append(centerY).append(" ");
+
         if (ArcType.ROUND == ARC.getType()) {
-            fxPath.append("h ").append(startX - centerX).append(" v ").append(startY - centerY);
+            fxPath.append("l ").append(startX).append(" ").append(startY).append(" ");
         }
+
         fxPath.append("A ").append(radiusX).append(" ").append(radiusY).append(" ")
               .append(xAxisRot).append(" ").append(largeArc).append(" ").append(sweep).append(" ")
               .append(endX).append(" ").append(endY).append(" ");
@@ -151,7 +150,7 @@ public class ShapeConverter {
 
     public static String convertRectangle(final Rectangle RECTANGLE) {
         final StringBuilder fxPath = new StringBuilder();
-        final Bounds        bounds = RECTANGLE.getBoundsInLocal();
+        final Bounds bounds = RECTANGLE.getBoundsInLocal();
         if (Double.compare(RECTANGLE.getArcWidth(), 0.0) == 0 && Double.compare(RECTANGLE.getArcHeight(), 0.0) == 0) {
             fxPath.append("M ").append(bounds.getMinX()).append(" ").append(bounds.getMinY()).append(" ")
                   .append("H ").append(bounds.getMaxX()).append(" ")
