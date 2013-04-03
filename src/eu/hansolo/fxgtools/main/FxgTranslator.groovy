@@ -439,7 +439,7 @@ class FxgTranslator {
             if (TYPE.equals("double")) {
                 // Add the default value
                 PROPERTY_CODE.append("    private static final double ")
-                appendBlanks(PROPERTY_CODE, (maxLength - 4))
+                appendBlanks(PROPERTY_CODE, (maxLength - 3))
                 PROPERTY_CODE.append("DEFAULT_").append(PROPERTY_NAME.toUpperCase()).append(" = ").append(PROPERTIES.get(PROPERTY_NAME).defaultValue).append(";\n")
                 // Add the property definition
                 PROPERTY_CODE.append("    private DoubleProperty ")
@@ -457,7 +457,7 @@ class FxgTranslator {
             } else if (TYPE.equals("int")) {
                 // Add the default value
                 PROPERTY_CODE.append("    private static final int ")
-                appendBlanks(PROPERTY_CODE, (maxLength - 4))
+                appendBlanks(PROPERTY_CODE, (maxLength))
                 PROPERTY_CODE.append("DEFAULT_").append(PROPERTY_NAME.toUpperCase()).append(" = ").append(PROPERTIES.get(PROPERTY_NAME).defaultValue).append(";\n")
                 // Add the property definition
                 PROPERTY_CODE.append("    private IntegerProperty")
@@ -466,7 +466,7 @@ class FxgTranslator {
             } else if (TYPE.equals("long")) {
                 // Add the default value
                 PROPERTY_CODE.append("    private static final long ")
-                appendBlanks(PROPERTY_CODE, (maxLength - 4))
+                appendBlanks(PROPERTY_CODE, (maxLength - 1))
                 PROPERTY_CODE.append("DEFAULT_").append(PROPERTY_NAME.toUpperCase()).append(" = ").append(PROPERTIES.get(PROPERTY_NAME).defaultValue).append(";\n")
                 // Add the property definition
                 PROPERTY_CODE.append("    private LongProperty   ")
@@ -475,8 +475,8 @@ class FxgTranslator {
             } else if (TYPE.equals("string")) {
                 // Add the default value
                 PROPERTY_CODE.append("    private static final String ")
-                appendBlanks(PROPERTY_CODE, (maxLength - 4))
-                PROPERTY_CODE.append("DEFAULT_").append(PROPERTY_NAME.toUpperCase()).append(" = ").append(PROPERTIES.get(PROPERTY_NAME).defaultValue).append(";\n")
+                appendBlanks(PROPERTY_CODE, (maxLength - 3))
+                PROPERTY_CODE.append("DEFAULT_").append(PROPERTY_NAME.toUpperCase()).append(" = \"").append(PROPERTIES.get(PROPERTY_NAME).defaultValue).append("\";\n")
                 // Add the property definition
                 PROPERTY_CODE.append("    private StringProperty ")
                 appendBlanks(PROPERTY_CODE, (maxLength + 2))
@@ -484,7 +484,7 @@ class FxgTranslator {
             } else if (TYPE.equals("object")) {
                 // Add the default value
                 PROPERTY_CODE.append("    private static final Object ")
-                appendBlanks(PROPERTY_CODE, (maxLength - 4))
+                appendBlanks(PROPERTY_CODE, (maxLength + 2))
                 PROPERTY_CODE.append("DEFAULT_").append(PROPERTY_NAME.toUpperCase()).append(" = ").append(PROPERTIES.get(PROPERTY_NAME).defaultValue).append(";\n")
                 // Add the property definition
                 PROPERTY_CODE.append("    private ObjectProperty ")
@@ -493,10 +493,10 @@ class FxgTranslator {
             } else {
                 // Add the default value
                 PROPERTY_CODE.append("    private static final ${PROPERTIES.get(PROPERTY_NAME).type} ")
-                appendBlanks(PROPERTY_CODE, (maxLength - 4))
+                appendBlanks(PROPERTY_CODE, (maxLength - 2))
 
                 String defaultValue
-                if (PROPERTIES.get(PROPERTY_NAME).type.equals("color")) {
+                if (PROPERTIES.get(PROPERTY_NAME).type.toLowerCase().equals("color")) {
                     defaultValue = "Color.web(\"#${PROPERTIES.get(PROPERTY_NAME).defaultValue}\")"
                 } else {
                     defaultValue = PROPERTIES.get(PROPERTY_NAME).defaultValue
