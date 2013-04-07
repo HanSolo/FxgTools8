@@ -23,7 +23,8 @@ package eu.hansolo.fxgtools.fxg
  * Time: 15:45
  */
 class FxgVariable {
-    String type
-    String name
-    String defaultValue
+    String  type
+    String  name
+    String  defaultValue
+    boolean readOnly = false
 }

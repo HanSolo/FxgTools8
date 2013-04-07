@@ -1,5 +1,6 @@
 package eu.hansolo.fxgtools.main
 
+import eu.hansolo.fxgtools.fxg.FxgVariable
 import groovy.xml.Namespace
 import javafx.geometry.Dimension2D
 import javafx.geometry.Point2D
@@ -41,6 +42,7 @@ class FxgLiveParser {
     private double groupOffsetY
     private double lastShapeAlpha
     private Affine groupTransform
+    private HashMap<String, FxgVariable> properties = new HashMap<String, FxgVariable>()
     private class FxgPathReader {
         protected List   path
         protected double scaleFactorX
@@ -85,8 +87,12 @@ class FxgLiveParser {
 
         layers.eachWithIndex {def layer, int i ->
             String layerName  = groups.keySet().contains(layer.attribute(D.userLabel)) ? layer.attribute(D.userLabel) + "_$i" : layer.attribute(D.userLabel)
-            Group  group      = new Group()
-            groups[layerName] = convertLayer(layer, group)
+            if (layerName.toLowerCase().startsWith("properties")) {
+                convertProperties(layer)
+            } else {
+                Group  group      = new Group()
+                groups[layerName] = convertLayer(layer, group)
+            }
         }
 
         return groups
@@ -100,6 +106,10 @@ class FxgLiveParser {
 
     Dimension2D getDimension(final String FILE_NAME) {
         return getDimension(new XmlParser().parse(new File(FILE_NAME)))
+    }
+
+    HashMap<String, FxgVariable> getControlProperties() {
+        return properties
     }
 
 
@@ -546,4 +556,35 @@ class FxgLiveParser {
         scaleFactorX   = previewWidth / originalWidth
         scaleFactorY   = previewHeight / originalHeight
     }
+
+    // ******************** Convert properties ********************************
+    private void convertProperties(final Node LAYER) {
+        LAYER.each {Node node->
+            String[] propertyDefinition = (node.attribute(D.userLabel)?:"").split("_")
+            if (propertyDefinition.length > 0) {
+                if (propertyDefinition.length >= 2) {
+                    properties.put(propertyDefinition[1], new FxgVariable(name: propertyDefinition[1], type: propertyDefinition[0], defaultValue: propertyDefinition[2]))
+                } else {
+                    String defaultValue
+                    if (propertyDefinition[0].toLowerCase().equals("double")) {
+                        defaultValue = "0.0";
+                    } else if (propertyDefinition[0].toLowerCase().equals("int")) {
+                        defaultValue = "0";
+                    } else if (propertyDefinition[0].toLowerCase().equals("long")) {
+                        defaultValue = "0l";
+                    } else if (propertyDefinition[0].toLowerCase().equals("boolean")) {
+                        defaultValue = "false";
+                    } else if (propertyDefinition[0].toLowerCase().equals("string")) {
+                        defaultValue = "\"\"";
+                    } else if (propertyDefinition[0].toLowerCase().equals("object")) {
+                        defaultValue = "new Object()";
+                    } else {
+                        defaultValue = "";
+                    }
+                    properties.put(propertyDefinition[1], new FxgVariable(name: propertyDefinition[1], type: propertyDefinition[0], defaultValue: defaultValue, false))
+                }
+            }
+        }
+    }
+
 }

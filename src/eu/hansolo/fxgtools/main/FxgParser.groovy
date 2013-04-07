@@ -211,8 +211,8 @@ class FxgParser {
         return getDimension(new XmlParser().parse(new File(FILE_NAME)))
     }
 
-    HashMap<String, FxgVariable> getProperties() {
-        return properties;
+    HashMap<String, FxgVariable> getControlProperties() {
+         return properties
     }
 
 
@@ -1121,7 +1121,7 @@ class FxgParser {
                     } else {
                         defaultValue = "";
                     }
-                    properties.put(propertyDefinition[1], new FxgVariable(name: propertyDefinition[1], type: propertyDefinition[0], defaultValue: defaultValue))
+                    properties.put(propertyDefinition[1], new FxgVariable(name: propertyDefinition[1], type: propertyDefinition[0], defaultValue: defaultValue, false))
                 }
             }
         }
