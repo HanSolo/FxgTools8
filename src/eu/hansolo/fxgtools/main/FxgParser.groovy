@@ -1121,7 +1121,7 @@ class FxgParser {
                     } else {
                         defaultValue = "";
                     }
-                    properties.put(propertyDefinition[1], new FxgVariable(name: propertyDefinition[1], type: propertyDefinition[0], defaultValue: defaultValue, false))
+                    properties.put(propertyDefinition[1], new FxgVariable(name: propertyDefinition[1], type: propertyDefinition[0], defaultValue: defaultValue))
                 }
             }
         }

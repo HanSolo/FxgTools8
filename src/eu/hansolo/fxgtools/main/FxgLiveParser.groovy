@@ -86,7 +86,7 @@ class FxgLiveParser {
         }
 
         layers.eachWithIndex {def layer, int i ->
-            String layerName  = groups.keySet().contains(layer.attribute(D.userLabel)) ? layer.attribute(D.userLabel) + "_$i" : layer.attribute(D.userLabel)
+            String layerName = groups.keySet().contains(layer.attribute(D.userLabel)) ? layer.attribute(D.userLabel) + "_$i" : layer.attribute(D.userLabel)
             if (layerName.toLowerCase().startsWith("properties")) {
                 convertProperties(layer)
             } else {
@@ -581,7 +581,7 @@ class FxgLiveParser {
                     } else {
                         defaultValue = "";
                     }
-                    properties.put(propertyDefinition[1], new FxgVariable(name: propertyDefinition[1], type: propertyDefinition[0], defaultValue: defaultValue, false))
+                    properties.put(propertyDefinition[1], new FxgVariable(name: propertyDefinition[1], type: propertyDefinition[0], defaultValue: defaultValue))
                 }
             }
         }
