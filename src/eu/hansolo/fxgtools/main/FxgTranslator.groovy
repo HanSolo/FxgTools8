@@ -1023,24 +1023,23 @@ class FxgTranslator {
                 // Resizing routine
                 layerMap[layerName].each { FxgElement element ->
                     int    effectCounter = 0
-                    String lastEffectName
                     varName = createVarName(layerName, element.shape.shapeName)
                     if (!layerName.toLowerCase().endsWith("canvas")) {
                         if (Language.JAVAFX == LANGUAGE){
                             if (FxgShapeType.TEXT == element.shape.type) {
-                                code.append("\n        // ").append(varName).append(".setFont(font);")
+                                code.append("\n            // ").append(varName).append(".setFont(font);")
                             } else {
-                                code.append("\n        ").append(varName).append(".setPrefSize(${element.shape.elementWidth / element.shape.referenceWidth} * width, ${element.shape.elementHeight / element.shape.referenceHeight} * height);")
+                                code.append("\n            ").append(varName).append(".setPrefSize(${element.shape.elementWidth / element.shape.referenceWidth} * width, ${element.shape.elementHeight / element.shape.referenceHeight} * height);")
                             }
-                            code.append("\n        ").append(varName).append(".setTranslateX(${element.shape.elementX / element.shape.referenceWidth} * width);")
-                            code.append("\n        ").append(varName).append(".setTranslateY(${element.shape.elementY / element.shape.referenceHeight} * height);")
+                            code.append("\n            ").append(varName).append(".setTranslateX(${element.shape.elementX / element.shape.referenceWidth} * width);")
+                            code.append("\n            ").append(varName).append(".setTranslateY(${element.shape.elementY / element.shape.referenceHeight} * height);")
                             if (!element.shape.effects.isEmpty() && element.shape.effects.size() > 1) {
                                 element.shape.effects.each { Effect effect ->
                                     if (effect.class.equals(InnerShadow.class)) {
-                                        code.append("\n        ${varName}InnerShadow${effectCounter}").append(".setRadius(${((InnerShadow) effect).radius} / ${element.shape.referenceWidth} * size);")
+                                        code.append("\n            ${varName}InnerShadow${effectCounter}").append(".setRadius(${((InnerShadow) effect).radius} / ${element.shape.referenceWidth} * size);")
                                         effectCounter++
                                     } else if (effect.class.equals(DropShadow.class)) {
-                                        code.append("\n        ${varName}DropShadow${effectCounter}").append(".setRadius(${((DropShadow) effect).radius} / ${element.shape.referenceWidth} * size);")
+                                        code.append("\n            ${varName}DropShadow${effectCounter}").append(".setRadius(${((DropShadow) effect).radius} / ${element.shape.referenceWidth} * size);")
                                         effectCounter++
                                     }
                                 }
