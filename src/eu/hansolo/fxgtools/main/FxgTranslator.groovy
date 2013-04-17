@@ -531,47 +531,6 @@ class FxgTranslator {
             maxLength = Math.max(PROPERTY_NAME.length(), maxLength)
         }
 
-        /* NOW WE USE LAZY INITIALIZATION OF PROPERTIES
-        PROPERTIES.keySet().each{String PROPERTY_NAME->
-            final String TYPE = PROPERTIES.get(PROPERTY_NAME).type.toLowerCase()
-            if (TYPE.equals("double")) {
-                PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
-                appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleDoubleProperty(this, \"${PROPERTY_NAME}\", ${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
-            } else if (TYPE.equals("boolean")) {
-                PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
-                appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleBooleanProperty(this, \"${PROPERTY_NAME}\", ${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
-            } else if (TYPE.equals("int")) {
-                PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
-                appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleIntegerProperty(this, \"${PROPERTY_NAME}\", ${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
-            } else if (TYPE.equals("long")) {
-                PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
-                appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleLongProperty(this, \"${PROPERTY_NAME}\", ${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
-            } else if (TYPE.equals("string")) {
-                PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
-                appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleStringProperty(this, \"${PROPERTY_NAME}\", \"${PROPERTIES.get(PROPERTY_NAME).defaultValue}\");\n")
-            } else if (TYPE.equals("object")) {
-                PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
-                appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                PROPERTY_CODE.append(" = new SimpleObjectProperty(this, \"${PROPERTY_NAME}\", ${PROPERTIES.get(PROPERTY_NAME).defaultValue});\n")
-            } else {
-                PROPERTY_CODE.append("        ").append(PROPERTY_NAME)
-                appendBlanks(PROPERTY_CODE, (maxLength - PROPERTY_NAME.length()))
-                String defaultValue
-                if (TYPE.equals("color")) {
-                    defaultValue = "Color.web(\"#${PROPERTIES.get(PROPERTY_NAME).defaultValue}\")"
-                } else {
-                    defaultValue = PROPERTIES.get(PROPERTY_NAME).defaultValue
-                }
-                PROPERTY_CODE.append(" = new SimpleObjectProperty<${PROPERTIES.get(PROPERTY_NAME).type}>(this, \"${PROPERTY_NAME}\", ${defaultValue});\n")
-            }
-        }
-        */
-
         PROPERTY_CODE.append("        keepAspect")
         int spacer = maxLength == 0 ? 0 : 10;
         appendBlanks(PROPERTY_CODE, (maxLength - spacer))
@@ -874,15 +833,14 @@ class FxgTranslator {
     private String javaFxPrefSizeCalculation(final double WIDTH, final double HEIGHT) {
         StringBuilder PREF_SIZE_CODE = new StringBuilder()
         PREF_SIZE_CODE.append("        double prefHeight = WIDTH < (HEIGHT * ${WIDTH / HEIGHT}) ? (WIDTH * ${HEIGHT / WIDTH}) : HEIGHT;\n")
-        PREF_SIZE_CODE.append("        double prefWidth = prefHeight * ${WIDTH / HEIGHT};\n")
+        PREF_SIZE_CODE.append("        double prefWidth  = prefHeight * ${WIDTH / HEIGHT};\n")
         return PREF_SIZE_CODE.toString()
     }
 
     private String javaFxRegisterListeners(final HashMap<String, FxgVariable> PROPERTIES) {
         StringBuilder PROPERTY_CODE = new StringBuilder()
         PROPERTIES.keySet().each{String PROPERTY_NAME->
-            PROPERTY_CODE.append("        ").append("registerChangeListener(control.")
-            PROPERTY_CODE.append("${PROPERTY_NAME}Property(), \"${PROPERTY_NAME.toUpperCase()}\");\n")
+            PROPERTY_CODE.append("        ").append("getSkinnable().${PROPERTY_NAME}Property().addListener(observable -> { handleControlPropertyChanged(\"${PROPERTY_NAME.toUpperCase()}\"); });\n")
         }
         return PROPERTY_CODE.toString()
     }
@@ -999,7 +957,7 @@ class FxgTranslator {
                     case Language.JAVAFX:
                         if (layerName.toLowerCase().endsWith("canvas")) {
                             code.append(javaFxCanvasLayerMethodStop())
-                            allLayers.append("draw").append(layerName.capitalize()).append("(control.getPrefWidth(), control.getPrefHeight())").append(",\n                             ")
+                            allLayers.append("draw").append(layerName.capitalize()).append("(getSkinnable().getPrefWidth(), getSkinnable().getPrefHeight())").append(",\n                             ")
                         }
                         break
                     case Language.CANVAS:
