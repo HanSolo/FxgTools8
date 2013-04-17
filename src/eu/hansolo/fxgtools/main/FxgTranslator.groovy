@@ -92,7 +92,6 @@ class FxgTranslator {
                     if (EXPORT_TO_FILE) {
                         writeToFile(path + ("Demo.java").toString(), javaFxDemoTemplate(CLASS_NAME, WIDTH.replace(".0", ""), HEIGHT.replace(".0", "")))
                         writeToFile(path + ("${CLASS_NAME}.java").toString(), javaFxControlTemplate(CLASS_NAME, Double.parseDouble(WIDTH), Double.parseDouble(HEIGHT), PROPERTIES))
-                        writeToFile(path + ("${CLASS_NAME}Behavior.java").toString(), javaFxBehaviorTemplate(CLASS_NAME))
                         writeToFile(path + ("${CLASS_NAME.toLowerCase()}.css").toString(), makeCssNicer(javaFxCssTemplate(CLASS_NAME, layerMap, PROPERTIES)))
                         writeToFile(path + ("${CLASS_NAME}Builder.java").toString(), javaFxBuilderTemplate(CLASS_NAME, PROPERTIES))
                     }
@@ -226,14 +225,6 @@ class FxgTranslator {
         replaceAll(codeToExport, "\$fillAndStrokeDefinitions", cssCode(CLASS_NAME, layerMap))
         replaceAll(codeToExport, "\$colorDefinitions", cssColors(PROPERTIES))
         return codeToExport
-    }
-
-    private String javaFxBehaviorTemplate(final String CLASS_NAME) {
-        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_behavior.txt')
-        StringBuilder codeToExport = new StringBuilder(template.text)
-        replaceAll(codeToExport, "\$packageInfo", packageInfo.isEmpty() ? "" : "package " + packageInfo + ";")
-        replaceAll(codeToExport, "\$className", CLASS_NAME)
-        return codeToExport.toString()
     }
 
     private String javaFxDemoTemplate(final String CLASS_NAME, final String WIDTH, final String HEIGHT) {
