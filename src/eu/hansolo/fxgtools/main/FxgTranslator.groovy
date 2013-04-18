@@ -360,7 +360,7 @@ class FxgTranslator {
                                 regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setColor(Color.web(\"${((InnerShadow) effect).color}\"));")
                                 regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setBlurType(BlurType.${((InnerShadow) effect).blurType});")
                                 if (!effect.equals(element.shape.effects.first())) {
-                                    regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setInput(${lastEffectName})")
+                                    regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setInput(${lastEffectName});")
                                 }
 
                                 lastEffectName = "${varName}InnerShadow${effectCounter}"
