@@ -127,7 +127,6 @@ $varInitialization
         }
         return super.computePrefWidth(prefHeight);
     }
-
     @Override protected double computePrefHeight(final double PREF_WIDTH) {
         double prefWidth = DEFAULT_WIDTH;
         if (PREF_WIDTH != -1) {
@@ -139,7 +138,6 @@ $varInitialization
     @Override protected double computeMinWidth(final double MIN_HEIGHT) {
         return super.computeMinWidth(Math.max(MINIMUM_HEIGHT, MIN_HEIGHT - getInsets().getTop() - getInsets().getBottom()));
     }
-
     @Override protected double computeMinHeight(final double MIN_WIDTH) {
         return super.computeMinHeight(Math.max(MINIMUM_WIDTH, MIN_WIDTH - getInsets().getLeft() - getInsets().getRight()));
     }
@@ -147,7 +145,6 @@ $varInitialization
     @Override protected double computeMaxWidth(final double MAX_HEIGHT) {
         return super.computeMaxWidth(Math.min(MAXIMUM_HEIGHT, MAX_HEIGHT - getInsets().getTop() - getInsets().getBottom()));
     }
-
     @Override protected double computeMaxHeight(final double MAX_WIDTH) {
         return super.computeMaxHeight(Math.min(MAXIMUM_WIDTH, MAX_WIDTH - getInsets().getLeft() - getInsets().getRight()));
     }
