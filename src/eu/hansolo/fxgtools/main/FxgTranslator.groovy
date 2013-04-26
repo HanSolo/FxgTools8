@@ -356,7 +356,7 @@ class FxgTranslator {
                                 regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}").append(" = new InnerShadow();")
                                 regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setOffsetX(${((InnerShadow) effect).offsetX});")
                                 regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setOffsetY(${((InnerShadow) effect).offsetY});")
-                                regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setRadius(${((InnerShadow) effect).radius} / ${element.shape.referenceWidth} * DEFAULT_WIDTH);")
+                                regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setRadius(${((InnerShadow) effect).radius} / ${element.shape.referenceWidth} * PREFERRED_WIDTH);")
                                 regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setColor(Color.web(\"${((InnerShadow) effect).color}\"));")
                                 regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setBlurType(BlurType.${((InnerShadow) effect).blurType});")
                                 if (!effect.equals(element.shape.effects.first())) {
@@ -382,7 +382,7 @@ class FxgTranslator {
                                 regionInitialization.append("\n        ${varName}DropShadow${effectCounter}").append(" = new DropShadow();")
                                 regionInitialization.append("\n        ${varName}DropShadow${effectCounter}.setOffsetX(${((DropShadow) effect).offsetX});")
                                 regionInitialization.append("\n        ${varName}DropShadow${effectCounter}.setOffsetY(${((DropShadow) effect).offsetY});")
-                                regionInitialization.append("\n        ${varName}DropShadow${effectCounter}.setRadius(${((DropShadow) effect).radius} / ${element.shape.referenceWidth} * DEFAULT_WIDTH);")
+                                regionInitialization.append("\n        ${varName}DropShadow${effectCounter}.setRadius(${((DropShadow) effect).radius} / ${element.shape.referenceWidth} * PREFERRED_WIDTH);")
                                 regionInitialization.append("\n        ${varName}DropShadow${effectCounter}.setColor(Color.web(\"${((DropShadow) effect).color}\"));")
                                 regionInitialization.append("\n        ${varName}DropShadow${effectCounter}.setBlurType(BlurType.${((DropShadow) effect).blurType});")
                                 if (!effect.equals(element.shape.effects.first())) {
