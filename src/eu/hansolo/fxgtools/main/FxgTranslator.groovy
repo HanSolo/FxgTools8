@@ -285,11 +285,12 @@ class FxgTranslator {
 
     private StringBuilder javaFxVariableDeclaration(final HashMap<String, List<FxgElement>> layerMap) {
         StringBuilder regionDeclaration = new StringBuilder()
-        int effectCounter = 0
+        int effectCounter
         String lastEffectName
         layerMap.keySet().each {String layerName ->
             if (layerSelection.contains(layerName) && !layerName.toLowerCase().startsWith("properties") && !layerName.toLowerCase().endsWith("canvas")) {
                 layerMap[layerName].each {FxgElement element ->
+                    effectCounter = 0
                     String varName = createVarName(layerName, element.shape.shapeName)
                     if(element.getShape().getClass().equals(FxgRichText.class)) {
                         regionDeclaration.append("\n    private Text          ${varName};")
