@@ -327,11 +327,9 @@ class FxgTranslator {
                     String varName = createVarName(layerName, element.shape.shapeName)
                     String cssName = createCssName(layerName, element.shape.shapeName)
                     if(element.getShape().getClass().equals(FxgRichText.class)) {
-                        //regionInitialization.append("\n        ${varName}").append(" = TextBuilder.create().text(\"${element.shape.text}\").styleClass(\"${cssName}\").build();\n")
                         regionInitialization.append("\n        ${varName}").append(" = new Text(\"${element.shape.text}\");");
                         regionInitialization.append("\n        ${varName}.getStyleClass().setAll(\"${cssName}\");\n")
                     } else {
-                        //regionInitialization.append("\n        ${varName}").append(" = RegionBuilder.create().styleClass(\"${cssName}\").build();\n")
                         regionInitialization.append("\n        ${varName}").append(" = new Region();")
                         regionInitialization.append("\n        ${varName}.getStyleClass().setAll(\"${cssName}\");\n")
                     }
@@ -340,19 +338,6 @@ class FxgTranslator {
                         String lastEffectName
                         element.shape.effects.each { Effect effect ->
                             if (effect.class.equals(InnerShadow.class)) {
-                                /*
-                                regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}").append(" = InnerShadowBuilder.create()")
-                                regionInitialization.append("\n            .offsetX(${((InnerShadow) effect).offsetX})")
-                                regionInitialization.append("\n            .offsetY(${((InnerShadow) effect).offsetY})")
-                                regionInitialization.append("\n            .radius(${((InnerShadow) effect).radius} / ${element.shape.referenceWidth} * DEFAULT_WIDTH)")
-                                regionInitialization.append("\n            .color(Color.web(\"${((InnerShadow) effect).color}\"))")
-                                regionInitialization.append("\n            .blurType(BlurType.${((InnerShadow) effect).blurType})")
-                                if (!effect.equals(element.shape.effects.first())) {
-                                    regionInitialization.append("\n            .input(${lastEffectName})")
-                                }
-                                regionInitialization.append("\n            .build();")
-                                */
-
                                 regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}").append(" = new InnerShadow();")
                                 regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setOffsetX(${((InnerShadow) effect).offsetX});")
                                 regionInitialization.append("\n        ${varName}InnerShadow${effectCounter}.setOffsetY(${((InnerShadow) effect).offsetY});")
@@ -366,19 +351,6 @@ class FxgTranslator {
                                 lastEffectName = "${varName}InnerShadow${effectCounter}"
                                 effectCounter++
                             } else if (effect.class.equals(DropShadow.class)) {
-                                /*
-                                regionInitialization.append("\n        ${varName}DropShadow${effectCounter}").append(" = DropShadowBuilder.create()")
-                                regionInitialization.append("\n            .offsetX(${((DropShadow) effect).offsetX})")
-                                regionInitialization.append("\n            .offsetY(${((DropShadow) effect).offsetY})")
-                                regionInitialization.append("\n            .radius(${((DropShadow) effect).radius} / ${element.shape.referenceWidth} * DEFAULT_WIDTH)")
-                                regionInitialization.append("\n            .color(Color.web(\"${((DropShadow) effect).color}\"))")
-                                regionInitialization.append("\n            .blurType(BlurType.${((DropShadow) effect).blurType})")
-                                if (!effect.equals(element.shape.effects.first())) {
-                                    regionInitialization.append("\n            .input(${lastEffectName})")
-                                }
-                                regionInitialization.append("\n            .build();")
-                                */
-
                                 regionInitialization.append("\n        ${varName}DropShadow${effectCounter}").append(" = new DropShadow();")
                                 regionInitialization.append("\n        ${varName}DropShadow${effectCounter}.setOffsetX(${((DropShadow) effect).offsetX});")
                                 regionInitialization.append("\n        ${varName}DropShadow${effectCounter}.setOffsetY(${((DropShadow) effect).offsetY});")
