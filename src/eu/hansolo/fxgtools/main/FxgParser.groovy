@@ -669,7 +669,7 @@ class FxgParser {
                     effect.setOffsetY(offset.getY())
                     effect.setRadius(blurX)
                     effect.setColor(color)
-                    effect.setBlurType(BlurType.GAUSSIAN)
+                    effect.setBlurType(BlurType.TWO_PASS_BOX)
                     if (i > 0 || effects.size() == 1) {
                         effect.setInput(lastEffect)
                     }
@@ -680,7 +680,7 @@ class FxgParser {
                     effect.setOffsetY(offset.getY())
                     effect.setRadius(blurX)
                     effect.setColor(color)
-                    effect.setBlurType(BlurType.GAUSSIAN)
+                    effect.setBlurType(BlurType.TWO_PASS_BOX)
                     if (i > 0 || effects.size() == 1) {
                         effect.setInput(lastEffect)
                     }

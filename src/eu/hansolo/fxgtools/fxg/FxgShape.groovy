@@ -370,14 +370,14 @@ abstract class FxgShape {
         if (effects.size() == 1) {
             Effect effect = effects[0]
             if (effect.class.equals(InnerShadow.class)) {
-                cssCode.append("    -fx-effect          : innershadow(gaussian, ")
+                cssCode.append("    -fx-effect          : innershadow(two-pass-box, ")
                 cssCode.append(createCssColor(Color.web(((InnerShadow) effect).color.toString()))).append(", ")
                 cssCode.append((int) (((InnerShadow) effect).radius / refWidth * 100)).append("%, ")
                 cssCode.append("0.0, ")
                 cssCode.append((int) (((InnerShadow) effect).offsetX / refWidth * 100)).append("%, ")
                 cssCode.append((int) (((InnerShadow) effect).offsetY / refHeight * 100)).append("%);\n")
             } else if (effect.class.equals(DropShadow.class)) {
-                cssCode.append("    -fx-effect          : dropshadow(gaussian, ")
+                cssCode.append("    -fx-effect          : dropshadow(two-pass-box, ")
                 cssCode.append(createCssColor(Color.web(((DropShadow) effect).color.toString()))).append(", ")
                 cssCode.append((int) (((DropShadow) effect).radius / refWidth * 100)).append("%, ")
                 cssCode.append("0.0, ")
