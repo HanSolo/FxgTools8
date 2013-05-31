@@ -7,9 +7,9 @@ import javafx.geometry.Point2D
 import javafx.geometry.VPos
 import javafx.scene.Group
 import javafx.scene.effect.BlurType
-import javafx.scene.effect.DropShadowBuilder
+import javafx.scene.effect.DropShadow
 import javafx.scene.effect.Effect
-import javafx.scene.effect.InnerShadowBuilder
+import javafx.scene.effect.InnerShadow
 import javafx.scene.paint.*
 import javafx.scene.shape.*
 import javafx.scene.text.Font
@@ -372,25 +372,19 @@ class FxgLiveParser {
         double  offsetY     = distance * Math.sin(angle)
         double  minSize     = originalWidth < originalHeight ? originalWidth : originalHeight
         if (inner) {
-            effect = InnerShadowBuilder.create()
-            //.width(blurX * scaleFactorX)
-            //.height(blurY * scaleFactorY)
-                                       .offsetX(offsetX * scaleFactorX)
-                                       .offsetY(offsetY * scaleFactorY)
-                                       .radius(blurX * 2 * scaleFactorX)
-                                       .color(color)
-                                       .blurType(BlurType.GAUSSIAN)
-                                       .build()
+            effect = new InnerShadow()
+            effect.setOffsetX(offsetX * scaleFactorX)
+            effect.setOffsetY(offsetY * scaleFactorY)
+            effect.setRadius(blurX * 2 * scaleFactorX)
+            effect.setColor(color)
+            effect.setBlurType(BlurType.TWO_PASS_BOX)
         } else {
-            effect = DropShadowBuilder.create()
-            //.width(blurX * scaleFactorX)
-            //.height(blurY * scaleFactorY)
-                                      .offsetX(offsetX * scaleFactorX)
-                                      .offsetY(offsetY * scaleFactorY)
-                                      .radius(blurX * 2 * scaleFactorX)
-                                      .color(color)
-                                      .blurType(BlurType.GAUSSIAN)
-                                      .build()
+            effect = new DropShadow()
+            effect.setOffsetX(offsetX * scaleFactorX)
+            effect.setOffsetY(offsetY * scaleFactorY)
+            effect.setRadius(blurX * 2 * scaleFactorX)
+            effect.setColor(color)
+            effect.setBlurType(BlurType.TWO_PASS_BOX)
         }
         return effect
     }

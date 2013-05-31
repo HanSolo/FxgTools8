@@ -59,6 +59,41 @@ class FxgEllipse extends FxgShape {
         StringBuilder code = new StringBuilder()
         String        name = checkName()
         switch (LANGUAGE) {
+            case Language.JAVAFX:
+                if (NAME_SET.contains(name)) {
+                    name = "${layerName.toUpperCase()}${shapeName.toUpperCase()}${SHAPE_INDEX}"
+                } else {
+                    NAME_SET.add(name)
+                }
+                int nameLength = name.length()
+                if (width.compareTo(height) == 0) {
+                    code.append("        final Circle ${name} = new Circle(${center.x / referenceWidth} * WIDTH, ${center.y / referenceHeight} * HEIGHT, ${getRadiusX() / referenceWidth} * WIDTH);\n")
+                } else {
+                    code.append("        final Ellipse ${name} = new Ellipse(${center.x / referenceWidth} * WIDTH, ${center.y / referenceHeight} * HEIGHT,\n")
+                    code.append("                      ")
+                    for (int i = 0 ; i < nameLength ; i++) {
+                        code.append(" ")
+                    }
+                    code.append("               ")
+                    code.append("${radiusX / referenceWidth} * WIDTH, ${radiusY / referenceHeight} * HEIGHT);\n")
+                }
+                if (transformed) {
+                    code.append("        final Affine ${name}Transform = new Affine();\n")
+                    code.append("        ${name}Transform.setMxx(${transform.scaleX});\n")
+                    code.append("        ${name}Transform.setMyx(${transform.shearY});\n")
+                    code.append("        ${name}Transform.setMxy(${transform.shearX});\n")
+                    code.append("        ${name}Transform.setMyy(${transform.scaleY});\n")
+                    code.append("        ${name}Transform.setTx(${transform.translateX / referenceWidth} * WIDTH);\n")
+                    code.append("        ${name}Transform.setTy(${transform.translateY / referenceHeight} * HEIGHT);\n")
+                    code.append("        ${name}.getTransforms().add(${name}Transform);\n")
+                }
+                appendJavaFxFillAndStroke(code, name)
+                appendJavaFxFilter(code, name)
+                code.append("\n")
+
+                return code.toString()
+                break;
+
             case Language.JAVAFX_CANVAS:
                 if (NAME_SET.contains(name)) {
                     name = "${layerName.toUpperCase()}${shapeName.toUpperCase()}${SHAPE_INDEX}"

@@ -46,6 +46,29 @@ class FxgLine extends FxgShape {
         StringBuilder code = new StringBuilder()
         String        name = checkName()
         switch (LANGUAGE) {
+            case Language.JAVAFX:
+                if (NAME_SET.contains(name)) {
+                    name = "${layerName.toUpperCase()}${shapeName.toUpperCase()}${SHAPE_INDEX}"
+                } else {
+                    NAME_SET.add(name)
+                }
+                code.append("        final Line ${name} = new Line(${x1 / referenceWidth} * WIDTH, ${y1 / referenceHeight} * HEIGHT, ${x2 / referenceWidth} * WIDTH, ${y2 / referenceHeight} * HEIGHT);\n")
+                if (transformed) {
+                    code.append("        final Affine ${name}Transform = new Affine();\n")
+                    code.append("        ${name}Transform.setMxx(${transform.scaleX});\n")
+                    code.append("        ${name}Transform.setMyx(${transform.shearY});\n")
+                    code.append("        ${name}Transform.setMxy(${transform.shearX});\n")
+                    code.append("        ${name}Transform.setMyy(${transform.scaleY});\n")
+                    code.append("        ${name}Transform.setTx(${transform.translateX / referenceWidth} * WIDTH);\n")
+                    code.append("        ${name}Transform.setTy(${transform.translateY / referenceHeight} * HEIGHT);\n")
+                    code.append("        ${name}.getTransforms().add(${name}Transform);\n")
+                }
+                appendJavaFxFillAndStroke(code, name)
+                appendJavaFxFilter(code, name)
+                code.append("\n")
+                return code.toString()
+                break;
+
             case Language.JAVAFX_CANVAS:
                 code.append("\n")
                 code.append("        //${name}\n")

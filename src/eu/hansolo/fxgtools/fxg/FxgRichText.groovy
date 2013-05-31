@@ -51,6 +51,41 @@ class FxgRichText extends FxgShape{
         StringBuilder code = new StringBuilder()
         String        name = checkName()
         switch (LANGUAGE) {
+            case Language.JAVAFX:
+                if (NAME_SET.contains(name)) {
+                    name = "${layerName.toUpperCase()}${shapeName.toUpperCase()}${SHAPE_INDEX}"
+                } else {
+                    NAME_SET.add(name)
+                }
+                String fontWeight = (FontWeight.BOLD == weight ? "FontWeight.BOLD" : "FontWeight.NORMAL")
+                String fontPosture = (FontPosture.ITALIC == style ? "FontPosture.ITALIC" : "FontPosture.REGULAR")
+                code.append("        final Text ${name} = new Text();\n")
+                code.append("        ${name}.setText(\"${text.trim()}\");\n")
+                //code.append("        ${name}.setFont(Font.font(\"${font.getFontName()}\", ${fontWeight}, ${fontPosture}, ${font.size / referenceWidth} * WIDTH));\n")
+                code.append("        ${name}.setFont(Font.font(\"${fontFamily}\", ${fontWeight}, ${fontPosture}, ${font.size / referenceWidth} * WIDTH));\n")
+                code.append("        ${name}.setX(${x / referenceWidth} * WIDTH);\n")
+                code.append("        ${name}.setY(${y / referenceHeight} * HEIGHT);\n")
+                code.append("        ${name}.setTextOrigin(VPos.BOTTOM);\n")
+                code.append(lineThrough ? "        ${name}.setStrikeThrough(true);\n" : "")
+                code.append(underline ? "        ${name}.setUnderline(true);\n" : "")
+                if (transformed) {
+                    code.append("        final Affine ${name}_Transform = new Affine();\n")
+                    code.append("        ${name}_Transform.setMxx(${transform.scaleX});\n")
+                    code.append("        ${name}_Transform.setMyx(${transform.shearY});\n")
+                    code.append("        ${name}_Transform.setMxy(${transform.shearX});\n")
+                    code.append("        ${name}_Transform.setMyy(${transform.scaleY});\n")
+                    code.append("        ${name}_Transform.setTx(${transform.translateX / referenceWidth} * WIDTH);\n")
+                    code.append("        ${name}_Transform.setTy(${transform.translateY / referenceHeight} * HEIGHT);\n")
+                    code.append("        ${name}.getTransforms().add(${name}_Transform);\n")
+                }
+                code.append("        ${name}.getTransforms().add(new Rotate(${rotation}, ${x / referenceWidth} * WIDTH, ${y / referenceHeight} * HEIGHT));\n")
+                code.append("        ${name}.getTransforms().add(new Scale(${scaleX}, ${scaleY}));\n")
+                appendJavaFxPaint(code, name)
+                appendJavaFxFilter(code, name)
+                code.append("\n")
+                return code.toString()
+                break;
+
             case Language.JAVAFX_CANVAS:
                 code.append("\n")
                 code.append("        //${name}\n")

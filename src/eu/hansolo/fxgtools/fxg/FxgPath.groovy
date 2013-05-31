@@ -42,6 +42,78 @@ class FxgPath extends FxgShape {
         StringBuilder code = new StringBuilder()
         String        name = "${shapeName}"
         switch (LANGUAGE) {
+            case Language.JAVAFX:
+                name = "${shapeName.toUpperCase()}"
+                if (NAME_SET.contains(name)) {
+                    name = "${layerName.toUpperCase()}_${shapeName.toUpperCase()}_${SHAPE_INDEX}"
+                } else {
+                    NAME_SET.add(name)
+                }
+                name = name.replaceAll("_?RR[0-9]+_([0-9]+_)?", '_')
+                name = name.replace("_E_", "_")
+                int nameLength = name.length()
+
+                code.append("        final Path $name = new Path();\n")
+                code.append(FillRule.EVEN_ODD == path.getFillRule() ? "        ${name}.setFillRule(FillRule.EVEN_ODD);\n" : "        ${name}.setFillRule(FillRule.NON_ZERO);\n")
+                for (PathElement element : path.getElements()) {
+                    if (MoveTo.class.equals(element.getClass())) {
+                        code.append("        ${name}.getElements().add(new MoveTo(${((MoveTo) element).getX() / referenceWidth} * WIDTH, ${((MoveTo) element).getY() / referenceHeight} * HEIGHT));\n")
+                    } else if (LineTo.class.equals(element.getClass())) {
+                        code.append("        ${name}.getElements().add(new LineTo(${((LineTo) element).getX() / referenceWidth} * WIDTH, ${((LineTo) element).getY() / referenceHeight} * HEIGHT));\n")
+                    } else if (CubicCurveTo.class.equals(element.getClass())) {
+                        code.append("        ${name}.getElements().add(new CubicCurveTo(${((CubicCurveTo) element).getControlX1() / referenceWidth} * WIDTH, ${((CubicCurveTo) element).getControlY1() / referenceHeight} * HEIGHT,\n")
+                        code.append("        ")
+                        for (int i = 0 ; i < nameLength ; i++) {
+                            code.append(" ")
+                        }
+                        code.append("                                    ")
+                        code.append("${((CubicCurveTo) element).getControlX2() / referenceWidth} * WIDTH, ${((CubicCurveTo) element).getControlY2() / referenceHeight} * HEIGHT,\n")
+                        code.append("        ")
+                        for (int i = 0 ; i < nameLength ; i++) {
+                            code.append(" ")
+                        }
+                        code.append("                                    ")
+                        code.append("${((CubicCurveTo) element).getX() / referenceWidth} * WIDTH, ${((CubicCurveTo) element).getY() / referenceHeight} * HEIGHT));\n")
+                    } else if (QuadCurveTo.class.equals(element.getClass())) {
+                        code.append("        ${name}.getElements().add(new QuadCurveTo(${((QuadCurveTo) element).getControlX() / referenceWidth} * WIDTH, ${((QuadCurveTo) element).getControlY() / referenceHeight} * HEIGHT,\n")
+                        code.append("        ");
+                        for (int i = 0 ; i < nameLength ; i++) {
+                            code.append(" ")
+                        }
+                        code.append("                                   ")
+                        code.append("${((QuadCurveTo) element).getX() / referenceWidth} * WIDTH, ${((QuadCurveTo) element).getY() / referenceHeight} * HEIGHT));\n")
+                    } else if (ArcTo.class.equals(element.getClass())) {
+                        fxPath.append("A ")
+                              .append(((ArcTo) element).getX()).append(" ")
+                              .append(((ArcTo) element).getY()).append(" ")
+                              .append(((ArcTo) element).getRadiusX()).append(" ")
+                              .append(((ArcTo) element).getRadiusY()).append(" ");
+                    } else if (HLineTo.class.equals(element.getClass())) {
+                        fxPath.append("H ")
+                              .append(((HLineTo) element).getX()).append(" ");
+                    } else if (VLineTo.class.equals(element.getClass())) {
+                        fxPath.append("V ")
+                              .append(((VLineTo) element).getY()).append(" ");
+                    } else if (ClosePath.class.equals(element.getClass())) {
+                        code.append("        ${name}.getElements().add(new ClosePath());\n")
+                    }
+                }
+                if (transformed) {
+                    code.append("        final Affine ${name}_Transform = new Affine();\n")
+                    code.append("        ${name}_Transform.setMxx(${transform.scaleX});\n")
+                    code.append("        ${name}_Transform.setMyx(${transform.shearY});\n")
+                    code.append("        ${name}_Transform.setMxy(${transform.shearX});\n")
+                    code.append("        ${name}_Transform.setMyy(${transform.scaleY});\n")
+                    code.append("        ${name}_Transform.setTx(${transform.translateX / referenceWidth} * WIDTH);\n")
+                    code.append("        ${name}_Transform.setTy(${transform.translateY / referenceHeight} * HEIGHT);\n")
+                    code.append("        ${name}.getTransforms().add(${name}_Transform);\n")
+                }
+                appendJavaFxFillAndStroke(code, name)
+                appendJavaFxFilter(code, name)
+                code.append("\n")
+                return code.toString()
+                break;
+
             case Language.JAVAFX_CANVAS:
                 code.append("\n")
                 code.append("        //${name}\n")

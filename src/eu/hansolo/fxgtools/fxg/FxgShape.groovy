@@ -62,16 +62,6 @@ abstract class FxgShape {
             appendJavaFxPaint(code, elementName)
         }
         if (stroked) {
-            /*
-            if (stroke.stroke.lineWidth < 2) {
-                code.append("        ${elementName}.setStrokeType(StrokeType.OUTSIDE);\n")
-            } else {
-                code.append("        ${elementName}.setStrokeType(StrokeType.CENTERED);\n")
-            }
-            */
-            importSet.add("import javafx.scene.shape.StrokeType;")
-            importSet.add("import javafx.scene.shape.StrokeLineCap;")
-            importSet.add("import javafx.scene.shape.StrokeLineJoin;")
             code.append("        ${elementName}.setStrokeType(StrokeType.CENTERED);\n")
             switch (stroke.cap) {
                 case StrokeLineCap.BUTT:
@@ -109,26 +99,15 @@ abstract class FxgShape {
         elementName = elementName.replace("_E_", "_")
         int nameLength = elementName.length()
 
-        importSet.add("import javafx.scene.shape.Shape;")
-
-        // add call to css id
-        code.append("        //${elementName}.getStyleClass().add(\"${layerName.toLowerCase()}-${elementName.toLowerCase().replaceAll('_', '-')}\");\n")
-
         code.append("        final Paint ${elementName}_FILL = ")
 
         switch(fill.type) {
             case FxgFillType.SOLID_COLOR:
-                importSet.add("import javafx.scene.paint.Paint;")
-                importSet.add("import javafx.scene.paint.Color;")
+
                 appendJavaFxColor(code, fill.color)
                 code.append(";\n")
                 break
             case FxgFillType.LINEAR_GRADIENT:
-                importSet.add("import javafx.scene.paint.Paint;")
-                importSet.add("import javafx.scene.paint.Color;")
-                importSet.add("import javafx.scene.paint.LinearGradient;")
-                importSet.add("import javafx.scene.paint.CycleMethod;")
-                importSet.add("import javafx.scene.paint.Stop;")
                 code.append("new LinearGradient(${fill.startX / referenceWidth} * WIDTH, ${fill.startY / referenceHeight} * HEIGHT,\n")
                 intendCode(code, 8, nameLength, 39)
                 code.append("${fill.endX / referenceWidth} * WIDTH, ${fill.endY / referenceHeight} * HEIGHT,\n")
@@ -139,12 +118,6 @@ abstract class FxgShape {
                 code.append(");\n")
                 break
             case FxgFillType.RADIAL_GRADIENT:
-                importSet.add("import javafx.scene.paint.Paint;")
-                importSet.add("import javafx.scene.paint.Color;")
-                importSet.add("import javafx.scene.paint.LinearGradient;")
-                importSet.add("import javafx.scene.paint.CycleMethod;")
-                importSet.add("import javafx.scene.paint.Stop;")
-                importSet.add("import javafx.scene.paint.RadialGradient;")
                 code.append("new RadialGradient(0, 0,\n")
                 intendCode(code, 8, nameLength, 39)
                 code.append("${fill.centerX / referenceWidth} * WIDTH, ${fill.centerY / referenceHeight} * HEIGHT,\n")
@@ -157,7 +130,6 @@ abstract class FxgShape {
                 code.append(");\n")
                 break
             case FxgFillType.NONE:
-                importSet.add("import javafx.scene.paint.Paint;")
                 code.append("null;\n")
                 break
         }
@@ -166,7 +138,7 @@ abstract class FxgShape {
 
     protected void appendJavaFxFilter(StringBuilder code, String elementName) {
         if (!filters.isEmpty()) {
-            final double FILTER_WIDTH_FACTOR = 3.6
+            final double FILTER_WIDTH_FACTOR  = 3.6
             final double FILTER_OFFSET_FACTOR = 1.2
             String lastFilterName
             Effect effect
@@ -177,22 +149,22 @@ abstract class FxgShape {
                     case FxgFilterType.SHADOW:
                         if (filter.inner) {
                             effect = new InnerShadow()
-                            effect.offsetX(filter.getOffset().x / referenceSize * FILTER_OFFSET_FACTOR)
-                            effect.offsetY(filter.getOffset().y / referenceSize * FILTER_OFFSET_FACTOR)
-                            effect.radius(filter.blurX / 2.0 / referenceSize * FILTER_WIDTH_FACTOR)
-                            effect.color(Color.color(filter.color.red, filter.color.green, filter.color.blue, filter.alphaDouble))
-                            effect.setBlurType(BlurType.GAUSSIAN)
+                            effect.setOffsetX(filter.getOffset().x / referenceSize * FILTER_OFFSET_FACTOR)
+                            effect.setOffsetY(filter.getOffset().y / referenceSize * FILTER_OFFSET_FACTOR)
+                            effect.setRadius(filter.blurX / 2.0 / referenceSize * FILTER_WIDTH_FACTOR)
+                            effect.setColor(Color.color(filter.color.red, filter.color.green, filter.color.blue, filter.alphaDouble))
+                            effect.setBlurType(BlurType.TWO_PASS_BOX)
                             if (i > 0 || filters.size() == 1) {
                                 effect.setInput(lastEffect)
                             }
                             lastEffect = effect
                         } else {
                             effect = new DropShadow()
-                            effect.offsetX(filter.getOffset().x / referenceSize * FILTER_OFFSET_FACTOR)
-                            effect.offsetY(filter.getOffset().y / referenceSize * FILTER_OFFSET_FACTOR)
-                            effect.radius(filter.blurX / 2.0 / referenceSize * FILTER_WIDTH_FACTOR)
-                            effect.color(Color.color(filter.color.red, filter.color.green, filter.color.blue, filter.alphaDouble))
-                            effect.blurType(BlurType.GAUSSIAN)
+                            effect.setOffsetX(filter.getOffset().x / referenceSize * FILTER_OFFSET_FACTOR)
+                            effect.setOffsetY(filter.getOffset().y / referenceSize * FILTER_OFFSET_FACTOR)
+                            effect.setRadius(filter.blurX / 2.0 / referenceSize * FILTER_WIDTH_FACTOR)
+                            effect.setColor(Color.color(filter.color.red, filter.color.green, filter.color.blue, filter.alphaDouble))
+                            effect.setBlurType(BlurType.TWO_PASS_BOX)
                             if (i > 0 || filters.size() == 1) {
                                 effect.setInput(lastEffect)
                             }
@@ -505,34 +477,30 @@ abstract class FxgShape {
                     case FxgFilterType.SHADOW:
                         if (filter.inner) {
                             code.append("\n")
-                            code.append("        CTX.applyEffect(InnerShadowBuilder.create()\n")
-                            code.append("        //.width(${filter.blurX / referenceSize * FILTER_WIDTH_FACTOR} * ${elementName}.getLayoutBounds().getWidth())\n")
-                            code.append("        //.height(${filter.blurY / referenceSize * FILTER_WIDTH_FACTOR} * ${elementName}.getLayoutBounds().getHeight())\n")
-                            code.append("        .offsetX(${filter.getOffset().x / referenceSize * FILTER_OFFSET_FACTOR} * SIZE)\n")
-                            code.append("        .offsetY(${filter.getOffset().y / referenceSize * FILTER_OFFSET_FACTOR} * SIZE)\n")
-                            code.append("        .radius(${filter.blurX / 2.0 / referenceSize * FILTER_WIDTH_FACTOR} * ${elementName}.getLayoutBounds().getWidth())\n")
-                            code.append("        .color(Color.color(${filter.color.red / 255}, ${filter.color.green / 255}, ${filter.color.blue / 255}, ${filter.alphaDouble}))\n")
-                            code.append("        .blurType(BlurType.GAUSSIAN)\n")
+                            code.append("        InnerShadow innerShadow${i} = new InnerShadow();\n")
+                            code.append("        innerShadow${i}.setOffsetX(${filter.getOffset().x / referenceSize * FILTER_OFFSET_FACTOR} * SIZE);\n")
+                            code.append("        innerShadow\${i}.setOffsetY(${filter.getOffset().y / referenceSize * FILTER_OFFSET_FACTOR} * SIZE);\n")
+                            code.append("        innerShadow\${i}.setRadius(${filter.blurX / 2.0 / referenceSize * FILTER_WIDTH_FACTOR} * ${elementName}.getLayoutBounds().getWidth());\n")
+                            code.append("        innerShadow\${i}.setColor(Color.color(${filter.color.red / 255}, ${filter.color.green / 255}, ${filter.color.blue / 255}, ${filter.alphaDouble}));\n")
+                            code.append("        innerShadow\${i}.setBlurType(BlurType.TWO_PASS_BOX);\n")
                             if (i > 0 || filters.size() == 1) {
-                                code.append("        .input(${lastFilterName})\n")
+                                code.append("        innerShadow${i}.setInput(${lastFilterName});\n")
                             }
-                            code.append("        .build());\n")
-                            lastFilterName = "${elementName}_INNER_SHADOW${i}"
+                            code.append("        CTX.applyEffect(innerShadow${i});\n")
+                            lastFilterName = "innerShadow${i}"
                         } else {
                             code.append("\n")
-                            code.append("        CTX.applyEffect(DropShadowBuilder.create()\n")
-                            code.append("        //.width(${filter.blurX / referenceSize * FILTER_WIDTH_FACTOR} * ${elementName}.getLayoutBounds().getWidth())\n")
-                            code.append("        //.height(${filter.blurY / referenceSize * FILTER_WIDTH_FACTOR} * ${elementName}.getLayoutBounds().getHeight())\n")
-                            code.append("        .offsetX(${filter.getOffset().x / referenceSize * FILTER_OFFSET_FACTOR} * SIZE)\n")
-                            code.append("        .offsetY(${filter.getOffset().y / referenceSize * FILTER_OFFSET_FACTOR} * SIZE)\n")
-                            code.append("        .radius(${filter.blurX / 2.0 / referenceSize * FILTER_WIDTH_FACTOR} * ${elementName}.getLayoutBounds().getWidth())\n")
-                            code.append("        .color(Color.color(${filter.color.red / 255}, ${filter.color.green / 255}, ${filter.color.blue / 255}, ${filter.alphaDouble}))\n")
-                            code.append("        .blurType(BlurType.GAUSSIAN)\n")
+                            code.append("        DropShadow dropShadow${i} = new DropShadow();\n")
+                            code.append("        dropShadow\${i}.setOffsetX(${filter.getOffset().x / referenceSize * FILTER_OFFSET_FACTOR} * SIZE);\n")
+                            code.append("        dropShadow\${i}.setOffsetY(${filter.getOffset().y / referenceSize * FILTER_OFFSET_FACTOR} * SIZE);\n")
+                            code.append("        dropShadow\${i}.setRadius(${filter.blurX / 2.0 / referenceSize * FILTER_WIDTH_FACTOR} * ${elementName}.getLayoutBounds().getWidth());\n")
+                            code.append("        dropShadow\${i}.setColor(Color.color(${filter.color.red / 255}, ${filter.color.green / 255}, ${filter.color.blue / 255}, ${filter.alphaDouble}));\n")
+                            code.append("        dropShadow\${i}.setBlurType(BlurType.TWO_PASS_BOX);\n")
                             if (i > 0 || filters.size() == 1) {
-                                code.append("        ${elementName}_DROP_SHADOW${i}.setInput(${lastFilterName});\n")
+                                code.append("        dropShadow${i}.setInput(${lastFilterName});\n")
                             }
-                            code.append("        .build());\n")
-                            lastFilterName = "${elementName}_DROP_SHADOW${i}"
+                            code.append("        CTX.applyEffect(dropShadow${i});\n")
+                            lastFilterName = "dropShadow${i}"
                         }
                         break;
                 }

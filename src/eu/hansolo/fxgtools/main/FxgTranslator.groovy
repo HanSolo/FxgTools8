@@ -115,8 +115,8 @@ class FxgTranslator {
         return codeToExport.toString()
     }
 
-    String getDrawingCode(Map<String, List<FxgElement>> layerMap, final Language LANGUAGE) {
-        String result = createCode(layerMap, LANGUAGE)
+    String getJavaFxDrawingCode(Map<String, List<FxgElement>> layerMap) {
+        String result = createJavaFxCode(layerMap, Language.JAVAFX)
         return result
     }
 
@@ -235,6 +235,26 @@ class FxgTranslator {
         replaceAll(codeToExport, "\$width", WIDTH)
         replaceAll(codeToExport, "\$height", HEIGHT)
         return codeToExport.toString()
+    }
+
+    private String javaFxLayerMethodStart(final String LAYER_NAME) {
+        StringBuilder layerCode = new StringBuilder()
+        String lowerLayerName = createName(LAYER_NAME)
+        layerCode.append("\n")
+        layerCode.append("    public final void ${lowerLayerName}(final double REQUESTED_WIDTH, final double REQUESTED_HEIGHT) {\n")
+        layerCode.append("        final double SIZE    = REQUESTED_WIDTH < REQUESTED_HEIGHT ? REQUESTED_WIDTH : REQUESTED_HEIGHT;\n")
+        layerCode.append("        final double WIDTH   = REQUESTED_WIDTH;\n")
+        layerCode.append("        final double HEIGHT  = REQUESTED_HEIGHT;\n\n")
+        layerCode.append("        final Group  GROUP   = new Group();\n")
+        layerCode.append("        final Shape  BOUNDS = new Rectangle(0, 0, WIDTH, HEIGHT);\n")
+        layerCode.append("        BOUNDS.setOpacity(0.0);\n\n")
+        return layerCode.toString()
+    }
+
+    private String javaFxLayerMethodStop(final String LAYER_NAME) {
+        StringBuilder layerCode = new StringBuilder()
+        layerCode.append("    }\n")
+        return layerCode.toString()
     }
 
     private String javaFxCanvasLayerMethodStart(final String LAYER_NAME) {
@@ -869,15 +889,15 @@ class FxgTranslator {
     // ******************** CREATE CODE ***************************************
     private String createCode(Map<String, List<FxgElement>> layerMap, final Language LANGUAGE) {
         StringBuilder code = new StringBuilder()
-        allLayers.length = 0
+        allLayers.length   = 0
         allElements.length = 0
         layerMap.keySet().each { String layerName->
             groupNameSet.clear()
             nameSet.clear();
             if (layerSelection.contains(layerName) && !layerName.toLowerCase().startsWith("properties")) {
-                splitNumber = 0
+                splitNumber    = 0
                 int shapeIndex = 0
-
+                // add language dependent method start
                 switch(LANGUAGE) {
                     case Language.JAVAFX:
                         if (layerName.toLowerCase().endsWith("canvas")) {
@@ -889,7 +909,7 @@ class FxgTranslator {
                         break
                 }
 
-                // main translation routine
+                // add language dependent main translation routine
                 layerMap[layerName].each { FxgElement element ->
                     shapeIndex += 1
                     if (layerName.toLowerCase().endsWith("canvas")) {
@@ -899,7 +919,7 @@ class FxgTranslator {
                     }
                 }
 
-                // add language dependend method end
+                // add language dependent method end
                 switch(LANGUAGE) {
                     case Language.JAVAFX:
                         if (layerName.toLowerCase().endsWith("canvas")) {
@@ -914,6 +934,62 @@ class FxgTranslator {
             }
         }
         return code.toString()
+    }
+
+    private String createJavaFxCode(Map<String, List<FxgElement>> layerMap, final Language LANGUAGE) {
+        if (Language.JAVAFX != LANGUAGE) return
+
+        StringBuilder code = new StringBuilder()
+        allLayers.length   = 0
+        allElements.length = 0
+        layerMap.keySet().each { String layerName->
+            groupNameSet.clear()
+            nameSet.clear();
+            if (layerSelection.contains(layerName) && !layerName.toLowerCase().startsWith("properties")) {
+                splitNumber    = 0
+                int shapeIndex = 0
+                // add javafx method start
+                code.append(javaFxLayerMethodStart(layerName))
+
+                // add javafx main translation routine
+                layerMap[layerName].each { FxgElement element ->
+                    shapeIndex += 1
+                    String name = element.shape.shapeName.toUpperCase()
+                    name = name.startsWith("E_") ? name.replaceFirst("E_", "") : name
+                    name = name.replaceAll("_?RR[0-9]+_([0-9]+_)?", "")
+                    name = name.replace("_E_", "");
+                    name = name.startsWith("_") ? name.replaceFirst("_", "") : name
+
+                    if (groupNameSet.contains(name)) {
+                        allElements.append("${layerName.toUpperCase()}${element.shape.shapeName.toUpperCase()}${shapeIndex}").append(",\n")
+                    } else {
+                        allElements.append("${name}").append(",\n")
+                        groupNameSet.add(name)
+                    }
+
+                    code.append(element.shape.translateTo(LANGUAGE, shapeIndex, nameSet))
+
+                    for(int n = 0 ; n < layerName.length() + 30 ; n+=1) {
+                        allElements.append(" ")
+                    }
+                }
+
+                // add javafx method end
+                if (allElements.length() > layerName.length() + 32) {
+                    allElements.replace(allElements.length() - (layerName.length() + 32), allElements.length(), "")
+                }
+                code.append("        GROUP.getChildren().setAll(BOUNDS,\n")
+                for(int n = 0 ; n < layerName.length() + 30 ; n+=1) {
+                    code.append(" ")
+                }
+                code.append(allElements.toString())
+                code.append(");\n")
+                allElements.length = 0
+                code.append(javaFxLayerMethodStop(layerName))
+                allLayers.append(createName(layerName)).append(",\n                             ")
+            }
+        }
+        return makeNicer(code, Language.JAVAFX)
     }
 
     private String createResizingCode(Map<String, List<FxgElement>> layerMap, final Language LANGUAGE) {
@@ -936,8 +1012,8 @@ class FxgTranslator {
                             } else {
                                 code.append("\n            ").append(varName).append(".setPrefSize(${element.shape.elementWidth / element.shape.referenceWidth} * width, ${element.shape.elementHeight / element.shape.referenceHeight} * height);")
                             }
-                            code.append("\n            ").append(varName).append(".setTranslateX(${element.shape.elementX / element.shape.referenceWidth} * width);")
-                            code.append("\n            ").append(varName).append(".setTranslateY(${element.shape.elementY / element.shape.referenceHeight} * height);")
+                            if (element.shape.elementX != 0) code.append("\n            ").append(varName).append(".setTranslateX(${element.shape.elementX / element.shape.referenceWidth} * width);")
+                            if (element.shape.elementY != 0) code.append("\n            ").append(varName).append(".setTranslateY(${element.shape.elementY / element.shape.referenceHeight} * height);")
                             if (!element.shape.effects.isEmpty() && element.shape.effects.size() > 1) {
                                 element.shape.effects.each { Effect effect ->
                                     if (effect.class.equals(InnerShadow.class)) {
