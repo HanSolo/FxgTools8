@@ -48,12 +48,12 @@ import javafx.scene.transform.Scale;
 
 
 public class $className extends Region {
-    private static final double DEFAULT_WIDTH  = $width;
-    private static final double DEFAULT_HEIGHT = $height;
-    private static final double MINIMUM_WIDTH  = 5;
-    private static final double MINIMUM_HEIGHT = 5;
-    private static final double MAXIMUM_WIDTH  = 1024;
-    private static final double MAXIMUM_HEIGHT = 1024;
+    private static final double PREFERRED_WIDTH  = $width;
+    private static final double PREFERRED_HEIGHT = $height;
+    private static final double MINIMUM_WIDTH    = 5;
+    private static final double MINIMUM_HEIGHT   = 5;
+    private static final double MAXIMUM_WIDTH    = 1024;
+    private static final double MAXIMUM_HEIGHT   = 1024;
     private static double aspectRatio;
     private boolean       keepAspect;
     private double        size;
@@ -67,7 +67,7 @@ $varDeclaration
     public $className() {
         getStylesheets().add(getClass().getResource(getClass().getSimpleName().toLowerCase() + ".css").toExternalForm());
         getStyleClass().add(getClass().getSimpleName().toLowerCase());
-        aspectRatio = DEFAULT_HEIGHT / DEFAULT_WIDTH;
+        aspectRatio = PREFERRED_HEIGHT / PREFERRED_WIDTH;
         keepAspect  = true;
         pane        = new Pane();
         init();
@@ -83,7 +83,7 @@ $varDeclaration
             if (getPrefWidth() > 0 && getPrefHeight() > 0) {
                 setPrefSize(getPrefWidth(), getPrefHeight());
             } else {
-                setPrefSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+                setPrefSize(PREFERRED_WIDTH, PREFERRED_HEIGHT);
             }
         }
 
@@ -95,7 +95,7 @@ $varDeclaration
             setMaxSize(MAXIMUM_WIDTH, MAXIMUM_HEIGHT);
         }
 
-        if (getPrefWidth() != DEFAULT_WIDTH || getPrefHeight() != DEFAULT_HEIGHT) {
+        if (getPrefWidth() != PREFERRED_WIDTH || getPrefHeight() != PREFERRED_HEIGHT) {
             aspectRatio = getPrefHeight() / getPrefWidth();
         }
     }
@@ -121,14 +121,14 @@ $varInitialization
 
     // ******************** Methods *******************************************
     @Override protected double computePrefWidth(final double PREF_HEIGHT) {
-        double prefHeight = DEFAULT_HEIGHT;
+        double prefHeight = PREFERRED_HEIGHT;
         if (PREF_HEIGHT != -1) {
             prefHeight = Math.max(0, PREF_HEIGHT - getInsets().getTop() - getInsets().getBottom());
         }
         return super.computePrefWidth(prefHeight);
     }
     @Override protected double computePrefHeight(final double PREF_WIDTH) {
-        double prefWidth = DEFAULT_WIDTH;
+        double prefWidth = PREFERRED_WIDTH;
         if (PREF_WIDTH != -1) {
             prefWidth = Math.max(0, PREF_WIDTH - getInsets().getLeft() - getInsets().getRight());
         }
