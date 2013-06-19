@@ -807,7 +807,7 @@ class FxgTranslator {
     private String javaFxRegisterListeners(final HashMap<String, FxgVariable> PROPERTIES) {
         StringBuilder PROPERTY_CODE = new StringBuilder()
         PROPERTIES.keySet().each{String PROPERTY_NAME->
-            PROPERTY_CODE.append("        ").append("getSkinnable().${PROPERTY_NAME}Property().addListener(observable -> { handleControlPropertyChanged(\"${PROPERTY_NAME.toUpperCase()}\"); });\n")
+            PROPERTY_CODE.append("        ").append("getSkinnable().${PROPERTY_NAME}Property().addListener(observable -> handleControlPropertyChanged(\"${PROPERTY_NAME.toUpperCase()}\") );\n")
         }
         return PROPERTY_CODE.toString()
     }
