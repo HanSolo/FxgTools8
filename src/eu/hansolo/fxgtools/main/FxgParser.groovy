@@ -700,15 +700,15 @@ class FxgParser {
     }
 
     private Color parseColor(final String COLOR, final double ALPHA) {
+        assert COLOR.size() == 7 || 9;
         double red   = Integer.valueOf(COLOR[1..2], 16).intValue() / 255
         double green = Integer.valueOf(COLOR[3..4], 16).intValue() / 255
         double blue  = Integer.valueOf(COLOR[5..6], 16).intValue() / 255
-        if (COLOR.size() == 7) {
-            Color.color(red, green, blue, ALPHA)
-        } else {
-            double alpha = Double.valueOf(COLOR[7..8], 16).doubleValue()
-            Color.color(red, green, blue, alpha)
+        double alpha = ALPHA;
+        if (COLOR.size() == 9) {
+            alpha = Integer.valueOf(COLOR[7..8], 16).intValue() / 255
         }
+        Color.color(red, green, blue, alpha)
     }
 
     private double parseAlpha(final NODE, final double LAST_SHAPE_ALPHA) {

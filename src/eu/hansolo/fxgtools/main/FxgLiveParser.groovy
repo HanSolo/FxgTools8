@@ -396,10 +396,13 @@ class FxgLiveParser {
     }
 
     private Color parseColor(String color, double alpha) {
-        assert color.size() == 7
+        assert color.size() == 7 || 9
         double red   = Integer.valueOf(color[1..2], 16).intValue() / 255
         double green = Integer.valueOf(color[3..4], 16).intValue() /255
         double blue  = Integer.valueOf(color[5..6], 16).intValue() / 255
+        if (color.size() == 9) {
+            alpha = Integer.valueOf(color[7..8], 16).intValue() / 255
+        }
         return Color.color(red, green, blue, alpha)
     }
 
