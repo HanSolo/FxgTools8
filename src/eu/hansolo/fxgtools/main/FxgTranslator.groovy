@@ -164,7 +164,7 @@ class FxgTranslator {
 
     // ******************** JAVA FX *******************************************
     private String javaFxSkinTemplate(final String CLASS_NAME, final String WIDTH, final String HEIGHT, Map<String, List<FxgElement>> layerMap, final Language LANGUAGE, final HashMap<String, FxgVariable> PROPERTIES) {
-        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_skin.txt')
+        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/templates/javafx_skin.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
 
         int maxLength = 11
@@ -194,7 +194,7 @@ class FxgTranslator {
     }
 
     private String javaFxControlTemplate(final String CLASS_NAME, final double WIDTH, final double HEIGHT, final HashMap<String, FxgVariable> PROPERTIES) {
-        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_control.txt')
+        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/templates/javafx_control.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
         replaceAll(codeToExport, "\$propertyDeclaration", javaFxPropertyDeclaration(PROPERTIES))
         replaceAll(codeToExport, "\$propertyInitialization", javaFxPropertyInitialization(PROPERTIES))
@@ -207,7 +207,7 @@ class FxgTranslator {
     }
 
     private String javaFxBuilderTemplate(final String CLASS_NAME, final HashMap<String, FxgVariable> PROPERTIES) {
-        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_builder.txt')
+        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/templates/javafx_builder.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
         replaceAll(codeToExport, "\$propertySetter", javaFxPropertySetter(CLASS_NAME, PROPERTIES))
         replaceAll(codeToExport, "\$buildMethod", javaFxBuildMethod(CLASS_NAME, PROPERTIES))
@@ -217,7 +217,7 @@ class FxgTranslator {
     }
 
     private StringBuilder javaFxCssTemplate(final String CLASS_NAME, Map<String, List<FxgElement>> layerMap, final HashMap<String, FxgVariable> PROPERTIES) {
-        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_css.txt')
+        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/templates/javafx_css.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
         replaceAll(codeToExport, "\$packageInfo", packageInfo.isEmpty() ? "" : packageInfo + ".")
         replaceAll(codeToExport, "\$styleClass", CLASS_NAME.toLowerCase())
@@ -228,7 +228,7 @@ class FxgTranslator {
     }
 
     private String javaFxDemoTemplate(final String CLASS_NAME, final String WIDTH, final String HEIGHT) {
-        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_demo.txt')
+        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/templates/javafx_demo.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
         replaceAll(codeToExport, "\$packageInfo", packageInfo.isEmpty() ? "" : "package " + packageInfo + ";")
         replaceAll(codeToExport, "\$className", CLASS_NAME)
@@ -276,7 +276,7 @@ class FxgTranslator {
     }
 
     private String javaFxRegionTemplate(final String CLASS_NAME, final String WIDTH, final String HEIGHT, Map<String, List<FxgElement>> layerMap, final Language LANGUAGE) {
-        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/javafx_region.txt')
+        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/templates/javafx_region.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
 
         int maxLength = 11
@@ -828,7 +828,7 @@ class FxgTranslator {
 
     // ******************** CANVAS ********************************************
     private String canvasTemplate(final String CLASS_NAME, final String WIDTH, final String HEIGHT, Map<String, List<FxgElement>> layerMap, final Language LANGUAGE) {
-        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/canvas.txt')
+        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/templates/canvas.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
 
         StringBuilder createBuffers = new StringBuilder()
@@ -874,7 +874,7 @@ class FxgTranslator {
     }
 
     private String htmlTemplate(final String CLASS_NAME, final String WIDTH, final String HEIGHT) {
-        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/resources/html.txt')
+        def template = getClass().getResourceAsStream('/eu/hansolo/fxgtools/templates/html.txt')
         StringBuilder codeToExport = new StringBuilder(template.text)
 
         replaceAll(codeToExport, "\$jsFileName", CLASS_NAME + ".js")
