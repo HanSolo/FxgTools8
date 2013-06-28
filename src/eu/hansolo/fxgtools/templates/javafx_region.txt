@@ -174,7 +174,9 @@ $varInitialization
                 height = aspectRatio * width;
             }
         }
+        if (width > 0 && height > 0) {
 $resizeRegions
+        }
     }
 
 $canvasMethods
