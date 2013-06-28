@@ -69,7 +69,6 @@ $varDeclaration
         getStyleClass().add(getClass().getSimpleName().toLowerCase());
         aspectRatio = PREFERRED_HEIGHT / PREFERRED_WIDTH;
         keepAspect  = true;
-        pane        = new Pane();
         init();
         initGraphics();
         registerListeners();

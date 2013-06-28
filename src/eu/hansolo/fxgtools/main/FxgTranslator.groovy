@@ -392,6 +392,7 @@ class FxgTranslator {
                 }
             }
         }
+        regionInitialization.append("\n        pane = new Pane();\n")
         regionInitialization.append("        pane.getChildren().setAll(")
         for (int i = 0 ; i < regionsToAdd.size() ; i++) {
             if (i > 0) {

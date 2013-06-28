@@ -70,7 +70,6 @@ $varDeclaration
     public $classNameSkin(final $className CONTROL) {
         super(CONTROL);
         aspectRatio  = PREFERRED_HEIGHT / PREFERRED_WIDTH;
-        pane         = new Pane();
         init();
         initGraphics();
         registerListeners();
