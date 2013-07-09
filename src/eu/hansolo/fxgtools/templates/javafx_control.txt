@@ -15,6 +15,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Control;
+import javafx.scene.control.Skin;
 
 
 public class $className extends Control {
@@ -41,6 +42,10 @@ $propertyInitialization
     $propertyGetterSetter
 
     // ******************** Style related *************************************
+    @Override protected Skin createDefaultSkin() {
+        return new $classNameSkin(this);
+    }
+
     @Override protected String getUserAgentStylesheet() {
         return getClass().getResource(getClass().getSimpleName().toLowerCase() + ".css").toExternalForm();
     }

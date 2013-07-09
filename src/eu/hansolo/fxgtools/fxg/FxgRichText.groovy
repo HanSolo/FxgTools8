@@ -57,7 +57,7 @@ class FxgRichText extends FxgShape{
                 } else {
                     NAME_SET.add(name)
                 }
-                String fontWeight = (FontWeight.BOLD == weight ? "FontWeight.BOLD" : "FontWeight.NORMAL")
+                String fontWeight  = (FontWeight.BOLD == weight ? "FontWeight.BOLD" : "FontWeight.NORMAL")
                 String fontPosture = (FontPosture.ITALIC == style ? "FontPosture.ITALIC" : "FontPosture.REGULAR")
                 code.append("        final Text ${name} = new Text();\n")
                 code.append("        ${name}.setText(\"${text.trim()}\");\n")

@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Dimension2D;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
@@ -32,6 +33,11 @@ public class $classNameBuilder<B extends $classNameBuilder<B>> {
     }
 
 $propertySetter
+    public final B prefSize(final double WIDTH, final double HEIGHT) {
+        properties.put("prefSize", new SimpleObjectProperty<>(new Dimension2D(WIDTH, HEIGHT)));
+        return (B)this;
+    }
+
     public final B minWidth(final double MIN_WIDTH) {
         properties.put("minWidth", new SimpleDoubleProperty(MIN_WIDTH));
         return (B)this;
