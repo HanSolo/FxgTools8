@@ -109,10 +109,7 @@ $varInitialization
     private void registerListeners() {
         getSkinnable().widthProperty().addListener(observable -> handleControlPropertyChanged("RESIZE") );
         getSkinnable().heightProperty().addListener(observable -> handleControlPropertyChanged("RESIZE") );
-        getSkinnable().prefWidthProperty().addListener(observable -> handleControlPropertyChanged("PREF_SIZE") );
-        getSkinnable().prefHeightProperty().addListener(observable -> handleControlPropertyChanged("PREF_SIZE") );
 $registerListeners
-        getStyleClass().addListener((ListChangeListener<String>) change -> resize() );
     }
 
 
@@ -120,8 +117,6 @@ $registerListeners
     protected void handleControlPropertyChanged(final String PROPERTY) {
         if ("RESIZE".equals(PROPERTY)) {
             resize();
-        } else if ("PREF_SIZE".equals(PROPERTY)) {
-            aspectRatio = getSkinnable().getPrefHeight() / getSkinnable().getPrefWidth();
         }$handlePropertyChanges
     }
 
@@ -157,13 +152,7 @@ $registerListeners
 
     // ******************** Utility methods ***********************************
     private String colorToCss(final Color COLOR) {
-        StringBuilder cssColor = new StringBuilder();
-        cssColor.append("rgba(")
-                .append((int) (COLOR.getRed() * 255)).append(", ")
-                .append((int) (COLOR.getGreen() * 255)).append(", ")
-                .append((int) (COLOR.getBlue() * 255)).append(", ")
-                .append(COLOR.getOpacity()).append(")");
-        return cssColor.toString();
+        return COLOR.toString().replace("0x", "#");
     }
 
 

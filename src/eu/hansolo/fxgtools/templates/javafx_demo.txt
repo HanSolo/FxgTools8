@@ -8,16 +8,17 @@ import javafx.stage.Stage;
 
 
 public class Demo extends Application {
-    @Override public void start(Stage stage) {
-        $className control = $classNameBuilder.create()
-            .prefWidth($width)
-            .prefHeight($height)
-            .build();
+    private $className control;
 
+    @Override public void init() {
+        control = $classNameBuilder.create().prefSize($width, $height).build();
+    }
+
+    @Override public void start(Stage stage) {
         StackPane pane = new StackPane();
         pane.getChildren().setAll(control);
 
-        Scene scene = new Scene(pane, $width, $height, Color.DARKGRAY);
+        Scene scene = new Scene(pane);
 
         stage.setTitle("JavaFX Custom Control");
         stage.setScene(scene);

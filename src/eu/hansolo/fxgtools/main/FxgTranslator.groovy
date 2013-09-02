@@ -737,34 +737,40 @@ class FxgTranslator {
 
     private String javaFxBuildMethod(final String CLASS_NAME, final HashMap<String, FxgVariable> PROPERTIES) {
         StringBuilder BUILD_CODE = new StringBuilder()
-        BUILD_CODE.append("        for (String key : properties.keySet()) {\n")
-        BUILD_CODE.append("            if (\"prefSize\".equals(key)) {\n")
-        BUILD_CODE.append("                Dimension2D dim = ((ObjectProperty<Dimension2D>) properties.get(key)).get();\n")
+        BUILD_CODE.append("        properties.forEach((key, property) -> {\n")
+        BUILD_CODE.append("            if (\"minSize\".equals(key)) {\n")
+        BUILD_CODE.append("                Dimension2D dim = ((ObjectProperty<Dimension2D>) property).get();\n")
+        BUILD_CODE.append("                CONTROL.setMinSize(dim.getWidth(), dim.getHeight());\n")
+        BUILD_CODE.append("            } else if (\"prefSize\".equals(key)) {\n")
+        BUILD_CODE.append("                Dimension2D dim = ((ObjectProperty<Dimension2D>) property).get();\n")
         BUILD_CODE.append("                CONTROL.setPrefSize(dim.getWidth(), dim.getHeight());\n")
+        BUILD_CODE.append("            } else if (\"maxSize\".equals(key)) {\n")
+        BUILD_CODE.append("                Dimension2D dim = ((ObjectProperty<Dimension2D>) property).get();\n")
+        BUILD_CODE.append("                CONTROL.setMaxSize(dim.getWidth(), dim.getHeight());\n")
         BUILD_CODE.append("            } else if(\"minWidth\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setMinWidth(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setMinWidth(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if(\"minHeight\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setMinHeight(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setMinHeight(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if(\"prefWidth\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setPrefWidth(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setPrefWidth(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if(\"prefHeight\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setPrefHeight(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setPrefHeight(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if(\"maxWidth\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setMaxWidth(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setMaxWidth(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if(\"maxHeight\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setMaxHeight(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setMaxHeight(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if (\"layoutX\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setLayoutX(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setLayoutX(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if (\"layoutY\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setLayoutY(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setLayoutY(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if (\"translateX\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setTranslateX(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setTranslateX(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if (\"translateY\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setTranslateY(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setTranslateY(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if (\"scaleX\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setScaleX(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setScaleX(((DoubleProperty) property).get());\n")
         BUILD_CODE.append("            } else if (\"scaleY\".equals(key)) {\n")
-        BUILD_CODE.append("                CONTROL.setScaleY(((DoubleProperty) properties.get(key)).get());\n")
+        BUILD_CODE.append("                CONTROL.setScaleY(((DoubleProperty) property).get());\n")
 
         if (PROPERTIES.keySet().isEmpty()) {
             BUILD_CODE.append("            }\n")
@@ -776,25 +782,25 @@ class FxgTranslator {
 
                 BUILD_CODE.append("\"").append(PROPERTY_NAME).append("\".equals(key)) {\n")
                 if (TYPE.equals("double")) {
-                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((DoubleProperty) properties.get(key)).get());\n")
+                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((DoubleProperty) property).get());\n")
                 } else if (TYPE.equals("boolean")) {
-                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((BooleanProperty) properties.get(key)).get());\n")
+                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((BooleanProperty) property).get());\n")
                 } else if (TYPE.equals("int")) {
-                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((IntegerProperty) properties.get(key)).get());\n")
+                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((IntegerProperty) property).get());\n")
                 } else if (TYPE.equals("long")) {
-                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((LongProperty) properties.get(key)).get());\n")
+                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((LongProperty) property).get());\n")
                 } else if (TYPE.equals("string")) {
-                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((StringProperty) properties.get(key)).get());\n")
+                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((StringProperty) property).get());\n")
                 } else if (TYPE.equals("object")) {
-                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((ObjectProperty) properties.get(key)).get());\n")
+                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((ObjectProperty) property).get());\n")
                 } else {
                     final String ORIGINAL_TYPE = PROPERTIES.get(PROPERTY_NAME).type
-                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((ObjectProperty<${ORIGINAL_TYPE}>) properties.get(key)).get());\n")
+                    BUILD_CODE.append("                CONTROL.set").append(PROPERTY_NAME.capitalize()).append("(((ObjectProperty<${ORIGINAL_TYPE}>) property).get());\n")
                 }
             }
             BUILD_CODE.append("            }\n")
         }
-        BUILD_CODE.append("        }\n")
+        BUILD_CODE.append("        });\n")
         return BUILD_CODE.toString()
     }
 
